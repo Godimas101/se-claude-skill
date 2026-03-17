@@ -22,7 +22,28 @@ Look for a directory containing `Bin64_Profile\` with `.dll` and `.xml` files (e
 - ❌ Not found → Tell the user:
   > "I don't see the Space Engineers ModSDK in your workspace. Please add `[Steam]\steamapps\common\SpaceEngineersModSDK\` as an additional working directory. Install it free via Steam → Library → Tools → 'Space Engineers - Mod SDK'. This gives me access to the full C# API documentation."
 
-### 3. Mod Directory (Steam Workshop or ModDB)
+### 3. AppData Directory
+Look for a directory containing `SpaceEngineers.log` and a `Crashes\` folder.
+
+Standard path: `C:\Users\[Username]\AppData\Roaming\SpaceEngineers\`
+
+- ✅ Found → You have access to crash logs and game logs. When the user reports a bug or crash, check here first.
+- ❌ Not found → Tell the user:
+  > "I don't see your Space Engineers AppData folder in your workspace. Add `%AppData%\Roaming\SpaceEngineers\` as a working directory — this gives me access to crash logs and the game log when you need to debug issues."
+
+**Key files in the AppData directory:**
+
+| Path | Contents |
+|------|---------|
+| `SpaceEngineers.log` | Main game log — mod load errors, exceptions, warnings |
+| `Crashes\` | Crash dump files with timestamps |
+| `Saves\` | Save game files |
+| `Mods\` | Locally developed mods (not Workshop) |
+| `Storage\[modId]\` | Per-mod persistent data written by session components |
+
+**When debugging:** Always check `SpaceEngineers.log` first. Search for `ERROR`, `EXCEPTION`, or your mod's namespace to find relevant lines. Mod Adjuster also writes to this log — search `ModAdjuster` for patch results.
+
+### 4. Mod Directory (Steam Workshop or ModDB)
 Look for a directory with many numbered folders (Steam: `244850\`) OR a `MOD_CATALOGUE.md` file.
 
 - ✅ Found with `MOD_CATALOGUE.md` → Read the catalogue. Check the `Catalogued:` date — if it is more than 30 days ago, tell the user the catalogue is stale and offer to refresh it.
