@@ -41,7 +41,48 @@ Standard path: `C:\Users\[Username]\AppData\Roaming\SpaceEngineers\`
 | `Mods\` | Locally developed mods (not Workshop) |
 | `Storage\[modId]\` | Per-mod persistent data written by session components |
 
-**When debugging:** Always check `SpaceEngineers.log` first. Search for `ERROR`, `EXCEPTION`, or your mod's namespace to find relevant lines. Mod Adjuster also writes to this log — search `ModAdjuster` for patch results.
+**Log filename format:** `SpaceEngineers_YYYYMMDD_HHMMSSms.log` — always use the **most recent** log file, not `SpaceEngineers.log`.
+
+**Log reading strategy — logs can be massive (thousands of lines). Never read top-to-bottom.**
+1. Start at the **end** of the log and search upward
+2. Search for these terms in priority order:
+
+| Search term | What it finds |
+|-------------|--------------|
+| `ERROR` | Hard errors — always investigate |
+| `CRITICAL_ERROR` | Fatal errors |
+| `EXCEPTION` | .NET exceptions with stack traces |
+| `No definition` | Missing SBC definition (wrong TypeId/SubtypeId) |
+| `Failed to find definition` | Mod Adjuster patch couldn't find its target |
+| `Warning:` | Non-fatal issues — may still matter |
+| `BuildInfo ModderHelp:` | Build Info mod hints about XML problems |
+| `[YourModName]` | Any output from your specific mod |
+| `ModAdjuster` | All Mod Adjuster patch results (success + failure) |
+
+**Key log sections and what to look for:**
+
+```
+MyScriptManager.LoadData()          ← compiled mods load here
+  Script loaded: YourMod            ← ✅ your DLL compiled and loaded
+  (missing = your mod has a compile error)
+
+List of used mods (N)               ← all active mods listed here
+  Id = Steam:0                      ← local mod (AppData\Mods\)
+  Id = Steam:XXXXXXXXX              ← workshop mod
+
+Loading cube blocks                 ← SBC block definitions load
+  Created definition for: ...       ← ✅ block registered successfully
+  Loading cube block: Type/Subtype  ← ✅ block patched/overridden
+  No definition 'Type/Subtype'      ← ❌ bad TypeId or SubtypeId in SBC
+
+Init ModAdjuster                    ← Mod Adjuster session component starts
+  Loaded definition for ...         ← ✅ MA patch applied
+  Failed to find definition for ... ← ❌ MA patch target not found
+```
+
+**Local mods vs Workshop mods in the log:**
+- `Id = Steam:0` → loading from `%AppData%\Roaming\SpaceEngineers\Mods\[ModName]\`
+- `Id = Steam:XXXXXXXXX` → loading from `[Steam]\steamapps\workshop\content\244850\XXXXXXXXX\`
 
 ### 4. Mod Directory (Steam Workshop or ModDB)
 Look for a directory with many numbered folders (Steam: `244850\`) OR a `MOD_CATALOGUE.md` file.
