@@ -508,10 +508,31 @@ WAV (16-bit PCM, 44100 Hz)  →  xWMAEncode.exe  →  .xwm  →  reference in Au
 
 ## Quick Checklist Before Shipping
 
+### All Mods
+- [ ] `metadata.mod` present with correct `Name` and `WorkshopId`
+- [ ] No TypeId/SubtypeId renamed or removed (breaks existing saves)
+- [ ] Tested in Creative mode before publishing
+- [ ] Workshop description updated if behavior changed
+
+### Compiled Mods (Text Surface Scripts / Session Components)
 - [ ] Dedicated server guard in every `Run()` method
-- [ ] Scroll timer uses `+= 10`, not `++`
-- [ ] All inventory keys use composite `typeId_subtypeId`
 - [ ] All `Components.Get<T>()` calls are null-checked
-- [ ] Both InfoLCD versions updated (Apex Update + Apex Advanced)
-- [ ] CustomData keys unchanged (backward compat)
-- [ ] Tested on varied LCD sizes including corner panels
+- [ ] All inventory keys use composite `typeId_subtypeId`
+- [ ] CustomData config keys unchanged from previous version (backward compat)
+- [ ] No unhandled exceptions that could crash the game (wrap in `try/catch`)
+
+### Text Surface Scripts (LCD)
+- [ ] Scroll timer uses `+= 10`, not `++`
+- [ ] Tested on small, large, and corner LCD panels
+- [ ] Handles empty block lists gracefully (don't divide by zero on line count)
+
+### SBC / Mod Adjuster Mods
+- [ ] Only modified fields included in patch (don't copy entire definition)
+- [ ] xsi:type values use correct prefix (`MyObjectBuilder_` for vanilla SBC, stripped for Mod Adjuster)
+- [ ] New block SubtypeIds are globally unique (won't collide with other mods)
+
+### PB Scripts
+- [ ] Instruction count checked — no unbounded loops over large block lists per tick
+- [ ] `Storage` used for any state that must survive recompile
+- [ ] `Echo()` used for debug output, not `Me.GetSurface(0)` hardcoded
+- [ ] Graceful handling when expected blocks are missing from grid
