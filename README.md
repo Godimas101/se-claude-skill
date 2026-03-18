@@ -37,7 +37,7 @@ Add these as **additional working directories** in your VS Code workspace (or Cl
 | `[Steam]\steamapps\common\SpaceEngineers\` | Vanilla SBC files — the ground truth for all block/item definitions. Required for looking up block properties, component costs, and balance values. |
 | `[Steam]\steamapps\common\SpaceEngineersModSDK\` | API DLLs with XML documentation. Required for compiled mod and PB script work — intellisense, method signatures, interface definitions. |
 | Your mod project folder | Your actual mod source files. Required for editing your mod. |
-| `[Steam]\steamapps\workshop\content\244850\` | Your subscribed mods — useful for cross-referencing how other mods are structured. Optional but recommended. |
+| `[Steam]\steamapps\workshop\content\244850\` | Your subscribed Workshop mods. Required for the mod catalogue — Claude uses it to look up mod names, Workshop IDs, and SBC definitions when building patches or avoiding naming collisions. |
 | `%AppData%\SpaceEngineers\` | Game logs and local mod files. Needed for debugging crashes and mod load errors. |
 
 > **Default Steam path on Windows:** `C:\Program Files (x86)\Steam\` or `D:\SteamLibrary\` depending on your install.
@@ -59,9 +59,10 @@ In VS Code, open your workspace settings and add the paths above as additional w
 
 When you invoke `/space-engineers`, Claude will:
 
-- **Check for required directories** — if the game directory, ModSDK, or a mod folder aren't in your workspace, Claude will ask you to add them before proceeding
+- **Check for required directories** — if the game directory, ModSDK, workshop folder, or AppData aren't in your workspace, Claude will ask you to add any that are missing before proceeding
+- **Ask what you're working on** — a quick picker to select your project type (Mod, Mod Adjuster, PB Script, or Torch/Pulsar plugin) so Claude focuses on the right tools and patterns from the start
 - **Read your mod notes** — if a `MOD_MAKING_NOTES.md` exists in your mod directory, Claude reads it first to catch up on what was done in previous sessions and what's still pending. If one doesn't exist, Claude will offer to create it.
-- **Check your mod catalogue** — if a `MOD_CATALOGUE.md` exists, Claude uses it to understand what mods you have and avoid naming collisions
+- **Check your mod catalogue** — if a `MOD_CATALOGUE.md` exists in your workshop directory, Claude uses it to look up mod names, Workshop IDs, and SBC definitions
 
 ---
 

@@ -84,14 +84,45 @@ Init ModAdjuster                    ← Mod Adjuster session component starts
 - `Id = Steam:0` → loading from `%AppData%\Roaming\SpaceEngineers\Mods\[ModName]\`
 - `Id = Steam:XXXXXXXXX` → loading from `[Steam]\steamapps\workshop\content\244850\XXXXXXXXX\`
 
-### 4. Mod Directory (Steam Workshop or ModDB)
-Look for a directory with many numbered folders (Steam: `244850\`) OR a `MOD_CATALOGUE.md` file.
+### 4. Workshop Mod Directory
+Look specifically for the Steam Workshop directory — it contains many numbered subfolders (each is a Workshop ID). Default path: `[Steam]\steamapps\workshop\content\244850\`
+
+To detect it: look for a directory that contains 10+ numeric-named subfolders (e.g. `3017795356\`, `2668820525\`, etc.).
 
 - ✅ Found with `MOD_CATALOGUE.md` → Read the catalogue. Check the `Catalogued:` date — if it is more than 30 days ago, tell the user the catalogue is stale and offer to refresh it.
 - ✅ Found without `MOD_CATALOGUE.md` → Tell the user:
-  > "I can see your mod directory but there's no MOD_CATALOGUE.md yet. Would you like me to build one? It indexes all your subscribed mods so I can reference them when helping you."
+  > "I can see your workshop mod directory but there's no MOD_CATALOGUE.md yet. Would you like me to build one? It indexes all your subscribed mods so I can reference them when helping you."
 - ❌ Not found → Tell the user:
-  > "I don't see a mod directory in your workspace. If you use Steam Workshop mods, add `[Steam]\steamapps\workshop\content\244850\` as a working directory. If you use ModDB or a local mod folder, add that instead. This lets me reference your subscribed mods when helping you build or patch things."
+  > "I don't see your Steam Workshop mod directory in your workspace. Please add `[Steam]\steamapps\workshop\content\244850\` as an additional working directory in VS Code. This is required before I can build or read a mod catalogue."
+
+  **Do not attempt to create or reference a MOD_CATALOGUE.md until the workshop directory is in the workspace.**
+
+### 5. What Are We Working On?
+
+After the workspace checks, use the `AskUserQuestion` tool to ask:
+
+```
+Question: "What kind of Space Engineers project are we working on?"
+Header: "Project type"
+Options:
+  - label: "Mod project"
+    description: "SBC-only mod, or compiled mod (Text Surface Script / Session Component)"
+  - label: "Mod Adjuster project"
+    description: "Non-destructive balance patches against third-party workshop mods"
+  - label: "Programmable Block script"
+    description: "Ingame PB script — sandboxed C#, whitelist restrictions apply"
+  - label: "Torch or Pulsar plugin"
+    description: "Torch dedicated server plugin/setup, or Pulsar client-side plugin"
+```
+
+(Other is shown automatically for freeform input.)
+
+**Based on the answer:**
+- **Mod project** → Ask which mod they're working on. Read the relevant CLAUDE.md and MOD_MAKING_NOTES.md before starting. Then clarify whether it's SBC-only or compiled C# if not obvious from context.
+- **Mod Adjuster project** → Focus on Mod Adjuster patterns. Reference the mod catalogue to find the target mod's Workshop ID and SBC definitions. See MOD_ADJUSTER.md.
+- **Programmable Block script** → Apply PB sandbox restrictions throughout. See PB_SCRIPTS.md.
+- **Torch or Pulsar plugin** → Ask "Torch or Pulsar?" and "Where is it installed?" before proceeding. See TORCH.md or PULSAR.md accordingly.
+- **Other** → Take their freeform answer at face value and proceed accordingly.
 
 ---
 
