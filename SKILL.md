@@ -498,6 +498,15 @@ SE uses packed texture channels — **do not use vanilla naming conventions from
 - Format: DDS with DXT5 compression recommended
 - Preview: `[ModSDK]\Tools\VRageEditor\` → ModelViewer plugin
 
+### LCD Textures (LCDTextureDefinition mods)
+```
+PNG / JPG / etc.  →  texconv (BC7_UNORM_SRGB)  →  .dds  →  TexturePath + SpritePath in LCDTextures.sbc
+```
+- Alpha channel = **inverse emissivity** (alpha=1 ≈ fully self-lit — Keen's recommended value)
+- Must use `-sepalpha` when generating mipmaps — prevents premultiplied alpha from destroying mip quality
+- Full mipmap chain required; use 1024px+ source images for good quality at game distances
+- **Recommended tool:** [Universal Image Converter](https://github.com/Godimas101/mods/tree/main/space-engineers-mods/Tools/universal-image-converter) — handles BC7_UNORM_SRGB, mipmaps, emissivity alpha, and all screen presets automatically
+
 ### Audio
 ```
 WAV (16-bit PCM, 44100 Hz)  →  xWMAEncode.exe  →  .xwm  →  reference in Audio.sbc
@@ -505,6 +514,7 @@ WAV (16-bit PCM, 44100 Hz)  →  xWMAEncode.exe  →  .xwm  →  reference in Au
 - **xWMAEncode.exe is bundled with the ModSDK:** `[ModSDK]\Tools\xWMAEncode.exe`
 - No separate DirectX SDK download needed
 - Also available: `[ModSDK]\Tools\AdpcmEncode.exe` for ADPCM format
+- **Recommended tool:** [Universal Audio Converter](https://github.com/Godimas101/mods/tree/main/space-engineers-mods/Tools/universal-audio-converter) — batch converts WAV/MP3/FLAC/OGG to .xwm and generates Audio.sbc entries automatically
 
 ---
 
