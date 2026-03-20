@@ -21,16 +21,13 @@ AI Enabled requires these mods to run:
 
 Check the user's **MOD_CATALOGUE.md** for all mods with category **AI Enabled** — these are the framework and any character/creature packs they have installed. Use these as local reference examples when building new bot mods.
 
-The AI Enabled framework itself is Workshop ID `2596208372`. Well-known AI Enabled mods (may or may not be installed):
+The AI Enabled framework itself is Workshop ID `2596208372`. Notable well-known AI Enabled mods (may or may not be installed):
 
-| Workshop ID | Mod | Purpose | Dependencies |
-|-------------|-----|---------|--------------|
-| 2596208372 | AI Enabled | The framework itself — required by all child mods | Bot_spawner, Text HUD API |
-| 2336089504 | Bot_spawner | **Dependency only** — base bot type definitions, not for direct use | — |
-| 2621488886 | Populated Worlds | Humanoid NPC world encounters, scales with player weapon count | AiEnabled v1.9, MES |
-| 2803081060 | Crew Enabled | Human/robot crew NPCs for ships and stations (server-side) | AiEnabled |
-| 2809500674 | Infestation Enabled | Spider infestations inside NPC ships/stations | AiEnabled v1.9, Small Spiders |
-| 2667183952 | Zombie Attack | Zombie hordes — ⚠️ **removed from Steam, incompatible with current SE** | AiEnabled, Bot_spawner, MES |
+| Workshop ID | Mod | Purpose |
+|-------------|-----|---------|
+| 2596208372 | AI Enabled | The framework itself — required by all child mods |
+| 2336089504 | Bot_spawner | **Dependency only** — base bot type definitions, not for direct use |
+| 2667183952 | Zombie Attack | ⚠️ **Removed from Steam, incompatible with current SE** — local copy only, study purposes |
 
 ---
 
