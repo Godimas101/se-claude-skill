@@ -27,7 +27,6 @@ The AI Enabled framework itself is Workshop ID `2596208372`. Notable well-known 
 |-------------|-----|---------|
 | 2596208372 | AI Enabled | The framework itself — required by all child mods |
 | 2336089504 | Bot_spawner | **Dependency only** — base bot type definitions, not for direct use |
-| 2667183952 | Zombie Attack | ⚠️ **Removed from Steam, incompatible with current SE** — local copy only, study purposes |
 
 ---
 
@@ -202,11 +201,6 @@ Adds an infestation mechanic — spiders colonize derelict NPC ships and station
 Key config params: `MaxLiveBugsPerGrid`, infestation spawn probability (default 20% on newly spawned grids). Edit only while the mod is not active; deleting regenerates defaults.
 
 Requires: AiEnabled v1.9 + Small Spiders mod.
-
-### Zombie Attack (2667183952) — ⚠️ Incompatible
-> **This mod has been removed from the Steam Workshop for guideline violations and is marked incompatible with current Space Engineers.** It is present in your workshop folder from a prior subscription but should not be used as a basis for new work.
-
-Included here for reference only — it remains a good local study example for the AI Enabled + MES creature pattern (bot SBCs, animation controllers, MES SpawnGroups with `[CreatureSpawn:true]`).
 
 ---
 
