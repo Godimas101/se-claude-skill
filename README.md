@@ -9,10 +9,15 @@ An expert Claude Code skill covering all types of Space Engineers mod developmen
 ## 🚀 What It Covers
 
 - **Compiled mods** — C# text surface scripts (LCD screens), session components, SBC XML definitions
-- **MES encounter mods** — NPC ship, drone, station, and creature encounters using Modular Encounters System
-- **AI Enabled mods** — Humanoid NPCs, robots, and creature bots using the AI Enabled framework
-- **Framework mods** — Child mods for community frameworks: WeaponCore, Vanilla+, Animation Engine, Scope Framework, and Tank Tracks
-- **Mod Adjuster mods** — Runtime definition patching via the [Mod Adjuster](https://steamcommunity.com/workshop/filedetails/?id=3017795356) framework
+- **Framework mods** — Child mods for community frameworks:
+  - [Modular Encounters System](https://steamcommunity.com/sharedfiles/filedetails/?id=1521905890) — NPC ship, drone, station, and creature encounters
+  - [AI Enabled](https://steamcommunity.com/sharedfiles/filedetails/?id=2596208372) — Humanoid NPCs, robots, and creature bots
+  - [Mod Adjuster](https://steamcommunity.com/sharedfiles/filedetails/?id=3017795356) — Runtime definition patching (no C# required)
+  - [WeaponCore / CoreSystems](https://steamcommunity.com/sharedfiles/filedetails/?id=3154371364) — Custom weapon and ammo definitions
+  - [Vanilla+](https://steamcommunity.com/sharedfiles/filedetails/?id=2915780227) — Enhanced ammo and turret definitions
+  - [Animation Engine](https://steamcommunity.com/sharedfiles/filedetails/?id=2880317963) — Block part animations via BSL scripting
+  - [Scope Framework (SteadyScope)](https://steamcommunity.com/sharedfiles/filedetails/?id=2754014019) — Scope view via INI config, no C# required
+  - [Tank Tracks](https://steamcommunity.com/sharedfiles/filedetails/?id=3208995513) — Tank track block animations
 - **Programmable Block scripts** — Sandboxed ingame scripts (Main loop, GridTerminalSystem, IGC, etc.)
 - **Server & client plugins** — Torch dedicated server plugins (NexusV3, HarmonyLib patching) and Pulsar client plugins (in-game mod loader, API hooking)
 
