@@ -167,4 +167,12 @@ Mod Adjuster XML format reverse-engineered from the [Mod Adjuster](https://steam
 
 ---
 
+## 🧡 Support
+
+This skill is free and always will be. If it helps with your mods, consider supporting on Patreon — it helps keep the tools and mods coming.
+
+[![Support on Patreon](https://raw.githubusercontent.com/Godimas101/personal-projects/main/patreon/patreon-medium.png)](https://patreon.com/Godimas101)
+
+---
+
 *Please weld responsibly.*
