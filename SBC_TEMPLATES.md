@@ -276,10 +276,17 @@ Use the matching vanilla Subtype. Only include `<Id>` and `<Blocks>` — omit Ic
 |----------------|-----------|
 | All turrets (gatling, missile, calibre, interior) | `TurretGroup` |
 | Fixed weapons (launchers, railguns, autocannons) | `ShipWeaponStaticGroup` |
-| Storage shelves | `StorageShelves` |
 | Turret control blocks | `TurretControlGroup` |
+| Batteries | `BatteryGroup` |
+| Solar panels | `SolarGroup` |
+| Wind turbines | `WindTurbineGroup` |
+| Advanced rotors (stators + rotor parts) | `RotorGroup` |
+| Hinges (stator bases + hinge heads) | `HingeGroup` |
+| Storage shelves | `StorageShelves` ⚠️ **DO NOT EXTEND** — crashes game (see note below) |
 
 > Find more in `D:\SteamLibrary\steamapps\common\SpaceEngineers\Content\Data\BlockVariantGroups.sbc`.
+
+> ⚠️ **StorageShelves known crash bug:** Extending the `StorageShelves` group causes a `NullReferenceException` in `MyRadialMenuItemCubeBlock.Init` and aborts session load. Root cause: the vanilla `StorageShelves` definition uses `<DisplayName>` (a localization string key) but the RadialMenu system requires `<DisplayNameEnum>`, which vanilla never set. Adding any block to the group triggers the RadialMenu to process it and hit the null. Workaround: add the block to a `BlockCategories.sbc` entry instead — players can find it in the tab, but won't be able to scroll-cycle to it from a shelf.
 
 ### B) Create a new custom variant group
 
