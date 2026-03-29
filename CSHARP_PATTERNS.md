@@ -4,6 +4,25 @@ Extended reference for C# patterns used in Space Engineers compiled mods (text s
 
 ---
 
+## Mod Script Folder Structure
+
+Scripts must live in exactly **one named folder** directly under `Scripts/`:
+
+```
+YourMod/
+└── Data/
+    └── Scripts/
+        └── YourModName/       ← required — one folder, named after your mod
+            ├── YourScript.cs
+            └── AnotherFile.cs
+```
+
+- `Scripts/` directly containing `.cs` files (no subfolder) will **not** compile
+- Nested subfolders inside `YourModName/` are fine for organization
+- The folder name does not need to match any specific string — just be consistent
+
+---
+
 ## Key Namespaces
 
 ```csharp
@@ -19,6 +38,25 @@ using VRage.Game.ModAPI;
 using VRage.ModAPI;
 using VRageMath;
 ```
+
+### Namespace Ambiguity — CRITICAL
+
+Several types exist in **both** `Sandbox.ModAPI` and `Sandbox.ModAPI.Ingame` (e.g. `IMyTerminalBlock`, `IMyBatteryBlock`). Adding a bare `using Sandbox.ModAPI.Ingame;` in a compiled session component or text surface script causes **ambiguous reference errors** at compile time.
+
+**Rule: never `using` any namespace with "Ingame" in the name.**
+
+```csharp
+// ❌ Causes ambiguous reference compile errors in compiled mods
+using Sandbox.ModAPI.Ingame;
+
+// ✅ Use an alias for the specific Ingame type you need
+using IMyGridTerminalSystem = Sandbox.ModAPI.Ingame.IMyGridTerminalSystem;
+
+// ✅ Or fully qualify — verbose but unambiguous
+Sandbox.ModAPI.Ingame.IMyGridTerminalSystem gts = ...;
+```
+
+The `Sandbox.ModAPI` version is correct for compiled session components and text surface scripts. Only PB scripts should use `Sandbox.ModAPI.Ingame` types directly.
 
 ---
 
@@ -326,6 +364,103 @@ private void AppendConfig(StringBuilder sb)
 
 ---
 
+## Save and Sync Patterns
+
+### Option 1 — CustomData (simplest, most limited)
+
+```csharp
+// Reading
+var ini = new MyIni();
+if (ini.TryParse(block.CustomData))
+{
+    myValue = ini.Get("Section", "Key").ToString("default");
+}
+
+// Writing
+ini.Set("Section", "Key", myValue);
+block.CustomData = ini.ToString();
+```
+
+**Gotchas:**
+- CustomData is shared — PB scripts and other mods may also write to it. Use `MyIni` sections with a unique section name to avoid conflicts.
+- Never overwrite the entire string if you don't own all the content.
+- Changes are not synced automatically in MP — writing `CustomData` on client doesn't sync to server.
+
+### Option 2 — MyModStorageComponent (recommended for persistent entity data)
+
+Stores string values per-entity, keyed by GUID. Survives save/load. Synced in MP.
+
+```csharp
+// Declare your GUID as a static field
+static readonly Guid StorageGuid = new Guid("YOUR-GUID-HERE");
+
+// Write
+if (!entity.Storage.ContainsKey(StorageGuid))
+    entity.Storage.Add(StorageGuid, "");
+entity.Storage.SetValue(StorageGuid, MySerializedData);
+
+// Read
+string data;
+if (entity.Storage.TryGetValue(StorageGuid, out data))
+    MySerializedData = data;
+```
+
+**SBC registration required** — add a `<ModStorageComponentDefinition>` to your mod's Data:
+
+```xml
+<Definitions>
+  <EntityComponents>
+    <EntityComponent xsi:type="MyObjectBuilder_ModStorageComponentDefinition">
+      <Id Type="MyObjectBuilder_ModStorageComponentDefinition" Subtype="YourModStorageKey" />
+      <RegisteredStorageGuids>
+        <guid>YOUR-GUID-HERE</guid>
+      </RegisteredStorageGuids>
+    </EntityComponent>
+  </EntityComponents>
+</Definitions>
+```
+
+### Option 3 — MySync (small blittable values, MP-synced)
+
+```csharp
+// Declare as a static field on your game logic component
+static MySync<float, SyncDirection.BothWays> MySharedFloat;
+
+// Usage
+MySharedFloat.Value = 1.5f;  // automatically syncs to all clients
+float current = MySharedFloat.Value;
+```
+
+**Hard limits:**
+- Only **blittable** value types: `int`, `float`, `bool`, `double`, simple `struct` with blittable fields
+- **Hard cap of 32 MySync instances per type** — exceed this and the game crashes
+- Not suitable for strings, arrays, or complex objects — use `MyModStorageComponent` or packets instead
+
+### Option 4 — Packet Sending (full control, custom data)
+
+```csharp
+// Register handler (in LoadData)
+MyAPIGateway.Multiplayer.RegisterSecureMessageHandler(CHANNEL_ID, OnPacketReceived);
+
+// Send to server
+byte[] data = MyAPIGateway.Utilities.SerializeToBinary(myPayload);
+MyAPIGateway.Multiplayer.SendMessageToServer(CHANNEL_ID, data);
+
+// Send to all clients
+MyAPIGateway.Multiplayer.SendMessageToOthers(CHANNEL_ID, data);
+
+private void OnPacketReceived(ushort channelId, byte[] data, ulong senderId, bool isFromServer)
+{
+    // ⚠️ ALWAYS validate on server — clients can send forged packets
+    if (!MyAPIGateway.Multiplayer.IsServer) return;  // Only process on server
+    // ... deserialize and act
+}
+```
+
+**Security rule:** Never trust data from clients without server-side validation. A client can send any payload to any registered channel. Validate sender, check permissions, clamp values.
+
+---
+
 ## Logging (Debug Output)
 
 ```csharp
@@ -359,6 +494,235 @@ Color dimmed = color * 0.5f;  // 50% brightness
 
 // String → TypeId
 var typeId = new MyDefinitionId(typeof(MyObjectBuilder_Component), "SteelPlate");
+```
+
+---
+
+## Two Base Classes for Text Surface Scripts
+
+There are two base classes used by real mods:
+
+### `MyTextSurfaceScriptBase` (lower-level, used by most mods)
+Direct base from `Sandbox.Game.GameSystems.TextSurfaceScripts`. Provides:
+- `mySurface` field is NOT available — you must store the surface yourself
+- Constructor receives `IMyTextSurface surface, IMyCubeBlock block, Vector2 size`
+- Inherited: `m_block` (the cube block), but surface must be stored manually
+
+```csharp
+[MyTextSurfaceScript("MyScriptId", "My Script Name")]
+public class MyScript : MyTextSurfaceScriptBase
+{
+    IMyTextSurface _surface;
+    IMyTerminalBlock Block => (IMyTerminalBlock)m_block;
+
+    public MyScript(IMyTextSurface surface, IMyCubeBlock block, Vector2 size)
+        : base(surface, block, size)
+    {
+        _surface = surface;
+    }
+}
+```
+
+### `MyTSSCommon` (higher-level, Keen internal helper)
+From `Sandbox.Game.GameSystems.TextSurfaceScripts`. Provides additional pre-built helpers:
+- `m_surface` — the text surface
+- `m_halfSize` — center of the surface (useful for centering sprites)
+- `m_fontId` — the selected font ID string
+- `m_fontScale` — auto-calculated font scale
+- `m_foregroundColor` — the surface's script foreground color
+- `FitRect(size, ref innerSize)` — scales an aspect-ratio rect to fit the surface
+- `AddBackground(frame, color)` — draws the standard background fill
+- `AddBrackets(frame, size, scale)` — draws decorative corner brackets
+
+```csharp
+[MyTextSurfaceScript("MyScriptId", "My Script Name")]
+public class MyScript : MyTSSCommon
+{
+    public MyScript(IMyTextSurface surface, IMyCubeBlock block, Vector2 size)
+        : base(surface, block, size) { }
+    // m_surface, m_halfSize, m_fontId, m_fontScale, m_foregroundColor all available
+}
+```
+
+> **Which to use:** `MyTextSurfaceScriptBase` gives more control; `MyTSSCommon` is a faster start. InfoLCD uses `MyTextSurfaceScriptBase` directly.
+
+---
+
+## Surface Color Properties (LCD Theme Integration)
+
+LCD surfaces expose theme colors that respect the user's in-game color settings. Always prefer these over hardcoded colors:
+
+```csharp
+// The LCD's configured script foreground color (user-settable)
+Color fg = surface.ScriptForegroundColor;
+
+// The LCD's configured script background color
+Color bg = surface.ScriptBackgroundColor;
+
+// Usage: dim the foreground for secondary text
+Color dimFg = new Color((int)(fg.R * 0.5f), (int)(fg.G * 0.5f), (int)(fg.B * 0.5f));
+
+// Usage: semi-transparent background overlay
+Color overlay = new Color(fg, 0.66f);  // fg with 66% alpha
+```
+
+---
+
+## Viewport Calculation (Two Equivalent Patterns)
+
+```csharp
+// Pattern A — RectangleF viewport (used by some mods)
+var viewport = new RectangleF((surface.TextureSize - surface.SurfaceSize) / 2f, surface.SurfaceSize);
+var startPos = new Vector2(5, 5) + viewport.Position;  // 5px padding from top-left
+
+// Pattern B — manual offset (used by InfoLCD and others)
+Vector2 viewportOffset = (surface.TextureSize - surface.SurfaceSize) / 2f;
+float startX = viewportOffset.X + padding;
+float startY = viewportOffset.Y + padding;
+```
+
+Both produce identical results. Pattern B is more explicit; Pattern A is more concise.
+
+---
+
+## GetBlocks() with Filter vs GetFatBlocks()
+
+Two ways to enumerate grid blocks in a Text Surface Script:
+
+```csharp
+// Pattern A: GetFatBlocks<T>() — typed, returns only blocks with that component
+// Fast for specific block types, skips armor/structural
+var batteries = new List<IMyBatteryBlock>();
+Block.CubeGrid.GetFatBlocks(batteries);
+
+// Pattern B: GetBlocks() with filter lambda — more flexible, works with IMySlimBlock
+// Useful when you need FatBlock.HasInventory or similar checks
+var slimBlocks = new List<IMySlimBlock>();
+Block.CubeGrid.GetBlocks(slimBlocks, x => x.FatBlock != null && x.FatBlock.HasInventory);
+
+foreach (var slim in slimBlocks)
+{
+    var inventory = slim.FatBlock.GetInventory(0);
+    // ...
+}
+```
+
+> `GetBlocks()` includes armor/structural blocks (with null FatBlock). Always filter with `x.FatBlock != null` when using it.
+
+---
+
+## Drawing Charts and Complex Shapes on LCD
+
+### Line Segment Between Two Points
+
+To draw a line between two points, use a thin `SquareSimple` sprite rotated to the correct angle:
+
+```csharp
+private void DrawLine(List<MySprite> sprites, Vector2 point0, Vector2 point1, Color color, float thickness = 2f)
+{
+    float length = Vector2.Distance(point0, point1);
+    Vector2 midpoint = (point0 + point1) / 2f;
+    // Angle: atan2 of delta, offset by 90° because sprite's "up" is the height axis
+    float angle = -(float)(Math.Atan2(point1.Y - point0.Y, point1.X - point0.X) + MathHelper.PiOver2);
+
+    sprites.Add(new MySprite
+    {
+        Type = SpriteType.TEXTURE,
+        Data = "SquareSimple",
+        Position = midpoint,
+        Size = new Vector2(thickness, length),
+        Color = color,
+        RotationOrScale = angle
+    });
+}
+```
+
+### Pie Chart Using Circle + SemiCircle Sprites
+
+The game includes `Circle` and `SemiCircle` built-in sprites. A pie/radial-fill gauge is drawn by overlapping them:
+
+```csharp
+// Draw a pie chart showing `value` (0.0 to 1.0) filled
+private void DrawPie(List<MySprite> sprites, Vector2 center, Vector2 size, float value,
+    Color fillColor, Color bgColor)
+{
+    // Background circle
+    sprites.Add(new MySprite
+    {
+        Type = SpriteType.TEXTURE,
+        Data = "Circle",
+        Position = center - size / 2,
+        Size = size,
+        Color = bgColor
+    });
+
+    if (value >= 1.0f) return;  // Full — background IS the fill
+
+    float deg = 360f * value;
+    float flip = value < 0.5f ? 1f : -1f;
+    float val = value < 0.5f ? 180f : 0f;
+
+    // Fill SemiCircle (rotated to represent the filled portion)
+    sprites.Add(new MySprite
+    {
+        Type = SpriteType.TEXTURE,
+        Data = "SemiCircle",
+        Position = center - size / 2,
+        Size = size,
+        Color = fillColor,
+        RotationOrScale = MathHelper.ToRadians((flip * 90f) + deg - val)
+    });
+
+    // Cover SemiCircle (hides the back half when < 50% filled)
+    sprites.Add(new MySprite
+    {
+        Type = SpriteType.TEXTURE,
+        Data = "SemiCircle",
+        Position = center - size / 2,
+        Size = size,
+        Color = value > 0.5f ? fillColor : bgColor,
+        RotationOrScale = MathHelper.ToRadians(flip * (-90f))
+    });
+}
+```
+
+> **Built-in sprite names:** `SquareSimple`, `Circle`, `SemiCircle`, `Triangle`, `RightTriangle`, `Screen`, `Grid` — these work without any texture files.
+
+---
+
+## MeasureStringInPixels — Dynamic Text Sizing
+
+Use `surface.MeasureStringInPixels()` to calculate text dimensions before drawing, enabling centered or right-aligned text and auto-scaling:
+
+```csharp
+// Auto-scale text to fill a target height
+private float CalcFontScale(IMyTextSurface surface, string sampleText, float targetHeight, string fontId)
+{
+    // Measure at scale 1.0 to get base size
+    var sb = new StringBuilder(sampleText);
+    Vector2 baseSize = surface.MeasureStringInPixels(sb, fontId, 1.0f);
+    return targetHeight / baseSize.Y;  // Scale factor to hit targetHeight
+}
+
+// Center a string horizontally
+private void DrawCenteredText(MySpriteDrawFrame frame, IMyTextSurface surface,
+    string text, float y, float scale, Color color, string fontId = "White")
+{
+    var sb = new StringBuilder(text);
+    Vector2 size = surface.MeasureStringInPixels(sb, fontId, scale);
+    float x = surface.SurfaceSize.X / 2f;  // Or use TextureSize center if using absolute coords
+
+    frame.Add(new MySprite
+    {
+        Type = SpriteType.TEXT,
+        Data = text,
+        Position = new Vector2(x, y),
+        Color = color,
+        FontId = fontId,
+        Alignment = TextAlignment.CENTER,
+        RotationOrScale = scale
+    });
+}
 ```
 
 ---

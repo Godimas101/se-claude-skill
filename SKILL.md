@@ -1,3 +1,8 @@
+---
+name: space-engineers
+description: Space Engineers Modding Expert
+---
+
 # Space Engineers Modding Expert
 
 Expert guidance for all Space Engineers mod and script development.
@@ -489,6 +494,8 @@ MyMod/
 4. **DetailedInfo is fragile** — localized string, format changes with game updates
 5. **SBC load order** — last mod loaded wins on same Type+Subtype; use Mod Adjuster for non-destructive patches
 6. **Backward compatibility** — never rename CustomData keys; add new ones, keep old ones
+7. **`.sbm` files** — renamed ZIP archives (old mod packaging format). Safe to delete or ignore. `.sbm` files in `Storage\` subdirectories are NOT the same — those are **mod runtime data folders** (named like `.sbm_12345678`) and must NOT be deleted.
+8. **`.bin` files in mod folders** — old binary archive format, same as `.sbm`. Safe to ignore.
 
 ---
 
@@ -511,10 +518,25 @@ SE uses packed texture channels — **do not use vanilla naming conventions from
 |-------------|----------|---------|
 | `_cm.dds` | RGB = Color, A = Metalness | Diffuse colour + metal mask |
 | `_ng.dds` | RGB = Normal, A = Glossiness | Normal map + gloss mask |
-| `_add.dds` | RGB = Emissive additive, A = unused | Self-illumination |
+| `_add.dds` | R = Ambient Occlusion, G = Emissive, A = Paintability/Alpha mask | AO + emissive + paint support |
+| `_alphamask.dds` | A only | Transparency cutout for GLASS/DECAL techniques |
 
-- Format: DDS with DXT5 compression recommended
+- **Recommended format:** BC7 (use `texconv -f BC7_UNORM_SRGB` for colour textures, `BC7_UNORM` for normal maps)
+- DXT5 still works but BC7 gives better quality at the same size
 - Preview: `[ModSDK]\Tools\VRageEditor\` → ModelViewer plugin
+
+**Common technique values** (set in the material definition `<Technique>` field):
+
+| Technique | Use |
+|-----------|-----|
+| `MESH` | Standard opaque geometry (default for most blocks) |
+| `GLASS` | Transparent with refraction — requires `_alphamask.dds` |
+| `DECAL` | Flat decal overlaid on another surface |
+| `FOLIAGE` | Alpha-tested vegetation cutout |
+| `HOLO` | Holographic/additive blend |
+| `SHIELD` | Energy shield with fresnel edge glow |
+
+**Transparent materials** need `<Technique>GLASS</Technique>` and an `_alphamask.dds` — the standard `_cm.dds` alpha channel alone is not enough for transparency.
 
 ### LCD Textures (LCDTextureDefinition mods)
 ```
