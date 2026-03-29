@@ -525,18 +525,21 @@ SE uses packed texture channels — **do not use vanilla naming conventions from
 - DXT5 still works but BC7 gives better quality at the same size
 - Preview: `[ModSDK]\Tools\VRageEditor\` → ModelViewer plugin
 
-**Common technique values** (set in the material definition `<Technique>` field):
+**Technique values** (set in the material definition `<Technique>` field):
 
 | Technique | Use |
 |-----------|-----|
 | `MESH` | Standard opaque geometry (default for most blocks) |
-| `GLASS` | Transparent with refraction — requires `_alphamask.dds` |
-| `DECAL` | Flat decal overlaid on another surface |
-| `FOLIAGE` | Alpha-tested vegetation cutout |
-| `HOLO` | Holographic/additive blend |
-| `SHIELD` | Energy shield with fresnel edge glow |
+| `DECAL` | Appears as part of underlying model surface |
+| `DECAL_NOPREMULT` | Higher transparency accuracy than DECAL |
+| `DECAL_CUTOUT` | Cuts into the underlying model |
+| `ALPHA_MASKED` | Opacity driven by alphamask texture |
+| `FOLIAGE` | Semi-transparent; shadows observe texture transparency |
+| `GLASS` | Transparent with refraction — material name must match a SubtypeId in `TransparentMaterials.sbc` |
+| `HOLO` | Emissive glass — also needs a `TransparentMaterials.sbc` entry |
+| `SHIELD` | Animated distorted glass — **may crash on certain blocks**; needs `TransparentMaterials.sbc` entry |
 
-**Transparent materials** need `<Technique>GLASS</Technique>` and an `_alphamask.dds` — the standard `_cm.dds` alpha channel alone is not enough for transparency.
+**Transparent materials** (GLASS/HOLO/SHIELD): the material `Name` attribute must match a `SubtypeId` in `TransparentMaterials.sbc`. These use a CA (Color/Alpha) texture instead of CM, where the alpha channel controls transparency.
 
 ### LCD Textures (LCDTextureDefinition mods)
 ```

@@ -18,8 +18,26 @@ YourMod/
 ```
 
 - `Scripts/` directly containing `.cs` files (no subfolder) will **not** compile
+- **Only one folder** should exist directly inside `Scripts/` — multiple sibling folders compile as separate assemblies with no cross-visibility, causing silent breakage
 - Nested subfolders inside `YourModName/` are fine for organization
-- The folder name does not need to match any specific string — just be consistent
+- **Folder name should match your mod name** — the game uses it to identify your mod's storage folder in `%AppData%\SpaceEngineers\Storage\`
+
+### Profiler Injection Warning
+
+The game injects a mod profiler into **every compiled method**, including property accessors (except auto-properties). This has a real performance cost on hot paths:
+
+```csharp
+// ❌ Profiler injected on every access — costly in tight loops
+public float SomeValue { get { return _value; } }
+
+// ✅ Auto-property — profiler NOT injected
+public float SomeValue { get; private set; }
+
+// ✅ Field access — no injection overhead
+private float _someValue;
+```
+
+In tight loops called at Update1/Update10 rates, prefer direct field access or auto-properties over manual getters.
 
 ---
 
@@ -433,7 +451,7 @@ float current = MySharedFloat.Value;
 
 **Hard limits:**
 - Only **blittable** value types: `int`, `float`, `bool`, `double`, simple `struct` with blittable fields
-- **Hard cap of 32 MySync instances per type** — exceed this and the game crashes
+- **Hard cap of 64 MySync instances per type** (raised from 32 in patch 1.208) — exceed this and the game crashes
 - Not suitable for strings, arrays, or complex objects — use `MyModStorageComponent` or packets instead
 
 ### Option 4 — Packet Sending (full control, custom data)

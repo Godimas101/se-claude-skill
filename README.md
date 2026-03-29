@@ -1,29 +1,16 @@
-# ⚙️ Space Engineers Skill for Claude Code
+# 🚀 Space Engineers Modding Skill for Claude Code
 
-> **"Your AI co-engineer — doesn't need oxygen, never rage quits."**
+> Because reading SBC files by hand is how you lose a weekend.
 
-An expert Claude Code skill covering all types of Space Engineers mod development, from SBC XML patches to full C# compiled mods.
-
----
-
-## 🚀 What It Covers
+An expert skill for Claude Code covering all three types of Space Engineers mod development:
 
 - **Compiled mods** — C# text surface scripts (LCD screens), session components, SBC XML definitions
-- **Framework mods** — Child mods for community frameworks:
-  - [Modular Encounters System](https://steamcommunity.com/sharedfiles/filedetails/?id=1521905890) — NPC ship, drone, station, and creature encounters
-  - [AI Enabled](https://steamcommunity.com/sharedfiles/filedetails/?id=2596208372) — Humanoid NPCs, robots, and creature bots
-  - [Mod Adjuster](https://steamcommunity.com/sharedfiles/filedetails/?id=3017795356) — Runtime definition patching (no C# required)
-  - [WeaponCore / CoreSystems](https://steamcommunity.com/sharedfiles/filedetails/?id=3154371364) — Custom weapon and ammo definitions
-  - [Vanilla+](https://steamcommunity.com/sharedfiles/filedetails/?id=2915780227) — Enhanced ammo and turret definitions
-  - [Animation Engine](https://steamcommunity.com/sharedfiles/filedetails/?id=2880317963) — Block part animations via BSL scripting
-  - [Scope Framework (SteadyScope)](https://steamcommunity.com/sharedfiles/filedetails/?id=2754014019) — Scope view via INI config, no C# required
-  - [Tank Tracks](https://steamcommunity.com/sharedfiles/filedetails/?id=3208995513) — Tank track block animations
+- **Mod Adjuster mods** — Runtime definition patching via the [Mod Adjuster](https://steamcommunity.com/workshop/filedetails/?id=3017795356) framework
 - **Programmable Block scripts** — Sandboxed ingame scripts (Main loop, GridTerminalSystem, IGC, etc.)
-- **Server & client plugins** — Torch dedicated server plugins (NexusV3, HarmonyLib patching) and Pulsar client plugins (in-game mod loader, API hooking)
 
 ---
 
-## 📦 Install
+## Install
 
 1. Copy the `space-engineers/` folder into your Claude Code skills directory:
 
@@ -37,27 +24,31 @@ An expert Claude Code skill covering all types of Space Engineers mod developmen
    ~/.claude/skills/space-engineers/
    ```
 
-2. That's it. Use `/space-engineers` in any Claude Code session.
+2. That's it. The skill is available as `/space-engineers` in any Claude Code session.
 
 ---
 
-## 🗂️ Recommended Workspace Setup
+## Recommended VS Code Workspace Setup
 
-The skill works out of the box, but it's **significantly more useful** when Claude can browse your actual game files. When you invoke `/space-engineers`, Claude will check whether these directories are available and ask you to add any that are missing.
+The skill works out of the box, but it is **significantly more useful** when Claude can browse your actual game files directly. When you invoke `/space-engineers`, Claude will check whether these directories are available and ask you to add any that are missing.
 
 Add these as **additional working directories** in your VS Code workspace (or Claude Code settings):
 
 | Directory | Why |
 |-----------|-----|
-| `[Steam]\steamapps\common\SpaceEngineers\` | Vanilla SBC files — ground truth for all block/item definitions. Required for looking up block properties, component costs, and balance values. |
+| `[Steam]\steamapps\common\SpaceEngineers\` | Vanilla SBC files — the ground truth for all block/item definitions. Required for looking up block properties, component costs, and balance values. |
 | `[Steam]\steamapps\common\SpaceEngineersModSDK\` | API DLLs with XML documentation. Required for compiled mod and PB script work — intellisense, method signatures, interface definitions. |
 | Your mod project folder | Your actual mod source files. Required for editing your mod. |
-| `[Steam]\steamapps\workshop\content\244850\` | Subscribed Workshop mods. Required for the mod catalogue — used to look up mod names, Workshop IDs, and SBC definitions when building patches or avoiding naming collisions. |
+| `[Steam]\steamapps\workshop\content\244850\` | Your subscribed mods — useful for cross-referencing how other mods are structured. Optional but recommended. |
 | `%AppData%\SpaceEngineers\` | Game logs and local mod files. Needed for debugging crashes and mod load errors. |
 
 > **Default Steam path on Windows:** `C:\Program Files (x86)\Steam\` or `D:\SteamLibrary\` depending on your install.
 >
 > **Default AppData path on Windows:** `C:\Users\[YourName]\AppData\Roaming\SpaceEngineers\`
+
+### How to add workspace directories in Claude Code
+
+In VS Code, open your workspace settings and add the paths above as additional working directories. This lets Claude browse game files without you having to copy-paste paths into every prompt.
 
 **ModSDK includes these tools out of the box (no extra downloads needed):**
 - `Tools\xWMAEncode.exe` — WAV → XWM audio conversion for sound mods
@@ -66,41 +57,32 @@ Add these as **additional working directories** in your VS Code workspace (or Cl
 
 ---
 
-## 🤖 What Claude Does Automatically
+## What Claude Will Do Automatically
 
 When you invoke `/space-engineers`, Claude will:
 
-- **Check for required directories** — if the game directory, ModSDK, workshop folder, or AppData aren't in your workspace, Claude will ask you to add any that are missing before proceeding
-- **Detect new patches** — compares installed DLC against a known catalogue; if a new patch has dropped, Claude will alert you and offer to research the new content before you start work
-- **Ask what you're working on** — a quick picker to select your project type (Mod, MES/AI Enabled, Framework mod, Mod Adjuster, PB Script, or Torch/Pulsar plugin) so Claude focuses on the right tools and patterns
-- **Read your mod notes** — if a `MOD_MAKING_NOTES.md` exists in your mod directory, Claude reads it first to catch up on previous sessions and what's still pending. If one doesn't exist, Claude will offer to create it.
-- **Check your mod catalogue** — if a `MOD_CATALOGUE.md` exists in your workshop directory, Claude uses it to look up mod names, Workshop IDs, and SBC definitions
+- **Check for required directories** — if the game directory, ModSDK, or a mod folder aren't in your workspace, Claude will ask you to add them before proceeding
+- **Read your mod notes** — if a `MOD_MAKING_NOTES.md` exists in your mod directory, Claude reads it first to catch up on what was done in previous sessions and what's still pending. If one doesn't exist, Claude will offer to create it.
+- **Check your mod catalogue** — if a `MOD_CATALOGUE.md` exists, Claude uses it to understand what mods you have and avoid naming collisions
 
 ---
 
-## 🗃️ What's Inside
+## What's Inside
 
 | File | Contents |
 |------|---------|
 | `SKILL.md` | Main skill — all mod types, SBC XML, C# patterns, asset pipeline, log reading, gotchas |
 | `CSHARP_PATTERNS.md` | Extended C# reference — power/gas/inventory queries, drawing helpers, config patterns, performance rules |
 | `SBC_TEMPLATES.md` | Copy-paste XML templates for common SBC patterns |
-| `MES.md` | Modular Encounters System guide — SpawnGroup, Behavior, Autopilot, Trigger, Action, SpawnConditions formats and examples |
-| `AI_ENABLED.md` | AI Enabled guide — bot definitions, character SBC, MES integration for creature/NPC spawning |
-| `DLC_CATALOGUE.md` | Full DLC pack listing with SubtypeIds — used at startup to detect new patches |
 | `MOD_ADJUSTER.md` | Full Mod Adjuster guide — file structure, XML format, all definition types, patch examples |
 | `PB_SCRIPTS.md` | Full PB scripting guide — Main loop, UpdateFrequency, block interfaces, coroutines, IGC, sandbox restrictions |
 | `TORCH.md` | Torch dedicated server framework — installation, plugin development, manifest format, NexusV3 multi-server |
 | `PULSAR.md` | Pulsar client plugin loader — installation, plugin development, PluginHub publishing, HarmonyLib patching |
-| `WEAPONCORE.md` | WeaponCore (CoreSystems) framework — CoreParts C# definitions, weapon + ammo structure, PB API |
-| `VANILLA_PLUS.md` | Vanilla+ Framework — VPFAmmoDefinition, VPFTurretDefinition, session component pattern |
-| `ANIMATION_ENGINE.md` | Animation Engine (Math0424) — BSL scripting language, main.info, subpart/emitter methods |
-| `SCOPE_FRAMEWORK.md` | Scope Framework — ScopeConfig.txt INI format, camera block SBC requirements, no C# required |
-| `TANK_TRACKS.md` | Tank Tracks (Digi) — TankTracks.ini format, segment model setup, C# API for scripted tools |
+| `PATCH_NOTES.md` | Breaking changes and notable additions by patch (1.200–1.208) — quick reference for mod compatibility |
 
 ---
 
-## 💡 Usage Examples
+## Usage Examples
 
 ```
 /space-engineers
@@ -119,47 +101,21 @@ When you invoke `/space-engineers`, Claude will:
 
 ```
 /space-engineers
-> I want to create a MES encounter mod that spawns pirate drones on EarthLike at night
-```
-
-```
-/space-engineers
-> Help me set up an AI Enabled bot that patrols an NPC station and attacks players on sight
-```
-
-```
-/space-engineers
 > My mod isn't loading — here's the game log, can you find the error?
-```
-
-```
-/space-engineers
-> I want to make a WeaponCore child mod — help me write the Part and Ammo files for a new railgun turret
-```
-
-```
-/space-engineers
-> Help me add a scope view to my sniper rifle block using SteadyScope
-```
-
-```
-/space-engineers
-> I want to add a particle effect animation to my custom welder block using Animation Engine
 ```
 
 ---
 
-## 🔩 Requirements
+## Requirements
 
 - [Claude Code](https://www.anthropic.com/claude-code)
 - Space Engineers installed via Steam
 - Space Engineers ModSDK installed (free via Steam Tools)
-- For Mod Adjuster mods: [Mod Adjuster](https://steamcommunity.com/workshop/filedetails/?id=3017795356) subscribed in Workshop
-- For framework mods: the corresponding framework subscribed (WeaponCore `3154371364`, Vanilla+ `2915780227`, Animation Engine `2880317963`, Scope Framework `2754014019`, Tank Tracks `3208995513`)
+- For Mod Adjuster mods: [Mod Adjuster](https://steamcommunity.com/workshop/filedetails/?id=3017795356) subscribed in Steam Workshop
 
 ---
 
-## 🙏 Credits
+## Credits
 
 Built by **Godimas** and **Claude**.
 
@@ -171,8 +127,8 @@ Mod Adjuster XML format reverse-engineered from the [Mod Adjuster](https://steam
 
 This skill is free and always will be. If it helps with your mods, consider supporting on Patreon — it helps keep the tools and mods coming.
 
-[![Support on Patreon](https://raw.githubusercontent.com/Godimas101/personal-projects/main/patreon/images/buttons/patreon-medium.png)](https://patreon.com/Godimas101)
+[![Support on Patreon](https://raw.githubusercontent.com/Godimas101/personal-projects/main/patreon/patreon-medium.png)](https://patreon.com/Godimas101)
 
 ---
 
-*Please weld responsibly.*
+*Jetpack not included.* 🚀
