@@ -118,30 +118,50 @@ SE patches regularly. Detect new content before starting work.
 After the workspace checks, use the `AskUserQuestion` tool to ask:
 
 ```
-Question: "What kind of Space Engineers project are we working on?"
-Header: "Project type"
+Question: "What brings you here today?"
+Header: "How can I help?"
 Options:
-  - label: "Mod project"
-    description: "SBC-only mod, or compiled mod (Text Surface Script / Session Component)"
-  - label: "MES / AI Enabled mod"
-    description: "NPC encounter mod using Modular Encounters System and/or AI Enabled"
-  - label: "Mod Adjuster project"
-    description: "Non-destructive balance patches against third-party workshop mods"
-  - label: "Programmable Block script"
-    description: "Ingame PB script — sandboxed C#, whitelist restrictions apply"
+  - label: "I'm new to modding"
+    description: "Not sure where to start, or have beginner questions"
+  - label: "Working on a mod"
+    description: "SBC mod, compiled C# mod, MES/AI encounter, Mod Adjuster patch, or PB script"
   - label: "Torch or Pulsar plugin"
-    description: "Torch dedicated server plugin/setup, or Pulsar client-side plugin"
+    description: "Torch dedicated server plugin, or Pulsar client-side plugin"
+  - label: "Just ask"
+    description: "I have a specific question — skip the setup"
 ```
 
 (Other is shown automatically for freeform input.)
 
 **Based on the answer:**
-- **Mod project** → Ask which mod they're working on. Read the relevant CLAUDE.md and MOD_MAKING_NOTES.md before starting. Then clarify whether it's SBC-only or compiled C# if not obvious from context.
-- **MES / AI Enabled mod** → Read [MES.md](MES.md) and/or [AI_ENABLED.md](AI_ENABLED.md) before starting. Ask whether this is a ship/vehicle encounter mod (MES), a character/creature mod (AI Enabled), or both combined. Reference the mod catalogue for installed MES and AI Enabled mods the user may want to study.
-- **Mod Adjuster project** → Focus on Mod Adjuster patterns. Reference the mod catalogue to find the target mod's Workshop ID and SBC definitions. See MOD_ADJUSTER.md.
-- **Programmable Block script** → Apply PB sandbox restrictions throughout. See PB_SCRIPTS.md.
-- **Torch or Pulsar plugin** → Ask "Torch or Pulsar?" and "Where is it installed?" before proceeding. See TORCH.md or PULSAR.md accordingly.
-- **Other** → Take their freeform answer at face value and proceed accordingly.
+
+- **New to modding** → Read [GETTING_STARTED.md](GETTING_STARTED.md) before responding. Walk them through the concepts: what mod types exist, what tools they need, and what kind of mod fits what they want to build. Do not assume any prior knowledge.
+
+- **Working on a mod** → Ask a follow-up to narrow the type:
+  ```
+  Question: "What type of mod?"
+  Options:
+    - label: "SBC-only mod"
+      description: "XML definitions — blocks, items, blueprints, balance changes"
+    - label: "Compiled C# mod"
+      description: "Text Surface Script (LCD screen), Session Component, or Game Logic"
+    - label: "MES / AI Enabled encounter mod"
+      description: "NPC ships, characters, or creatures using Modular Encounters System / AI Enabled"
+    - label: "Mod Adjuster patch"
+      description: "Non-destructive balance patches against third-party workshop mods"
+    - label: "Programmable Block script"
+      description: "Ingame PB script — sandboxed C#, whitelist restrictions apply"
+  ```
+  Then:
+  - **SBC-only** → Ask which mod they're working on. Read the relevant CLAUDE.md and MOD_MAKING_NOTES.md. Reference SBC_TEMPLATES.md and PATCH_NOTES.md for field reference.
+  - **Compiled C#** → Ask which mod they're working on. Read CLAUDE.md and MOD_MAKING_NOTES.md. Reference CSHARP_PATTERNS.md. Clarify Text Surface Script vs Session Component vs Game Logic if not clear.
+  - **MES / AI Enabled** → Read [MES.md](MES.md) and/or [AI_ENABLED.md](AI_ENABLED.md). Ask whether ship/vehicle encounter (MES), character/creature (AI Enabled), or both. Reference mod catalogue for installed MES/AI Enabled mods.
+  - **Mod Adjuster** → Focus on Mod Adjuster patterns. Reference mod catalogue for target mod Workshop ID and SBC definitions. See [MOD_ADJUSTER.md](MOD_ADJUSTER.md).
+  - **PB script** → Apply PB sandbox restrictions throughout. See [PB_SCRIPTS.md](PB_SCRIPTS.md).
+
+- **Torch or Pulsar plugin** → Ask "Torch or Pulsar?" and "Where is it installed?" See [TORCH.md](TORCH.md) or [PULSAR.md](PULSAR.md) accordingly.
+
+- **Just ask / Other** → Take their question at face value and answer directly. No further setup questions.
 
 ---
 
