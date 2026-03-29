@@ -120,8 +120,6 @@ Options:
     description: "SBC-only mod, or compiled mod (Text Surface Script / Session Component)"
   - label: "MES / AI Enabled mod"
     description: "NPC encounter mod using Modular Encounters System and/or AI Enabled"
-  - label: "Framework mod"
-    description: "Child mod for a framework: WeaponCore, Vanilla+, Animation Engine, Scope Framework, or Tank Tracks"
   - label: "Mod Adjuster project"
     description: "Non-destructive balance patches against third-party workshop mods"
   - label: "Programmable Block script"
@@ -135,13 +133,6 @@ Options:
 **Based on the answer:**
 - **Mod project** → Ask which mod they're working on. Read the relevant CLAUDE.md and MOD_MAKING_NOTES.md before starting. Then clarify whether it's SBC-only or compiled C# if not obvious from context.
 - **MES / AI Enabled mod** → Read [MES.md](MES.md) and/or [AI_ENABLED.md](AI_ENABLED.md) before starting. Ask whether this is a ship/vehicle encounter mod (MES), a character/creature mod (AI Enabled), or both combined. Reference the mod catalogue for installed MES and AI Enabled mods the user may want to study.
-- **Framework mod** → Ask which framework they're targeting. Read the corresponding guide before starting:
-  - WeaponCore → [WEAPONCORE.md](WEAPONCORE.md)
-  - Vanilla+ → [VANILLA_PLUS.md](VANILLA_PLUS.md) ⚠️ **INCOMPATIBLE with WeaponCore** — never load both
-  - Animation Engine → [ANIMATION_ENGINE.md](ANIMATION_ENGINE.md)
-  - Scope Framework → [SCOPE_FRAMEWORK.md](SCOPE_FRAMEWORK.md)
-  - Tank Tracks → [TANK_TRACKS.md](TANK_TRACKS.md)
-  Check the mod catalogue for installed child mods of that framework to use as examples.
 - **Mod Adjuster project** → Focus on Mod Adjuster patterns. Reference the mod catalogue to find the target mod's Workshop ID and SBC definitions. See MOD_ADJUSTER.md.
 - **Programmable Block script** → Apply PB sandbox restrictions throughout. See PB_SCRIPTS.md.
 - **Torch or Pulsar plugin** → Ask "Torch or Pulsar?" and "Where is it installed?" before proceeding. See TORCH.md or PULSAR.md accordingly.
@@ -179,12 +170,6 @@ The catalogue lives at the root of your mod directory (e.g. `244850\MOD_CATALOGU
 - **NPC/AI** — NPC spawns or AI systems that don't use MES or AI Enabled
 - **Economy** — Trade, economy, logistics
 - **Blueprint** — Ship blueprint (not a gameplay mod)
-- **Framework Mod** — A framework required by other mods (WeaponCore, Vanilla+, Animation Engine, Scope Framework, Tank Tracks, Mod Adjuster)
-- **WeaponCore** — Child mod for the WeaponCore weapon framework
-- **Vanilla+ Framework** — Child mod for the Vanilla+ Framework
-- **Animation Engine** — Child mod for the Animation Engine framework
-- **Scope Framework** — Child mod for the Scope Framework (klime) scope/zoom framework
-- **Tank Tracks** — Child mod for the Tank Tracks framework
 - **Other** — Miscellaneous / unclear
 
 ---
@@ -207,12 +192,6 @@ To build or refresh the catalogue:
    - Any `.sbc` file → block `<DisplayName>` or script class name
    - Folder name as last resort
 3. Categorize based on file contents:
-   - Workshop ID is a known framework → **Framework Mod** (see known IDs: 3154371364 WeaponCore, 2915780227 Vanilla+, 2880317963 Animation Engine, 2754014019 SteadyScope, 3208995513 Tank Tracks, 3017795356 Mod Adjuster, 1521905890 MES, 2596208372 AI Enabled)
-   - Has `Data/Scripts/CoreParts/*.cs` → **WeaponCore** child mod
-   - Has `Data/Scripts/**/Definitions/AmmoDefinitionDefinitions.cs` → **Vanilla+ Framework** child mod
-   - Has `Data/Animation/*.bsl` → **Animation Engine** child mod
-   - Has `Data/ScopeConfig.txt` → **Scope Framework** child mod
-   - Has `Data/TankTracks.ini` OR `Data/Scripts/**/TankTracksAPI.cs` → **Tank Tracks** child mod
    - Has `Scripts/` with `.cs` files → Script or compiled mod
    - Has `CubeBlocks*.sbc` → Block
    - Has `LCDTextures.sbc` → LCD/HUD
@@ -574,11 +553,6 @@ WAV (16-bit PCM, 44100 Hz)  →  xWMAEncode.exe  →  .xwm  →  reference in Au
 | DLC definitions | `[SE]\Content\Data\Game\DLCs.sbc` |
 | MES (Modular Encounters System) | Workshop ID `1521905890` in workshop folder |
 | AI Enabled | Workshop ID `2596208372` in workshop folder |
-| WeaponCore (CoreSystems) | Workshop ID `3154371364` in workshop folder |
-| Vanilla+ Framework | Workshop ID `2915780227` in workshop folder |
-| Animation Engine (Math0424) | Workshop ID `2880317963` in workshop folder |
-| Scope Framework (klime) | Workshop ID `2754014019` in workshop folder |
-| Tank Tracks (Digi) | Workshop ID `3208995513` in workshop folder |
 
 > `[ModSDK]` = `[Steam]\steamapps\common\SpaceEngineersModSDK`
 > `[SE]` = `[Steam]\steamapps\common\SpaceEngineers`
@@ -663,11 +637,6 @@ Consolidated notes for all mods in this workspace.
 - [MES.md](MES.md) — Modular Encounters System: profile types, SBC format, child mod structure
 - [AI_ENABLED.md](AI_ENABLED.md) — AI Enabled: bot definitions, character SBC, MES integration, child mods
 - [DLC_CATALOGUE.md](DLC_CATALOGUE.md) — Full DLC pack listing + patch detection instructions
-- [WEAPONCORE.md](WEAPONCORE.md) — WeaponCore framework: CoreParts C# definitions, weapon + ammo structure, PB API
-- [VANILLA_PLUS.md](VANILLA_PLUS.md) — Vanilla+ Framework: VPFAmmoDefinition, VPFTurretDefinition, session component pattern
-- [ANIMATION_ENGINE.md](ANIMATION_ENGINE.md) — Animation Engine: BSL scripting language, main.info, actions, subpart/emitter methods
-- [SCOPE_FRAMEWORK.md](SCOPE_FRAMEWORK.md) — Scope Framework: ScopeConfig.txt INI format, camera block SBC requirements, all config keys
-- [TANK_TRACKS.md](TANK_TRACKS.md) — Tank Tracks: TankTracks.ini format (Design/Track/Blocks sections), C# API for scripted tools
 
 ---
 
@@ -701,3 +670,83 @@ Consolidated notes for all mods in this workspace.
 - [ ] `Storage` used for any state that must survive recompile
 - [ ] `Echo()` used for debug output, not `Me.GetSurface(0)` hardcoded
 - [ ] Graceful handling when expected blocks are missing from grid
+
+---
+
+## Wiki Reference Index
+
+Key pages on the official modding wiki. Fetch these when you need deep detail on a topic.
+
+**Base URL:** `https://spaceengineers.wiki.gg/wiki/`
+
+### SBC Reference Pages
+
+| Topic | URL path |
+|-------|----------|
+| SBC overview & rules | `Modding/Reference/SBC` |
+| DefinitionBase (shared fields) | `Modding/Reference/SBC/DefinitionBase` |
+| Block type index (TypeId → xsi:type table) | `Modding/Reference/SBC/CubeBlocks` |
+| CubeBlock Definition (full field reference) | `Modding/Reference/SBC/CubeBlocks/CubeBlock_Definition` |
+| MountPoints | `Modding/Reference/SBC/MountPoints` |
+| Block Categories (G-menu tabs) | `Modding/Reference/SBC/BlockCategories` |
+| Block Variant Groups (scroll groups) | `Modding/Reference/SBC/BlockVariantGroups` |
+| BVG tutorial (step-by-step) | `Modding/Tutorials/SBC/BlockVariantGroups` |
+| Items index (Component, PhysicalItem, Ammo...) | `Modding/Reference/SBC/Items` |
+| Component Definition | `Modding/Reference/SBC/Items/Component_Definition` |
+| Blueprint Definition | `Modding/Reference/SBC/Blueprints/Blueprint_Definition` |
+| BlueprintClass Definition | `Modding/Reference/SBC/Blueprints/BlueprintClass_Definition` |
+| BlueprintClasses tutorial (non-destructive recipes) | `Modding/Tutorials/SBC/BlueprintClasses` |
+| LCD Texture Definition | `Modding/Reference/SBC/LCDTexture_Definition` |
+| LCD Screens tutorial | `Modding/Tutorials/SBC/Screens` |
+| LCD App Mod Script tutorial | `Modding/Tutorials/Recipes/LCD_App_Mod_Script` |
+| Weapon Definition | `Modding/Reference/SBC/Weapon_Definition` |
+| Entity Components | `Modding/Reference/SBC/EntityComponents` |
+| Localization tutorial | `Modding/Tutorials/Localization` |
+| Deformable Armor | `Modding/Reference/Deformable_Armor` |
+
+### General Reference Pages
+
+| Topic | URL path |
+|-------|----------|
+| Main reference index | `Modding/Reference` |
+| Known crash solutions | `Modding/Reference/Known_Solutions_to_crashes_or_errors` |
+| Mod scripting reference | `Modding/Reference/ModScripting` |
+| Mod script whitelist | `Modding/Reference/ModScriptWhitelist` |
+| Materials reference | `Modding/Reference/Materials` |
+| Old SBM/BIN files | `Modding/Reference/Old_SBM_and_BIN_Files_Explained` |
+| Modding-relevant patch changes | `Modding/Reference/Overview_of_Modding-Relevant_Changes_in_Game_Patches` |
+| UseObjects (detector dummy names) | `Modding/Reference/UseObjects` |
+| Conveyor system | `Modding/Reference/Conveyor_System` |
+| Physics | `Modding/Reference/Physics` |
+| Text Variables | `Modding/Reference/Text_Variables` |
+| Data Types | `Modding/Reference/Data_Types` |
+
+### Tutorial Pages
+
+| Topic | URL path |
+|-------|----------|
+| All tutorials index | `Modding/Tutorials` |
+| Armor block mod (beginner) | `Modding/Tutorials/Recipes/Armor_Block_Mod` |
+| Version control (recommended) | `Modding/Tutorials/Version_Control` |
+| Adding localization | `Modding/Tutorials/Localization` |
+
+### Official External Links
+
+| Resource | URL |
+|----------|-----|
+| Official ModAPI docs | `https://keensoftwarehouse.github.io/SpaceEngineersModAPI/api/index.html` |
+| Unofficial ModAPI docs | `https://malforge.github.io/spaceengineers/modapi/` |
+| Script examples (THDigi) | `https://github.com/THDigi/SE-ModScript-Examples/tree/master/Data/Scripts/Examples` |
+
+### Important "Not Moddable" Notes
+
+These SBC files **cannot be overridden** — attempting to do so crashes the game or silently fails:
+
+| File | Reason |
+|------|--------|
+| `RadialMenu.sbc` | Not designed to be moddable — Keen ticket #47915 |
+| `GuiTextures.sbc` | Mod textures silently fail |
+| `ControllerSchemes.sbc` | New selections don't appear in GUI |
+| `WheelModels.sbc` | Code using it is disabled |
+| `Game/DLCs.sbc` | Informational only |
+| `Screens/*.gsc` | Only loads from game folder with exact filenames |
