@@ -71,14 +71,16 @@ When you invoke `/space-engineers`, Claude will:
 
 | File | Contents |
 |------|---------|
-| `SKILL.md` | Main skill — all mod types, SBC XML, C# patterns, asset pipeline, log reading, gotchas |
-| `CSHARP_PATTERNS.md` | Extended C# reference — power/gas/inventory queries, drawing helpers, config patterns, performance rules |
-| `SBC_TEMPLATES.md` | Copy-paste XML templates for common SBC patterns |
+| `SKILL.md` | Main skill — workspace setup, mod types, SBC XML, C# patterns, asset pipeline, gotchas |
+| `GETTING_STARTED.md` | Beginner onboarding — mod types decision tree, tool setup (VS Code), folder structure, publishing, cross-mod assets |
+| `TROUBLESHOOTING.md` | Error reference — log reading, all common errors with causes and fixes, debug tools |
+| `CSHARP_PATTERNS.md` | Extended C# reference — project setup, Save/Sync, power/gas/inventory, drawing helpers, performance rules |
+| `SBC_TEMPLATES.md` | Copy-paste XML templates — block categories, variant groups, cross-mod asset paths, all common patterns |
+| `PATCH_NOTES.md` | Breaking changes and notable additions by patch (1.200–1.208) — quick reference for mod compatibility |
 | `MOD_ADJUSTER.md` | Full Mod Adjuster guide — file structure, XML format, all definition types, patch examples |
 | `PB_SCRIPTS.md` | Full PB scripting guide — Main loop, UpdateFrequency, block interfaces, coroutines, IGC, sandbox restrictions |
 | `TORCH.md` | Torch dedicated server framework — installation, plugin development, manifest format, NexusV3 multi-server |
 | `PULSAR.md` | Pulsar client plugin loader — installation, plugin development, PluginHub publishing, HarmonyLib patching |
-| `PATCH_NOTES.md` | Breaking changes and notable additions by patch (1.200–1.208) — quick reference for mod compatibility |
 
 ---
 
