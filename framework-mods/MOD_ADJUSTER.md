@@ -307,7 +307,7 @@ The most-used fields from `CubeBlockDefinition`:
 
 ## Known Limitations
 
-1. **Some fields are commented out / not implemented.** The Mod Adjuster source explicitly skips some fields (MirroringX/Y/Z, Rotation, Direction, CompoundEnabled, SubBlockDefinitions). Check the source at `D:\SteamLibrary\steamapps\workshop\content\244850\3017795356\Data\Scripts\Adjuster\Definitions\Blocks\CubeBlock.cs` before trying to patch those.
+1. **Some fields are commented out / not implemented.** The Mod Adjuster source explicitly skips some fields (MirroringX/Y/Z, Rotation, Direction, CompoundEnabled, SubBlockDefinitions). Check the source at `[Steam]\steamapps\workshop\content\244850\3017795356\Data\Scripts\Adjuster\Definitions\Blocks\CubeBlock.cs` before trying to patch those.
 
 2. **BlueprintClassEntries clears the class on first write.** If you add entries to a class, list ALL blueprints you want — not just the new one.
 
@@ -336,10 +336,10 @@ Search for `ModAdjuster` to find all MA log lines.
 
 | What | Where |
 |------|-------|
-| Mod Adjuster full source | `D:\SteamLibrary\steamapps\workshop\content\244850\3017795356\Data\Scripts\Adjuster\` |
+| Mod Adjuster full source | `[Steam]\steamapps\workshop\content\244850\3017795356\Data\Scripts\Adjuster\` |
 | All definition classes | `...\Adjuster\Definitions\` |
 | CubeBlock fields | `...\Adjuster\Definitions\Blocks\CubeBlock.cs` |
 | All functional block types | `...\Adjuster\Definitions\Blocks\FunctionalBlocks.cs` |
 | Weapon definition fields | `...\Adjuster\Definitions\Weapons.cs` |
 | Session component (loader) | `...\Adjuster\Session\ModAdjuster.cs` |
-| Vanilla block SBCs | `D:\SteamLibrary\steamapps\common\SpaceEngineers\Content\Data\` |
+| Vanilla block SBCs | `[Steam]\steamapps\common\SpaceEngineers\Content\Data\` |

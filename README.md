@@ -2,15 +2,19 @@
 
 > Because reading SBC files by hand is how you lose a weekend.
 
-An expert skill for Claude Code covering all three types of Space Engineers mod development:
+An expert modding assistant for Claude Code covering the full spectrum of Space Engineers mod development — from your first `.sbc` file to shipping a full compiled C# mod with custom 3D assets.
 
-- **Compiled mods** — C# text surface scripts (LCD screens), session components, SBC XML definitions
-- **Mod Adjuster mods** — Runtime definition patching via the [Mod Adjuster](https://steamcommunity.com/workshop/filedetails/?id=3017795356) framework
-- **Programmable Block scripts** — Sandboxed ingame scripts (Main loop, GridTerminalSystem, IGC, etc.)
+**Coverage:**
+- **SBC/XML mods** — blocks, items, blueprints, economy, planets, and more
+- **Compiled C# mods** — Text Surface Scripts (LCD screens), Session Components, Game Logic
+- **Programmable Block scripts** — Main loop, GridTerminalSystem, IGC, coroutines
+- **Framework mods** — MES, AI Enabled, WeaponCore, Mod Adjuster, Animation Engine, Scope Framework, Tank Tracks, Vanilla+
+- **Server/client plugins** — Torch dedicated server plugins, Pulsar client-side plugins
+- **Asset pipeline** — 3D modeling with SEUT/Blender, texture conversion, Havok collisions, MWM export
 
 ---
 
-## Install
+## 📦 Install
 
 1. Copy the `space-engineers/` folder into your Claude Code skills directory:
 
@@ -28,70 +32,120 @@ An expert skill for Claude Code covering all three types of Space Engineers mod 
 
 ---
 
-## Recommended VS Code Workspace Setup
+## 🗂️ Recommended Workspace Setup
 
-The skill works out of the box, but it is **significantly more useful** when Claude can browse your actual game files directly. When you invoke `/space-engineers`, Claude will check whether these directories are available and ask you to add any that are missing.
+The skill works out of the box, but it becomes **significantly more powerful** when Claude can browse your actual game files. When you invoke `/space-engineers`, Claude will check whether these directories are in your workspace and ask you to add any that are missing.
 
-Add these as **additional working directories** in your VS Code workspace (or Claude Code settings):
+Add these as **additional working directories** in your VS Code workspace:
 
 | Directory | Why |
 |-----------|-----|
-| `[Steam]\steamapps\common\SpaceEngineers\` | Vanilla SBC files — the ground truth for all block/item definitions. Required for looking up block properties, component costs, and balance values. |
-| `[Steam]\steamapps\common\SpaceEngineersModSDK\` | API DLLs with XML documentation. Required for compiled mod and PB script work — intellisense, method signatures, interface definitions. |
-| Your mod project folder | Your actual mod source files. Required for editing your mod. |
-| `[Steam]\steamapps\workshop\content\244850\` | Your subscribed mods — useful for cross-referencing how other mods are structured. Optional but recommended. |
-| `%AppData%\SpaceEngineers\` | Game logs and local mod files. Needed for debugging crashes and mod load errors. |
+| `[Steam]\steamapps\common\SpaceEngineers\` | Vanilla SBC files — ground truth for all block/item definitions, balance values, and XML schema |
+| `[Steam]\steamapps\common\SpaceEngineersModSDK\` | API DLLs with XML documentation — required for compiled mod and PB script work |
+| Your mod project folder | Your actual mod source files |
+| `[Steam]\steamapps\workshop\content\244850\` | Your subscribed mods — used to cross-reference frameworks and other mods you're building on |
+| `%AppData%\SpaceEngineers\` | Game logs — needed to debug crashes and mod load errors |
 
 > **Default Steam path on Windows:** `C:\Program Files (x86)\Steam\` or `D:\SteamLibrary\` depending on your install.
 >
 > **Default AppData path on Windows:** `C:\Users\[YourName]\AppData\Roaming\SpaceEngineers\`
 
-### How to add workspace directories in Claude Code
+---
 
-In VS Code, open your workspace settings and add the paths above as additional working directories. This lets Claude browse game files without you having to copy-paste paths into every prompt.
+## 🔌 On Startup
 
-**ModSDK includes these tools out of the box (no extra downloads needed):**
-- `Tools\xWMAEncode.exe` — WAV → XWM audio conversion for sound mods
-- `Tools\AdpcmEncode.exe` — WAV → ADPCM audio conversion
-- `Tools\VRageEditor\` — ModelViewer, ModelBuilder (FBX→MWM), AnimationController, VisualScripting
+Every time you invoke `/space-engineers`, Claude runs a short setup sequence before asking what you need. Here's what to expect:
+
+### Step 1 — Workspace checks
+
+Claude looks for four directories in your workspace. For each one that's missing, it will tell you exactly what to add and why:
+
+| Directory | What it unlocks | If missing |
+|-----------|----------------|------------|
+| SE game directory | Vanilla SBC definitions — ground truth for all block, item, and balance lookups | Claude asks you to add it |
+| ModSDK | Full C# API docs — required for compiled mods and PB scripts | Claude asks you to add it + install instructions |
+| AppData (`%AppData%\SpaceEngineers\`) | Game logs and crash dumps — needed for debugging | Claude asks you to add it |
+| Workshop mod directory | Your subscribed mods — used to build/read the mod catalogue | Claude asks you to add it |
+
+> **You don't need all four.** Claude works with whatever is available — missing directories just mean less context. If you're only writing PB scripts you can skip the mod directory entirely, for example.
+
+### Step 2 — Mod catalogue check
+
+If the workshop directory is present, Claude checks for a `MOD_CATALOGUE.md` file:
+
+- **Found and fresh** → Claude reads it silently and knows what mods you have
+- **Found but stale** (>30 days old) → Claude offers to refresh it
+- **Not found** → Claude offers to build one — this indexes all your subscribed mods so it can reference them by name going forward
+
+### Step 3 — DLC / patch check
+
+Claude compares your installed DLC against its known catalogue. If new content is detected (a recent patch shipped new DLC), it flags it and offers to research the new additions before you start work.
+
+### Step 4 — "How can I help?"
+
+Once setup is done, Claude presents a short menu:
+
+| Option | When to pick it |
+|--------|----------------|
+| **I'm new to modding** | Not sure where to start, or need the concepts explained |
+| **Working on a mod** | SBC mod, compiled C# mod, framework mod, or PB script |
+| **Torch or Pulsar plugin** | Server-side Torch plugin or client-side Pulsar plugin |
+| **Just ask** | You have a specific question — skips all the setup prompts |
+
+Picking **Working on a mod** triggers one more follow-up to narrow the type (brand new mod, framework mod, compiled C#, or PB script), then Claude loads the right reference files and gets to work.
 
 ---
 
-## What Claude Will Do Automatically
+## 📁 What's Inside
 
-When you invoke `/space-engineers`, Claude will:
-
-- **Check for required directories** — if the game directory, ModSDK, or a mod folder aren't in your workspace, Claude will ask you to add them before proceeding
-- **Read your mod notes** — if a `MOD_MAKING_NOTES.md` exists in your mod directory, Claude reads it first to catch up on what was done in previous sessions and what's still pending. If one doesn't exist, Claude will offer to create it.
-- **Check your mod catalogue** — if a `MOD_CATALOGUE.md` exists, Claude uses it to understand what mods you have and avoid naming collisions
-
----
-
-## What's Inside
+### Core
 
 | File | Contents |
 |------|---------|
-| `SKILL.md` | Main skill — workspace setup, mod types, SBC XML, C# patterns, asset pipeline, gotchas |
-| `GETTING_STARTED.md` | Beginner onboarding — mod types decision tree, tool setup (VS Code), folder structure, publishing, cross-mod assets |
-| `TROUBLESHOOTING.md` | Error reference — log reading, all common errors with causes and fixes, debug tools |
-| `CSHARP_PATTERNS.md` | Extended C# reference — project setup, Save/Sync, power/gas/inventory, drawing helpers, performance rules |
-| `SBC_TEMPLATES.md` | Copy-paste XML templates — block categories, variant groups, cross-mod asset paths, all common patterns |
-| `PATCH_NOTES.md` | Breaking changes and notable additions by patch (1.200–1.208) — quick reference for mod compatibility |
-| `MOD_ADJUSTER.md` | Full Mod Adjuster guide — file structure, XML format, all definition types, patch examples |
-| `MES.md` | Modular Encounters System — spawn groups, prefabs, encounter types, MES-specific SBC fields |
-| `AI_ENABLED.md` | AI Enabled framework — bot definitions, animation controllers, faction setup, child mod structure |
-| `WEAPONCORE.md` | WeaponCore framework — weapon definitions, ammo types, targeting, WC-specific SBC fields |
-| `ANIMATION_ENGINE.md` | Animation Engine framework — animation definitions, triggers, subpart control |
-| `SCOPE_FRAMEWORK.md` | Scope Framework — optic overlay definitions, zoom levels, reticle setup |
-| `TANK_TRACKS.md` | Tank Tracks framework — tracked vehicle setup, wheel group definitions |
-| `VANILLA_PLUS.md` | Vanilla+ Framework — child mod structure, VPFAmmoDefinition, VPFTurretDefinition |
-| `PB_SCRIPTS.md` | Full PB scripting guide — Main loop, UpdateFrequency, block interfaces, coroutines, IGC, sandbox restrictions |
-| `TORCH.md` | Torch dedicated server framework — installation, plugin development, manifest format, NexusV3 multi-server |
-| `PULSAR.md` | Pulsar client plugin loader — installation, plugin development, PluginHub publishing, HarmonyLib patching |
+| `SKILL.md` | Main skill — workspace checks, mod type routing, log reading, TSS/Session Component patterns |
+| `GETTING_STARTED.md` | Beginner onboarding — mod types decision tree, tool setup, folder structure, publishing workflow |
+| `SBC_TEMPLATES.md` | Copy-paste XML templates — blocks, items, blueprints, LCD surfaces, all common SBC patterns |
+| `ASSETS.md` | Full asset pipeline — Blender/SEUT modeling, texture channel packing, Havok collisions, MWM export |
+| `RECIPES.md` | Step-by-step worked examples — LCD App Script from scratch, full Armor Block mod |
+
+### Scripting
+
+| File | Contents |
+|------|---------|
+| `scripting/CSHARP_PATTERNS.md` | Extended C# reference — project setup, conveyor API, LCD drawing helpers, Save/Sync, performance rules |
+| `scripting/PB_SCRIPTS.md` | Programmable Block guide — Main loop, UpdateFrequency, block interfaces, coroutines, IGC, sandbox restrictions |
+
+### Framework Mods
+
+| File | Contents |
+|------|---------|
+| `framework-mods/MOD_ADJUSTER.md` | Mod Adjuster — file structure, XML format, all definition types, non-destructive balance patching |
+| `framework-mods/MES.md` | Modular Encounters System — spawn groups, prefabs, encounter types, MES-specific SBC fields |
+| `framework-mods/AI_ENABLED.md` | AI Enabled — bot definitions, animation controllers, faction setup, child mod structure |
+| `framework-mods/WEAPONCORE.md` | WeaponCore — weapon definitions, ammo types, targeting, WC-specific SBC fields |
+| `framework-mods/ANIMATION_ENGINE.md` | Animation Engine — animation definitions, triggers, subpart control |
+| `framework-mods/SCOPE_FRAMEWORK.md` | Scope Framework — optic overlay definitions, zoom levels, reticle setup |
+| `framework-mods/TANK_TRACKS.md` | Tank Tracks — tracked vehicle setup, wheel group definitions |
+| `framework-mods/VANILLA_PLUS.md` | Vanilla+ Framework — child mod structure, VPFAmmoDefinition, VPFTurretDefinition |
+
+### Plugins
+
+| File | Contents |
+|------|---------|
+| `plugins/TORCH.md` | Torch — installation, plugin development, manifest format, NexusV3 multi-server |
+| `plugins/PULSAR.md` | Pulsar — installation, plugin development, PluginHub publishing, HarmonyLib patching |
+
+### Troubleshooting & Reference
+
+| File | Contents |
+|------|---------|
+| `troubleshooting/TROUBLESHOOTING.md` | Error reference — log reading strategy, all common errors with causes and fixes |
+| `troubleshooting/PATCH_NOTES.md` | Breaking changes and notable additions by patch — quick reference for mod compatibility |
+| `troubleshooting/DLC_CATALOGUE.md` | Full DLC pack listing with SubtypeIds — used for patch detection on skill load |
 
 ---
 
-## Usage Examples
+## 💬 Usage Examples
 
 ```
 /space-engineers
@@ -113,14 +167,21 @@ When you invoke `/space-engineers`, Claude will:
 > My mod isn't loading — here's the game log, can you find the error?
 ```
 
+```
+/space-engineers
+> I want to add a custom block with a 3D model — where do I start?
+```
+
 ---
 
 ## Requirements
 
 - [Claude Code](https://www.anthropic.com/claude-code)
 - Space Engineers installed via Steam
-- Space Engineers ModSDK installed (free via Steam Tools)
+- Space Engineers ModSDK installed (free via Steam → Library → Tools)
+- For compiled mods: [MDK2](https://github.com/malware-dev/MDK-SE) and Visual Studio or Rider
 - For Mod Adjuster mods: [Mod Adjuster](https://steamcommunity.com/workshop/filedetails/?id=3017795356) subscribed in Steam Workshop
+- For asset pipeline work: Blender 4.0+ with the [SEUT addon](https://spaceengineers.wiki.gg/wiki/Modding/Tools/Space_Engineers_Utilities)
 
 ---
 
@@ -128,7 +189,7 @@ When you invoke `/space-engineers`, Claude will:
 
 Built by **Godimas** and **Claude**.
 
-Mod Adjuster XML format reverse-engineered from the [Mod Adjuster](https://steamcommunity.com/workshop/filedetails/?id=3017795356) mod source (Workshop ID: 3017795356).
+Mod Adjuster XML format reverse-engineered from the [Mod Adjuster](https://steamcommunity.com/workshop/filedetails/?id=3017795356) mod source (Workshop ID: 3017795356). Framework documentation sourced from the [Space Engineers Wiki](https://spaceengineers.wiki.gg/wiki/Modding/Reference) and community resources.
 
 ---
 

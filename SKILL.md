@@ -107,7 +107,7 @@ To detect it: look for a directory that contains 10+ numeric-named subfolders (e
 SE patches regularly. Detect new content before starting work.
 
 1. Read `[SE]\Content\Data\Game\DLCs.sbc` and extract all `<SubtypeId>` values
-2. Compare against the known list in [DLC_CATALOGUE.md](DLC_CATALOGUE.md)
+2. Compare against the known list in [DLC_CATALOGUE.md](troubleshooting/DLC_CATALOGUE.md)
 3. If any SubtypeIds are present in the file but **not** in the catalogue:
    > "I've detected new DLC in your game files not in my catalogue: [list]. A patch was likely released. Would you like me to research the new content?"
    - If yes: web-search each new SubtypeId and update working knowledge for the session
@@ -151,7 +151,7 @@ Options:
       description: "Ingame PB script — sandboxed C#, whitelist restrictions apply"
   ```
   Then:
-  - **Brand new mod** → Ask which mod they're working on. Read the relevant CLAUDE.md and MOD_MAKING_NOTES.md. Reference [SBC_TEMPLATES.md](SBC_TEMPLATES.md) and [PATCH_NOTES.md](PATCH_NOTES.md) for field reference and breaking changes.
+  - **Brand new mod** → Ask which mod they're working on. Read the relevant CLAUDE.md and MOD_MAKING_NOTES.md. Reference [SBC_TEMPLATES.md](SBC_TEMPLATES.md) and [PATCH_NOTES.md](troubleshooting/PATCH_NOTES.md) for field reference and breaking changes. If the mod includes custom 3D models or textures, also read [ASSETS.md](ASSETS.md). For step-by-step worked examples, see [RECIPES.md](RECIPES.md).
   - **Framework mod** → Ask which framework:
     ```
     Question: "Which framework?"
@@ -174,18 +174,18 @@ Options:
         description: "Advanced projectile and weapon behaviors on vanilla weapons (server-side)"
     ```
     Then:
-    - **MES** → Read [MES.md](MES.md). Ask which mod they're working on and reference the mod catalogue for installed MES packs.
-    - **AI Enabled** → Read [AI_ENABLED.md](AI_ENABLED.md). Reference the mod catalogue for installed AI Enabled mods.
-    - **WeaponCore** → Read [WEAPONCORE.md](WEAPONCORE.md). Reference the mod catalogue for the WeaponCore Workshop ID and any child mods.
-    - **Mod Adjuster** → Read [MOD_ADJUSTER.md](MOD_ADJUSTER.md). Reference the mod catalogue to find the target mod's Workshop ID and SBC definitions.
-    - **Animation Engine** → Read [ANIMATION_ENGINE.md](ANIMATION_ENGINE.md).
-    - **Scope Framework** → Read [SCOPE_FRAMEWORK.md](SCOPE_FRAMEWORK.md).
-    - **Tank Tracks** → Read [TANK_TRACKS.md](TANK_TRACKS.md).
-    - **Vanilla+** → Read [VANILLA_PLUS.md](VANILLA_PLUS.md). Note: framework Workshop listing is unlisted — docs are in the local workshop cache and the VPF Discord.
-  - **Compiled C#** → Ask which mod they're working on. Read CLAUDE.md and MOD_MAKING_NOTES.md. Reference [CSHARP_PATTERNS.md](CSHARP_PATTERNS.md). Clarify Text Surface Script vs Session Component vs Game Logic if not clear from context.
-  - **PB script** → Apply PB sandbox restrictions throughout. See [PB_SCRIPTS.md](PB_SCRIPTS.md).
+    - **MES** → Read [MES.md](framework-mods/MES.md). Ask which mod they're working on and reference the mod catalogue for installed MES packs.
+    - **AI Enabled** → Read [AI_ENABLED.md](framework-mods/AI_ENABLED.md). Reference the mod catalogue for installed AI Enabled mods.
+    - **WeaponCore** → Read [WEAPONCORE.md](framework-mods/WEAPONCORE.md). Reference the mod catalogue for the WeaponCore Workshop ID and any child mods.
+    - **Mod Adjuster** → Read [MOD_ADJUSTER.md](framework-mods/MOD_ADJUSTER.md). Reference the mod catalogue to find the target mod's Workshop ID and SBC definitions.
+    - **Animation Engine** → Read [ANIMATION_ENGINE.md](framework-mods/ANIMATION_ENGINE.md).
+    - **Scope Framework** → Read [SCOPE_FRAMEWORK.md](framework-mods/SCOPE_FRAMEWORK.md).
+    - **Tank Tracks** → Read [TANK_TRACKS.md](framework-mods/TANK_TRACKS.md).
+    - **Vanilla+** → Read [VANILLA_PLUS.md](framework-mods/VANILLA_PLUS.md). Note: framework Workshop listing is unlisted — docs are in the local workshop cache and the VPF Discord.
+  - **Compiled C#** → Ask which mod they're working on. Read CLAUDE.md and MOD_MAKING_NOTES.md. Reference [CSHARP_PATTERNS.md](scripting/CSHARP_PATTERNS.md). Clarify Text Surface Script vs Session Component vs Game Logic if not clear from context.
+  - **PB script** → Apply PB sandbox restrictions throughout. See [PB_SCRIPTS.md](scripting/PB_SCRIPTS.md).
 
-- **Torch or Pulsar plugin** → Ask "Torch or Pulsar?" and "Where is it installed?" See [TORCH.md](TORCH.md) or [PULSAR.md](PULSAR.md) accordingly.
+- **Torch or Pulsar plugin** → Ask "Torch or Pulsar?" and "Where is it installed?" See [TORCH.md](plugins/TORCH.md) or [PULSAR.md](plugins/PULSAR.md) accordingly.
 
 - **Just ask / Other** → Take their question at face value and answer directly. No further setup questions.
 
@@ -274,8 +274,8 @@ Four completely different environments. Get this wrong and nothing works.
 
 > **InfoLCD is a Text Surface Script mod.** Full .NET access. None of the PB sandbox restrictions apply.
 >
-> For Mod Adjuster details see [MOD_ADJUSTER.md](MOD_ADJUSTER.md).
-> For PB scripting details see [PB_SCRIPTS.md](PB_SCRIPTS.md).
+> For Mod Adjuster details see [MOD_ADJUSTER.md](framework-mods/MOD_ADJUSTER.md).
+> For PB scripting details see [PB_SCRIPTS.md](scripting/PB_SCRIPTS.md).
 
 ---
 
@@ -720,14 +720,17 @@ Consolidated notes for all mods in this workspace.
 ## Supporting Reference Files
 
 - [SBC_TEMPLATES.md](SBC_TEMPLATES.md) — Copy-paste XML templates
-- [CSHARP_PATTERNS.md](CSHARP_PATTERNS.md) — Extended C# patterns
-- [MOD_ADJUSTER.md](MOD_ADJUSTER.md) — Full Mod Adjuster guide
-- [PB_SCRIPTS.md](PB_SCRIPTS.md) — Full Programmable Block scripting guide
-- [TORCH.md](TORCH.md) — Torch dedicated server framework: installation, plugin dev, NexusV3
-- [PULSAR.md](PULSAR.md) — Pulsar client plugin loader: installation, plugin dev, PluginHub
-- [MES.md](MES.md) — Modular Encounters System: profile types, SBC format, child mod structure
-- [AI_ENABLED.md](AI_ENABLED.md) — AI Enabled: bot definitions, character SBC, MES integration, child mods
-- [DLC_CATALOGUE.md](DLC_CATALOGUE.md) — Full DLC pack listing + patch detection instructions
+- [CSHARP_PATTERNS.md](scripting/CSHARP_PATTERNS.md) — Extended C# patterns
+- [ASSETS.md](ASSETS.md) — Model pipeline, textures, collisions, materials
+- [RECIPES.md](RECIPES.md) — Step-by-step worked examples (LCD App Script, Armor Block)
+- [TROUBLESHOOTING.md](troubleshooting/TROUBLESHOOTING.md) — Error lookup, log reading, common failures
+- [MOD_ADJUSTER.md](framework-mods/MOD_ADJUSTER.md) — Full Mod Adjuster guide
+- [PB_SCRIPTS.md](scripting/PB_SCRIPTS.md) — Full Programmable Block scripting guide
+- [TORCH.md](plugins/TORCH.md) — Torch dedicated server framework: installation, plugin dev, NexusV3
+- [PULSAR.md](plugins/PULSAR.md) — Pulsar client plugin loader: installation, plugin dev, PluginHub
+- [MES.md](framework-mods/MES.md) — Modular Encounters System: profile types, SBC format, child mod structure
+- [AI_ENABLED.md](framework-mods/AI_ENABLED.md) — AI Enabled: bot definitions, character SBC, MES integration, child mods
+- [DLC_CATALOGUE.md](troubleshooting/DLC_CATALOGUE.md) — Full DLC pack listing + patch detection instructions
 
 ---
 

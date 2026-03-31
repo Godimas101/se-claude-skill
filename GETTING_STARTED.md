@@ -249,3 +249,94 @@ Mods load **bottom-to-top** in the in-game mod list. The mod **highest** in the 
 | [Official ModAPI docs](https://keensoftwarehouse.github.io/SpaceEngineersModAPI/api/index.html) | C# API reference |
 | [Community ModAPI docs](https://malforge.github.io/spaceengineers/modapi/) | Broader C# API reference |
 | SE Wiki | https://spaceengineers.wiki.gg/wiki/Modding |
+
+---
+
+## Finding a Block's TypeId and SubtypeId
+
+<!-- source: https://spaceengineers.wiki.gg/wiki/Modding/Tutorials/SBC/Finding_SBC -->
+
+Display names and internal IDs are often completely different (e.g., "Action Relay" is `TransponderBlock` internally). Use this workflow to find the correct identifiers for any block or item.
+
+**Step 1 — Find the display name key in localization**
+
+Open: `[SE install]\Content\Data\Localization\MyTexts.resx`
+
+Search for the exact in-game display name (case-insensitive). Copy the `name` attribute value from the matching entry.
+
+```xml
+<!-- Example result when searching "Custom Turret Controller" -->
+<data name="DisplayName_TurretControlBlock" xml:space="preserve">
+  <value>Custom Turret Controller</value>
+</data>
+```
+
+Copy: `DisplayName_TurretControlBlock`
+
+**Step 2 — Find the block definition using that key**
+
+In Notepad++ (Ctrl+Shift+F) or VS Code (search across files):
+- **Find what:** `DisplayName_TurretControlBlock`
+- **Filter:** `*.sbc`
+- **Directory:** `[SE install]\Content\Data\`
+- Disable case-sensitive and whole-word matching
+
+**Step 3 — Read TypeId and SubtypeId from the result**
+
+Open the matching file. The definition's `<Id>` block gives you what you need:
+
+```xml
+<Id>
+  <TypeId>TurretControlBlock</TypeId>
+  <SubtypeId>LargeTurretControlBlock</SubtypeId>
+</Id>
+```
+
+**Shortcuts:**
+- The vanilla SBC files are at: `[Steam]\steamapps\common\SpaceEngineers\Content\Data\`
+- Notepad++ "Find in Files" (`Ctrl+Shift+F`) is the fastest tool for this
+- VS Code: `Ctrl+Shift+F` → set "files to include" to `*.sbc`
+
+---
+
+## Symlink Trick: Separate Source from Published Mod
+
+<!-- source: https://spaceengineers.wiki.gg/wiki/Modding/Tutorials/Setting_Up_a_Modding_Environment -->
+
+Keep your source files (`.blend`, `.csproj`, reference docs) outside the mod folder while SE reads from `%AppData%`. Use a directory junction (symlink):
+
+```cmd
+mklink /J "%AppData%\SpaceEngineers\Mods\YourModName" "C:\Dev\YourModName\Content"
+```
+
+This makes SE see `YourModName\Content\` as if it were the mod folder directly. Your source files stay in `C:\Dev\YourModName\` without appearing inside the mod.
+
+**Also useful:** Create desktop shortcuts to:
+- `%AppData%\SpaceEngineers\` (logs and local mods)
+- `[Steam]\steamapps\common\SpaceEngineers\Content\Data\` (vanilla SBCs)
+- Your mod development folder
+
+---
+
+## Wiki Tutorial Index
+
+<!-- source: https://spaceengineers.wiki.gg/wiki/Modding/Tutorials -->
+
+Key wiki pages not already linked elsewhere in these skill files:
+
+| Topic | URL |
+|-------|-----|
+| Adding to Block Categories | `spaceengineers.wiki.gg/wiki/Modding/Tutorials/SBC/BlockCategories` |
+| Adding to Block Variant Groups | `spaceengineers.wiki.gg/wiki/Modding/Tutorials/SBC/BlockVariantGroups` |
+| Blueprint Classes (assembler tabs) | `spaceengineers.wiki.gg/wiki/Modding/Tutorials/SBC/BlueprintClasses` |
+| Progression / Research locks | `spaceengineers.wiki.gg/wiki/Modding/Tutorials/SBC/Progression` |
+| Adding LCDs/Screens to blocks | `spaceengineers.wiki.gg/wiki/Modding/Tutorials/SBC/Screens` |
+| Cargo loot tables | `spaceengineers.wiki.gg/wiki/Modding/Tutorials/SBC/Cargo_Loot` |
+| Convert Prefab ↔ ShipBlueprint | `spaceengineers.wiki.gg/wiki/Modding/Tutorials/SBC/Convert_between_Prefab_and_ShipBlueprint` |
+| Adding localization strings | `spaceengineers.wiki.gg/wiki/Modding/Tutorials/Localization` |
+| Exploring game code (decompile) | `spaceengineers.wiki.gg/wiki/Modding/Tutorials/Exploring_Game_Code` |
+| Debugging with dnSpy | `spaceengineers.wiki.gg/wiki/Scripting/Debugging_with_dnSpy` |
+| Armor block recipe (full) | `spaceengineers.wiki.gg/wiki/Modding/Tutorials/Recipes/Armor_Block` |
+| LCD App mod script recipe | `spaceengineers.wiki.gg/wiki/Modding/Tutorials/Recipes/LCD_App_Mod_Script` |
+| Modifying mods by other creators | `spaceengineers.wiki.gg/wiki/Modding/Tutorials/Modifying_Mods_by_Other_Creators` |
+| PB scripting (ingame scripts) | `spaceengineers.wiki.gg/wiki/Scripting` |

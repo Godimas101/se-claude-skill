@@ -1,6 +1,6 @@
 # SBC Templates & Reference — Space Engineers
 
-Copy-paste XML templates and field references for common modding patterns. Always cross-reference vanilla SBCs at `D:\SteamLibrary\steamapps\common\SpaceEngineers\Content\Data\` for exact schema.
+Copy-paste XML templates and field references for common modding patterns. Always cross-reference vanilla SBCs at `[Steam]\steamapps\common\SpaceEngineers\Content\Data\` for exact schema.
 
 ---
 
@@ -50,7 +50,7 @@ You can reference models, textures, icons, and sounds from **another Workshop mo
 
 Workshop mods all live in the same parent folder:
 ```
-SteamLibrary\steamapps\workshop\content\244850\
+[Steam]\steamapps\workshop\content\244850\
   12345678\     ← mod with Workshop ID 12345678
   99887766\     ← your mod with Workshop ID 99887766
 ```
@@ -284,7 +284,7 @@ Copy the exact vanilla `<Icon>`, `<DisplayName>`, and `<Description>`. Include A
 
 > `Block Type` uses the `MyObjectBuilder_` prefix. This is different from `ItemIds` in categories which use the bare TypeId.
 
-> Always get the full vanilla block list from `D:\SteamLibrary\steamapps\common\SpaceEngineers\Content\Data\BlockVariantGroups.sbc` before writing your override — the vanilla list changes between game patches.
+> Always get the full vanilla block list from `[Steam]\steamapps\common\SpaceEngineers\Content\Data\BlockVariantGroups.sbc` before writing your override — the vanilla list changes between game patches.
 
 ### Vanilla DisplayName keys and Icons for common groups
 
@@ -699,7 +699,7 @@ Every `<Definition>` in a `<CubeBlocks>` file needs `xsi:type` on the element if
 - **EntityComp** — can get conveyor access via `EntityContainers.sbc` `ConveyorEndpointComponent`
 - **Inherent** — conveyor connectivity built into the block type (model still needs conveyor port dummies)
 
-> Full table at `D:\SteamLibrary\steamapps\common\SpaceEngineers\Content\Data\CubeBlocks\` — copy the right file for the block type you're creating.
+> Full table at `[Steam]\steamapps\common\SpaceEngineers\Content\Data\CubeBlocks\` — copy the right file for the block type you're creating.
 
 ---
 
@@ -849,4 +849,410 @@ These are the internal names for the game's built-in LCD apps. Use in `<ScreenAr
 | `Explosives` | Explosives |
 | `ZoneChip` | Zone Chip |
 
-> Cross-reference `D:\SteamLibrary\steamapps\common\SpaceEngineers\Content\Data\Components.sbc` for definitive list including mass/volume values.
+> Cross-reference `[Steam]\steamapps\common\SpaceEngineers\Content\Data\Components.sbc` for definitive list including mass/volume values.
+
+---
+
+## BlueprintClass Definition (New Production Tab)
+
+<!-- Source: https://spaceengineers.wiki.gg/wiki/Modding/Tutorials/SBC/BlueprintClasses -->
+
+Creates a new tab in a production block's UI. You must also link a production block to this class via its SBC definition, and add blueprint entries to populate it.
+
+**The three-layer system:**
+1. `BlueprintClass` — defines the tab (icon, name, hover text)
+2. `BlueprintClassEntries` — links blueprints to a class (additive, safe for mods)
+3. `Blueprint` — defines what goes in → what comes out
+
+### New BlueprintClass (production tab)
+
+```xml
+<?xml version="1.0" encoding="utf-8"?>
+<Definitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <BlueprintClasses>
+    <Class>
+      <Id>
+        <TypeId>BlueprintClassDefinition</TypeId>
+        <SubtypeId>MyMod_CustomTab</SubtypeId>
+      </Id>
+      <DisplayName>My Custom Tab</DisplayName>
+      <Description>Hover text shown on the tab</Description>
+      <!-- All icon fields are optional but recommended -->
+      <Icon>Textures\\GUI\\Icons\\SomeFile.dds</Icon>
+      <HighlightIcon>Textures\\GUI\\Icons\\SomeFile.dds</HighlightIcon>
+      <FocusIcon>Textures\\GUI\\Icons\\SomeFile_Focused.dds</FocusIcon>
+      <InputConstraintIcon>Textures\\GUI\\Icons\\filter_ore.dds</InputConstraintIcon>
+      <OutputConstraintIcon>Textures\\GUI\\Icons\\FilterComponent.dds</OutputConstraintIcon>
+    </Class>
+  </BlueprintClasses>
+</Definitions>
+```
+
+### Add blueprint to existing class (preferred mod approach)
+
+`BlueprintClassEntries` is **additive** — multiple mods can safely use it without conflicts.
+
+```xml
+<?xml version="1.0" encoding="utf-8"?>
+<Definitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <BlueprintClassEntries>
+    <!-- Add to an existing class by name -->
+    <Entry Class="SimpleComponents" BlueprintSubtypeId="MY_RECIPE_SUBTYPE" />
+    <!-- Block auto-generates a blueprint using TypeId/SubtypeId format -->
+    <Entry Class="LargeBlocks" BlueprintSubtypeId="CubeBlock/MY_BLOCK_SUBTYPE" />
+    <!-- Null subtype blocks use (null) after the slash -->
+    <Entry Class="LargeBlocks" BlueprintSubtypeId="JumpDrive/(null)" />
+  </BlueprintClassEntries>
+</Definitions>
+```
+
+### Remove a blueprint from a class
+
+Self-closing `<Entry />` cannot have children — use full open/close tags:
+
+```xml
+<BlueprintClassEntries>
+  <Entry Class="SimpleComponents" BlueprintSubtypeId="MedicalComponent">
+    <Enabled>false</Enabled>
+  </Entry>
+</BlueprintClassEntries>
+```
+
+### Blueprint definition (recipe)
+
+```xml
+<Blueprints>
+  <Blueprint>
+    <Id Type="MyObjectBuilder_BlueprintDefinition" Subtype="MY_RECIPE_SUBTYPE" />
+    <DisplayName>My Recipe Name</DisplayName>
+    <Icon>Textures\\GUI\\Icons\\component\\MyComponent.dds</Icon>
+    <Prerequisites>
+      <Item Amount="10" TypeId="Ore" SubtypeId="Iron" />
+      <Item Amount="2"  TypeId="Ore" SubtypeId="Nickel" />
+    </Prerequisites>
+    <Results>
+      <Item Amount="1" TypeId="Component" SubtypeId="MY_COMPONENT" />
+    </Results>
+    <BaseProductionTimeInSeconds>5</BaseProductionTimeInSeconds>
+    <!-- IsPrimary=true means this recipe is used for disassembly reverse lookup -->
+    <IsPrimary>false</IsPrimary>
+  </Blueprint>
+</Blueprints>
+```
+
+### Gotchas
+
+- **Do NOT copy block SBC files** just to add blueprints — use `BlueprintClassEntries` only.
+- **Same item in Prerequisites and Results** — crashes if that item's `<MinimalPricePerUnit>` equals `-1`.
+- **Handitem definitions are not valid physical items** in blueprints — use `PhysicalItem` TypeIds.
+- **Find the class name** for a production block in `Content\Data\CubeBlocks\CubeBlocks_Production.sbc` — look for `<BlueprintClasses>` on the block definition.
+
+---
+
+## Progression / Research Lock
+
+<!-- Source: https://spaceengineers.wiki.gg/wiki/Modding/Tutorials/SBC/Progression -->
+
+Locks blocks behind research. Players must build a "trigger" block to unlock a group; any member of the group unlocks it.
+
+### Lock a block behind a research group
+
+```xml
+<?xml version="1.0" encoding="utf-8"?>
+<Definitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <ResearchBlocks>
+    <!-- The block that gets locked -->
+    <ResearchBlock xsi:type="ResearchBlock">
+      <Id Type="CubeBlock" Subtype="MY_BLOCK_SUBTYPE" />
+      <UnlockedByGroups>
+        <!-- Must build any block in this group to unlock -->
+        <GroupSubtype>MY_RESEARCH_GROUP</GroupSubtype>
+      </UnlockedByGroups>
+    </ResearchBlock>
+  </ResearchBlocks>
+
+  <ResearchGroups>
+    <!-- The group — building ANY member unlocks it -->
+    <ResearchGroup xsi:type="ResearchGroup">
+      <Id Type="MyObjectBuilder_ResearchGroupDefinition" Subtype="MY_RESEARCH_GROUP" />
+      <Members>
+        <BlockId Type="CubeBlock" Subtype="TRIGGER_BLOCK_SUBTYPE" />
+        <!-- Add more trigger blocks here if desired -->
+      </Members>
+    </ResearchGroup>
+  </ResearchGroups>
+</Definitions>
+```
+
+### Gotchas
+
+- **`MyObjectBuilder_` prefix is optional** in `<Id Type>` and `<BlockId Type>` — both forms accepted.
+- **Any member unlocks the group** — you cannot require ALL members, only ANY one.
+- Both `<ResearchBlocks>` and `<ResearchGroups>` can be in the same `.sbc` file.
+- The `xsi:type="ResearchBlock"` and `xsi:type="ResearchGroup"` are short forms (no `MyObjectBuilder_` prefix needed here).
+
+---
+
+## Screens / LCDs on Blocks (ScreenAreas)
+
+<!-- Source: https://spaceengineers.wiki.gg/wiki/Modding/Tutorials/SBC/Screens -->
+
+Adds text surface(s) to a block. Each `<ScreenArea>` entry creates one `IMyTextSurface` surface, accessible via `IMyTextSurfaceProvider.GetSurface(index)` in scripts.
+
+### ScreenArea field reference
+
+| Attribute | Type | Required | Default | Notes |
+|-----------|------|----------|---------|-------|
+| `Name` | string | Yes | — | Must match a material name inside the `.mwm` model. ColorMetal texture of that material is replaced with the rendered screen. |
+| `DisplayName` | string | Yes | — | Label shown in terminal UI. Can be plain text or a localization key. |
+| `ScreenWidth` | int | No | 1 | Used with ScreenHeight for aspect ratio. Measure UV width directly. |
+| `ScreenHeight` | int | No | 1 | Measure UV height directly from model. |
+| `TextureResolution` | int | No | 512 | Suggested resolution — actual render can be larger on one axis due to aspect ratio rounding. |
+| `Script` | string | No | — | Internal name of built-in LCD app to run by default (e.g. `TSS_ClockDigital`). |
+
+### XML example
+
+```xml
+<ScreenAreas>
+  <!-- Surface 0 — index used in GetSurface(0) -->
+  <ScreenArea Name="ScreenMaterialName"
+              DisplayName="Main Display"
+              ScreenWidth="2"
+              ScreenHeight="1"
+              TextureResolution="512"
+              Script="" />
+  <!-- Surface 1 -->
+  <ScreenArea Name="SideScreenMaterial"
+              DisplayName="Side Panel"
+              ScreenWidth="1"
+              ScreenHeight="1"
+              TextureResolution="256" />
+</ScreenAreas>
+```
+
+### Model setup requirements (3D artist notes)
+
+- **UV must be centered** and touch the edges on at least one axis — off-center UVs won't render correctly.
+- **Add a plane behind the LCD plane** — when the block is on but the screen is blank, the screen material becomes invisible, revealing whatever is behind it.
+- `_ng` and `_add` textures can reference the game's own screen material textures.
+
+---
+
+## Cargo Loot (ContainerTypes)
+
+<!-- Source: https://spaceengineers.wiki.gg/wiki/Modding/Tutorials/SBC/Cargo_Loot -->
+
+Three ways to assign a loot table to inventory blocks. The loot table SubtypeId must reference a `ContainerType` definition.
+
+### Method 1 — CargoContainer block (simplest)
+
+Only works for blocks with `TypeId=CargoContainer`. Add directly to the prefab/grid definition:
+
+```xml
+<MyObjectBuilder_CubeBlock xsi:type="MyObjectBuilder_CargoContainer">
+  <!-- other block properties -->
+  <ContainerType>MY_LOOT_TABLE_SUBTYPE</ContainerType>
+</MyObjectBuilder_CubeBlock>
+```
+
+### Method 2 — Any inventory block (via ComponentContainer in prefab)
+
+Used in prefab `.sbc` files for non-CargoContainer blocks. Insert inside the block's `<ComponentContainer>`:
+
+```xml
+<ComponentContainer>
+  <Components>
+    <!-- preserve existing components here -->
+    <ComponentData>
+      <TypeId>MyRandomCargoEntityComponent</TypeId>
+      <Component xsi:type="MyObjectBuilder_RandomCargoEntityComponent">
+        <ContainerType>MY_LOOT_TABLE_SUBTYPE</ContainerType>
+      </Component>
+    </ComponentData>
+  </Components>
+</ComponentContainer>
+```
+
+### Method 3 — Global block-type loot (EntityContainers)
+
+Applies loot to ALL blocks of a given TypeId. Uses two linked definitions:
+
+```xml
+<?xml version="1.0" encoding="utf-8"?>
+<Definitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+
+  <!-- Step 1: Register the component on the block type -->
+  <EntityContainers>
+    <Container>
+      <Id>
+        <TypeId>OxygenTank</TypeId>
+        <!-- No SubtypeId = applies to ALL OxygenTank subtypes -->
+      </Id>
+      <DefaultComponents>
+        <Component BuilderType="MyObjectBuilder_RandomCargoEntityComponent"
+                   SubtypeId="MY_LOOT_COMP_SUBTYPE"
+                   ForceCreate="true" />
+      </DefaultComponents>
+    </Container>
+  </EntityContainers>
+
+  <!-- Step 2: Define the component pointing to the loot table -->
+  <EntityComponents>
+    <EntityComponent xsi:type="MyObjectBuilder_RandomCargoEntityComponentDefinition">
+      <Id>
+        <TypeId>RandomCargoEntityComponent</TypeId>
+        <SubtypeId>MY_LOOT_COMP_SUBTYPE</SubtypeId>
+      </Id>
+      <ContainerType>MY_LOOT_TABLE_SUBTYPE</ContainerType>
+    </EntityComponent>
+  </EntityComponents>
+
+</Definitions>
+```
+
+### Gotchas
+
+- **Delete `.sbcB5` cache files** when testing loot changes — the binary cache shadows your edits.
+- **Ensure `.sbcB5` exists before publishing** — generate it by loading the game with your mod active.
+- **`OxygenTank` TypeId includes hydrogen tanks** — applying globally to `OxygenTank` affects both.
+- **Don't override existing loot tables via SBC** — non-additive and goes stale with updates. Use C# mod scripts for complex loot.
+- **Method 2 warning:** Do not accidentally remove existing `<ComponentData>` entries when inserting yours.
+- Method 1's `<ContainerType>` is ignored if the block also has `MyRandomCargoEntityComponent` in `<ComponentContainer>` — they don't stack.
+
+---
+
+## Prefab vs ShipBlueprint Conversion
+
+<!-- Source: https://spaceengineers.wiki.gg/wiki/Modding/Tutorials/SBC/Convert_between_Prefab_and_ShipBlueprint -->
+
+Prefabs (spawnable encounters/NPC ships) and ship blueprints (player save files) use nearly identical XML but live in different lists. They cannot be used interchangeably without conversion.
+
+### Prefab format (mod-distributed ship)
+
+Place in `Data\Prefabs\` in your mod folder:
+
+```xml
+<?xml version="1.0" encoding="utf-8"?>
+<Definitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Prefabs>
+    <Prefab xsi:type="MyObjectBuilder_PrefabDefinition">
+      <Id Type="MyObjectBuilder_PrefabDefinition" Subtype="MY_UNIQUE_PREFAB_NAME" />
+      <!-- ShipBlueprint ship data goes here -->
+    </Prefab>
+  </Prefabs>
+</Definitions>
+```
+
+### ShipBlueprint format (player blueprint)
+
+File **must be named `bp.sbc`**. Place in `%AppData%\SpaceEngineers\Blueprints\Local\<FolderName>\bp.sbc`:
+
+```xml
+<?xml version="1.0" encoding="utf-8"?>
+<Definitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <ShipBlueprints>
+    <ShipBlueprint xsi:type="MyObjectBuilder_ShipBlueprintDefinition">
+      <!-- Prefab ship data goes here -->
+    </ShipBlueprint>
+  </ShipBlueprints>
+</Definitions>
+```
+
+### Conversion steps
+
+**ShipBlueprint → Prefab (for mod distribution):**
+1. Change `<ShipBlueprints>` wrapper to `<Prefabs>`
+2. Change `<ShipBlueprint xsi:type="...ShipBlueprintDefinition">` to `<Prefab xsi:type="...PrefabDefinition">`
+3. Add `<Id Type="MyObjectBuilder_PrefabDefinition" Subtype="UNIQUE_NAME" />`
+4. Place in `Data\Prefabs\` in your mod
+
+**Prefab → ShipBlueprint (for personal use):**
+1. Change `<Prefabs>` wrapper to `<ShipBlueprints>`
+2. Change `<Prefab xsi:type="...PrefabDefinition">` to `<ShipBlueprint xsi:type="...ShipBlueprintDefinition">`
+3. Rename file to `bp.sbc`
+4. Place in `%AppData%\SpaceEngineers\Blueprints\Local\<FolderName>\bp.sbc`
+
+### Gotcha
+
+- SubtypeId values should be globally unique — reusing an existing prefab SubtypeId overwrites it.
+
+---
+
+## Finding SBC Files and Definition IDs
+
+<!-- Source: https://spaceengineers.wiki.gg/wiki/Modding/Tutorials/SBC/Finding_SBC -->
+
+Internal block names are often completely different from display names. "Action Relay" is a `TransponderBlock` type — you cannot guess these.
+
+### Workflow: display name → SBC file
+
+1. Open `Content\Data\Localization\MyTexts.resx`
+2. Search for the block's display name (e.g. "Custom Turret Controller")
+3. Copy the `name` attribute from the matching `<data>` element:
+   ```xml
+   <data name="DisplayName_TurretControlBlock" xml:space="preserve">
+     <value>Custom Turret Controller</value>
+   </data>
+   ```
+   → internal key is `DisplayName_TurretControlBlock`
+4. Use Notepad++ Find in Files (or any multi-file search tool):
+   - Search pattern: `DisplayName_TurretControlBlock`
+   - File filter: `*.sbc`
+   - Directory: `Content\Data\`
+5. The matching SBC file and `<SubtypeId>` are the source definition to copy.
+
+### Notes
+
+- Visual names and internal names diverge frequently — always confirm via `MyTexts.resx`.
+- `Content\Data\Localization\MyTexts.resx` contains **all** English display strings for vanilla blocks, items, and components.
+
+---
+
+## BlockCategories — Extended Reference
+
+<!-- Source: https://spaceengineers.wiki.gg/wiki/Modding/Tutorials/SBC/BlockCategories -->
+
+Extends the existing Block Category section above with additional field details and positioning tricks.
+
+### Category positioning via Name
+
+The `<Name>` value controls ordering in the G-menu. Appending a suffix after an existing name sorts after it:
+
+```
+Section1_Position2_Armorblocks           ← vanilla
+Section1_Position2_Armorblocks_Fancy     ← your mod's sub-category, appears after
+```
+
+Sub-categories can be visually indented by prefixing `DisplayName` with three spaces:
+```xml
+<DisplayName>   My Sub-Category</DisplayName>
+```
+
+### Tool and hotbar visibility
+
+`<IsToolCategory>true</IsToolCategory>` is required for weapons and hand tools to appear on the character hotbar. Without it, they only show in the G-menu.
+
+### Block pairing behavior
+
+If a small grid block and a large grid block share the same `BlockPairName` and both are in the same `BlockCategory`, **only the large grid block** displays in the category. The small grid variant is accessible via grid-size swap (R key) but won't show as a separate entry.
+
+### Full field reference (supplement to existing table)
+
+| Field | Default | Notes |
+|-------|---------|-------|
+| `<Name>` | — | Identity key for additive merging. Must be unique for new tabs; must match exactly for appending to existing. |
+| `<DisplayName>` | — | Ignored when appending to existing category. Only used on initial definition. Supports `{LOC:Key}` syntax. |
+| `<IsToolCategory>` | `false` | Set `true` for weapons/tools to appear on hotbar. |
+| `<StrictSearch>` | `false` | Prevents BVG members from auto-appearing in categories containing the group's first block. |
+| `<SearchBlocks>` | `true` | Controls whether blocks appear in G-menu search. |
+| `<ShowInCreative>` | `true` | Visibility in creative mode. |
+| `<IsBlockCategory>` | `true` | Standard placeable block category. |
+| `<IsShipCategory>` | `false` | Visibility in ship toolbars (cockpit, seat, RC). |
+| `<IsAnimationCategory>` | `false` | Character emote categories. |
+

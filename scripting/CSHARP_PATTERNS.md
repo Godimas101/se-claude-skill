@@ -796,3 +796,429 @@ private void DrawCenteredText(MySpriteDrawFrame frame, IMyTextSurface surface,
 4. **Subgrid scans are expensive.** Cache subgrid block lists and refresh every 5 seconds (300 ticks), not every frame.
 
 5. **Guard against null everywhere.** Blocks can be removed from the grid between frames. Always null-check before accessing block state.
+
+---
+
+## LCD App Script — Full Working Pattern (MyTSSCommon)
+
+<!-- Source: https://spaceengineers.wiki.gg/wiki/Modding/Tutorials/Recipes/LCD_App_Mod_Script -->
+
+`MyTSSCommon` is the recommended base for LCD app scripts. It provides `Surface`, `m_halfSize`, `m_fontId`, `m_fontScale`, and `m_foregroundColor` pre-wired.
+
+```csharp
+using System;
+using Sandbox.Game.GameSystems.TextSurfaceScripts;
+using Sandbox.ModAPI;
+using VRage.Game;
+using VRage.Game.GUI.TextPanel;
+using VRage.Game.ModAPI;
+using VRage.ModAPI;
+using VRage.Utils;
+using VRageMath;
+
+namespace YourName.YourModName
+{
+    // First string: internal ID used in SBC Script="" attribute
+    // Second string: display name shown in terminal dropdown
+    [MyTextSurfaceScript("YourAppInternalName", "Your app display name")]
+    public class YourLCDApp : MyTSSCommon
+    {
+        // Control update rate: Update1, Update10, Update100, or None
+        public override ScriptUpdate NeedsUpdate { get; } = ScriptUpdate.Update10;
+
+        readonly IMyTerminalBlock TerminalBlock;
+
+        public YourLCDApp(IMyTextSurface surface, IMyCubeBlock block, Vector2 size)
+            : base(surface, block, size)
+        {
+            TerminalBlock = (IMyTerminalBlock)block;
+            // ⚠️ Required: subscribe to OnMarkForClose to prevent use-after-free
+            // The game has a bug where Dispose() is not reliably called when a block
+            // is deleted — this event fires reliably.
+            TerminalBlock.OnMarkForClose += BlockDeleted;
+        }
+
+        public override void Dispose()
+        {
+            base.Dispose();
+            // Always unsubscribe to avoid memory leaks and phantom callbacks
+            TerminalBlock.OnMarkForClose -= BlockDeleted;
+        }
+
+        void BlockDeleted(IMyEntity _)
+        {
+            Dispose();
+        }
+
+        public override void Run()
+        {
+            base.Run();  // ⚠️ Call base.Run() first — it clears the frame
+
+            using (var frame = Surface.DrawFrame())
+            {
+                // Surface, m_halfSize, m_fontId, m_fontScale, m_foregroundColor
+                // are all available from MyTSSCommon base class
+                frame.Add(new MySprite
+                {
+                    Type = SpriteType.TEXT,
+                    Data = "Hello World",
+                    Alignment = TextAlignment.CENTER,
+                    FontId = MyFontEnum.White,
+                    // Position = null means centered on surface (default behavior)
+                    Position = m_halfSize,
+                    Color = m_foregroundColor,
+                    RotationOrScale = m_fontScale,
+                });
+            }
+        }
+    }
+}
+```
+
+**Key points:**
+- `NeedsUpdate = ScriptUpdate.Update10` runs `Run()` ~6×/second. Use `Update100` for slow-changing data.
+- Always call `base.Run()` — it handles the frame clear that prevents sprite accumulation.
+- The `OnMarkForClose` subscription is a required workaround for a game bug where `Dispose()` isn't called on block deletion.
+- `Surface.DrawFrame()` returns a `MySpriteDrawFrame` — use `using` to auto-flush it.
+- No SBC registration needed for the script itself. The `[MyTextSurfaceScript]` attribute registers it automatically. To pre-assign the script to a block's LCD, set `Script="YourAppInternalName"` in the block's `ScreenArea` definition.
+
+---
+
+## SBC: Adding LCD Screens to Custom Blocks
+
+<!-- Source: https://spaceengineers.wiki.gg/wiki/Modding/Tutorials/SBC/Screens -->
+
+To add LCD screen functionality to a modded block, add a `<ScreenAreas>` section to the block's CubeBlocks SBC definition:
+
+```xml
+<ScreenAreas>
+    <!-- Name must match the material name in the block's 3D model -->
+    <!-- whose ColorMetal texture will be replaced by the LCD output -->
+    <ScreenArea
+        Name="MaterialNameHere"
+        DisplayName="Screen name in terminal"
+        ScreenWidth="1"
+        ScreenHeight="1"
+        TextureResolution="512"
+        Script="" />
+    <!-- Add more ScreenArea elements for additional screens on the same block -->
+</ScreenAreas>
+```
+
+**Parameter notes:**
+- `Name` — must match the material name in the model file exactly (case-sensitive)
+- `DisplayName` — shown in the terminal UI; supports localization keys like `{LOC:MyKey}`
+- `ScreenWidth` / `ScreenHeight` — integer ratio determining aspect ratio; measure the UV'd surface dimensions
+- `TextureResolution` — suggested resolution (default 512); actual resolution scales by aspect ratio
+- `Script` — internal name of the LCD app to run by default; leave empty for "No Script"
+
+**Built-in script internal names** (can be used in `Script=""` attribute):
+`TSS_Jukebox`, `TSS_ClockAnalog`, `TSS_ArtificialHorizon`, `TSS_ClockDigital`,
+`TSS_EnergyHydrogen`, `TSS_FactionIcon`, `TSS_Gravity`, `TSS_TargetingInfo`,
+`TSS_Velocity`, `TSS_VendingMachine`, `TSS_Weather`
+
+**Model requirements:**
+- The screen UV must be centered and touch edges on at least one axis
+- A backing plane behind the screen plane is required (any texture)
+- Verify the target block type supports LCDs before adding the definition
+
+---
+
+## Conveyor Network Push and Pull
+
+<!-- Source: https://spaceengineers.wiki.gg/wiki/Modding/Tutorials/Conveyor_Network_Push_and_Pull -->
+
+The conveyor system API allows mods to programmatically move items through the conveyor network from a block's perspective.
+
+### Method Signatures
+
+```csharp
+// Pull items from the conveyor network into destinationInventory.
+// Returns the amount actually pulled.
+// remove: if false, items are NOT removed from the network (dry-run/check mode)
+MyFixedPoint PullItem(
+    MyDefinitionId itemDefinitionId,
+    MyFixedPoint? amount,          // null = 0 = pulls nothing; pass a real value
+    IMyEntity startingBlock,
+    IMyInventory destinationInventory,
+    bool remove);
+
+// Push items from sourceBlock into the conveyor network (spawns them).
+// Returns false when partial push occurred, but items may still have been pushed.
+// transferredAmount: actual amount moved into the network
+bool PushGenerateItem(
+    MyDefinitionId itemDefinitionId,
+    MyFixedPoint? amount,
+    out MyFixedPoint transferredAmount,
+    IMyEntity sourceBlock,
+    bool partialPush);
+```
+
+### Basic Pull Example
+
+```csharp
+// Pull up to 10 Computer components from the conveyor network into block's inventory
+MyFixedPoint pulled = block.CubeGrid.ConveyorSystem.PullItem(
+    MyDefinitionId.Parse("MyObjectBuilder_Component/Computer"),
+    (MyFixedPoint)10,
+    block,
+    block.GetInventory(),
+    remove: true);  // true = actually consume from network
+```
+
+### Safe Push Pattern (Update100 — preserves item data integrity)
+
+```csharp
+// ⚠️ PushGenerateItem spawns NEW item instances — it does NOT move the original.
+// This means per-item data (durability, flags, datapad content) is LOST.
+// The pattern below skips items that carry special data.
+void PushOneItemToConveyor(IMyCubeBlock block)
+{
+    MyInventory inv = (MyInventory)block.GetInventory();
+    foreach (var item in inv.GetItems())
+    {
+        // Skip items that carry per-item state — pushing would destroy that data
+        if (item.Content.DurabilityHP != null || item.Content.Flags != 0)
+            continue;
+        if (item.Content is MyObjectBuilder_GasContainerObject
+         || item.Content is MyObjectBuilder_Datapad
+         || item.Content is MyObjectBuilder_BlockItem
+         || item.Content is MyObjectBuilder_Package)
+            continue;
+        var ammoMag = item.Content as MyObjectBuilder_AmmoMagazine;
+        if (ammoMag != null && ammoMag.ProjectilesCount != 0)
+            continue;
+
+        var itemDefId = item.Content.GetId();
+        MyFixedPoint transferred;
+        block.CubeGrid.ConveyorSystem.PushGenerateItem(
+            itemDefId, item.Amount, out transferred, block, partialPush: true);
+
+        if (transferred > 0)
+        {
+            // Must manually remove the original — PushGenerateItem only spawns copies
+            block.GetInventory().RemoveItemsOfType(transferred, itemDefId);
+        }
+        break;  // Push one item type per call to avoid overloading in a single tick
+    }
+}
+```
+
+**Gotchas:**
+- `PushGenerateItem` **spawns new item instances** — the original item is NOT moved. Always remove from source manually based on `transferredAmount`.
+- Passing `null` as amount is equivalent to 0 — no transfer occurs. Always pass an explicit amount.
+- `partialPush: true` allows partial transfers; method returns `false` on partial but items were still pushed.
+- On newly initialized conveyor networks, the first pull call may return 0 — the network needs one tick to initialize its graph.
+- `PullItem` with `remove: false` is useful for checking availability without consuming.
+
+### Utility Checks
+
+```csharp
+// Check if two blocks are conveyor-connected (by terminal name)
+bool connected = MyVisualScriptLogicProvider.IsConveyorConnected(
+    "Block Name A", "Block Name B");
+
+// Check if a specific item type can be transferred between two inventories
+bool canTransfer = block.GetInventory().CanTransferItemTo(
+    otherBlock.GetInventory(), new MyItemType("MyObjectBuilder_Component", "Computer"));
+```
+
+---
+
+## Debugging with dnSpy
+
+<!-- Source: https://spaceengineers.wiki.gg/wiki/Scripting/Debugging_with_dnSpy -->
+
+### Attaching to a Running Game
+
+1. Launch Space Engineers normally
+2. Open dnSpy (64-bit .NET Framework version from https://github.com/0xd4d/dnSpy/releases)
+3. `Debug → Attach to process (Ctrl+Alt+P)` → select `SpaceEngineers.exe`
+4. If the process isn't listed, run dnSpy as administrator
+
+### Catching Exceptions Automatically
+
+Enable via `Debug → Windows → Exception settings (Ctrl+Alt+E)`:
+- Search "null" → enable `NullReferenceException` (most common mod crash)
+- Add `VRage.Compiler.ScriptOutOfRangeException` for script complexity errors
+
+Trigger the error in-game — dnSpy pauses at the throw site. Then:
+- `Debug → Windows → Locals (Alt+4)` — inspect variable values at the crash point
+- `Debug → Windows → Call Stack (Ctrl+Alt+C)` — trace the full call chain
+
+### Breakpoint Workaround for In-Memory Compiled Scripts
+
+Mod scripts compiled at runtime generate new modules each time — normal breakpoints don't survive recompile. Use this pattern during development only:
+
+```csharp
+// Forces a debugger break at this exact location when dnSpy is attached.
+// ⚠️ DEBUGGING ONLY — remove before release. Never ship empty catch blocks.
+try { throw new InvalidOperationException("debug break point"); }
+catch (Exception) { }
+```
+
+### Launching the Game Directly from dnSpy (Full Variable Inspection)
+
+This disables JIT optimizations so local variables aren't elided:
+1. Ensure `steam_appid.txt` exists in `Bin64\` with content: `244850`
+2. In dnSpy: `F5` → Debug engine: `.NET Framework`
+3. Browse to `SpaceEngineers.exe` in `Bin64\`
+4. Optional launch args: `-skipintro -nosplash`
+
+Note: Game runs noticeably slower when launched this way — use only for deep debugging sessions.
+
+### Inspecting Game Code (Decompiler Mode)
+
+```
+File → Open → navigate to SpaceEngineers\Bin64\
+Select all .dll and .exe files
+Edit → Search Assemblies (Ctrl+Shift+K)
+```
+
+Right-click any type/method → **Analyze** to see where it's called, implemented, or assigned. Use this to discover what interfaces a block type implements, what overrides exist, or how Keen wires up their own components.
+
+---
+
+## Exploring Game Code — Decompiler Strategies
+
+<!-- Source: https://spaceengineers.wiki.gg/wiki/Modding/Tutorials/Exploring_Game_Code -->
+
+### Setup
+
+Use **ILSpy** (faster, simpler) or **dnSpy** (more features). Both support full decompilation of non-obfuscated SE assemblies.
+
+1. Launch decompiler → `File → Open List` (creates a persistent assembly list)
+2. Navigate to `SpaceEngineers\Bin64\` and open all DLLs
+3. Remove `.XmlSerializers.dll` files to reduce noise in search results
+
+### Search Strategies
+
+| Decompiler | Search command |
+|-----------|---------------|
+| ILSpy | `View → Search` |
+| dnSpy | `Edit → Search Assemblies (Ctrl+Shift+K)` |
+
+Search by partial class name, method name, or property name. Example: searching `safezone` finds both `MySafeZone` (entity) and `MySafeZoneBlock` (block implementation).
+
+### Navigating the Code Graph
+
+- **Forward:** Click any method name to jump to its implementation
+- **Backward:** Right-click → **Analyze** → shows all callers, implementors, and assignments as a tree
+
+**Limitation:** Analyzing an interface method implementation via the class won't show interface-level callers — analyze the interface method directly instead.
+
+### Naming Conventions to Know
+
+```
+MyObjectBuilder_*   — Serializable data classes. Used for SBC definitions, save data,
+                      network packets, and blueprints. The "builder" is the data container;
+                      the runtime object is typically a separate class.
+
+*Definition         — SBC definition data, deserialized from .sbc files into
+                      MyDefinitionManager at load time. Read-only at runtime.
+```
+
+### Finding Enum Values
+
+`const` fields and `enum` values can't be analyzed (compiler inlines them). Workaround:
+
+```
+ILSpy: File → Save code
+dnSpy: File → Export to project
+```
+
+Then use Notepad++ find-in-files or WinMerge to search across the exported source.
+
+### Verifying API Whitelist Access
+
+Before calling any game method in a mod, confirm it's on the whitelist:
+- Open the method in the decompiler
+- Check it has `[ModAPI]` attribute or is in a whitelisted namespace
+- Use MDK2's analyzer — it flags disallowed calls at edit time with a red squiggle
+
+---
+
+## SBC: Localization (Translation Support)
+
+<!-- Source: https://spaceengineers.wiki.gg/wiki/Modding/Tutorials/Localization -->
+
+### Using Localization Keys in SBC
+
+Replace any display string in a `.sbc` file with a localization key using `{LOC:KeyName}` syntax:
+
+```xml
+<DisplayName>{LOC:DisplayName_MyCoolBlock}</DisplayName>
+<Description>{LOC:Description_MyCoolBlock}</Description>
+```
+
+### RESX File Structure
+
+Create `Data\Localization\MyTexts.resx` for English (default), then add language-specific variants:
+
+```
+Data/Localization/
+├── MyTexts.resx          ← English (default fallback)
+├── MyTexts.de.resx       ← German
+├── MyTexts.fr.resx       ← French
+└── MyTexts.ru.resx       ← Russian
+```
+
+Each `.resx` file is XML with name/value pairs:
+
+```xml
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <data name="DisplayName_MyCoolBlock" xml:space="preserve">
+    <value>My Cool Block</value>
+  </data>
+  <data name="Description_MyCoolBlock" xml:space="preserve">
+    <value>A block that does cool things.</value>
+  </data>
+</root>
+```
+
+The key in `name=""` must exactly match the key used in `{LOC:KeyName}` in the SBC.
+
+---
+
+## Canonical MDK2 Project File (.csproj)
+
+<!-- Source: https://spaceengineers.wiki.gg/wiki/Modding/Tutorials/Convert_old_projects_to_new_SDK -->
+
+The full canonical `.csproj` for a compiled mod using MDK2. The `.csproj` and `.sln` must live at the **mod root** (not inside `Data\Scripts\`):
+
+```xml
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net48</TargetFramework>
+    <Platforms>x64</Platforms>
+    <LangVersion>6</LangVersion>
+    <!-- Suppress auto-generated attributes that can conflict with SE's loader -->
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <GenerateNeutralResourcesLanguageAttribute>false</GenerateNeutralResourcesLanguageAttribute>
+    <GenerateTargetFrameworkAttribute>false</GenerateTargetFrameworkAttribute>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!-- Whitelist analyzer: flags disallowed API calls at edit time (red squiggles) -->
+    <PackageReference Include="Mal.Mdk2.ModAnalyzers" Version="*" />
+    <!-- Auto-detects SE install and provides DLL references without hardcoded paths -->
+    <PackageReference Include="Mal.Mdk2.References" Version="*" />
+    <!-- Packages the mod output into the correct workshop folder structure on build -->
+    <PackageReference Include="Mal.Mdk2.ModPackager" Version="*" />
+  </ItemGroup>
+</Project>
+```
+
+**Migration from old SDK:**
+1. Close your IDE
+2. Move `.csproj` and `.sln` to the mod root directory
+3. Delete `bin\`, `obj\`, `.vs\`, `.ruleset`, and `.user` files
+4. Replace `.csproj` contents with the template above
+5. Reopen solution — Visual Studio will restore NuGet packages automatically
+6. Right-click any folders you don't want compiled → "Exclude from project"
+
+**Three packages, three roles:**
+- `ModAnalyzers` — static analysis only; runs at edit time
+- `References` — provides SE DLL references; no hardcoded paths needed
+- `ModPackager` — copies output to workshop folder on build (optional but recommended)
