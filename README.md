@@ -117,7 +117,8 @@ Picking **Working on a mod** triggers one more follow-up to narrow the type (bra
 
 | File | Contents |
 |------|---------|
-| `scripting/CSHARP_PATTERNS.md` | Extended C# reference — project setup, conveyor API, LCD drawing helpers, Save/Sync, performance rules |
+| `scripting/CSHARP_PROJECT_SETUP.md` | C# project setup — MDK2, .csproj template, folder structure, namespaces, debugging with dnSpy, decompiler strategies |
+| `scripting/CSHARP_PATTERNS.md` | C# runtime patterns — session components, block queries (power/gas/inventory), conveyor API, LCD drawing helpers, Save/Sync, performance rules |
 | `scripting/TSS_PATTERNS.md` | Text Surface Script patterns — class structure, Update10 rule, drawing, scrolling, subgrid caching |
 | `scripting/PB_SCRIPTS.md` | Programmable Block guide — Main loop, UpdateFrequency, block interfaces, coroutines, IGC, sandbox restrictions |
 

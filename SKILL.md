@@ -186,7 +186,7 @@ Options:
     - **Scope Framework** → Read [SCOPE_FRAMEWORK.md](framework-mods/SCOPE_FRAMEWORK.md).
     - **Tank Tracks** → Read [TANK_TRACKS.md](framework-mods/TANK_TRACKS.md).
     - **Vanilla+** → Read [VANILLA_PLUS.md](framework-mods/VANILLA_PLUS.md). Note: framework Workshop listing is unlisted — docs are in the local workshop cache and the VPF Discord.
-  - **Compiled C#** → Ask which mod they're working on. Read CLAUDE.md and MOD_MAKING_NOTES.md. Reference [CSHARP_PATTERNS.md](scripting/CSHARP_PATTERNS.md). For Text Surface Script / LCD work, also read [TSS_PATTERNS.md](scripting/TSS_PATTERNS.md). Clarify Text Surface Script vs Session Component vs Game Logic if not clear from context.
+  - **Compiled C#** → Ask which mod they're working on. Read CLAUDE.md and MOD_MAKING_NOTES.md. Reference [CSHARP_PATTERNS.md](scripting/CSHARP_PATTERNS.md) for runtime patterns. For project setup, MDK2, or decompiler questions, see [CSHARP_PROJECT_SETUP.md](scripting/CSHARP_PROJECT_SETUP.md). For Text Surface Script / LCD work, also read [TSS_PATTERNS.md](scripting/TSS_PATTERNS.md). Clarify Text Surface Script vs Session Component vs Game Logic if not clear from context.
   - **PB script** → Apply PB sandbox restrictions throughout. See [PB_SCRIPTS.md](scripting/PB_SCRIPTS.md).
 
 - **Torch or Pulsar plugin** → Ask "Torch or Pulsar?" and "Where is it installed?" See [TORCH.md](plugins/TORCH.md) or [PULSAR.md](plugins/PULSAR.md) accordingly.
@@ -509,7 +509,8 @@ Consolidated notes for all mods in this workspace.
 - [SBC_BLOCKS.md](sbc/SBC_BLOCKS.md) — Block/item templates, categories, variant groups, block type reference
 - [SBC_PRODUCTION.md](sbc/SBC_PRODUCTION.md) — Blueprints, production tabs, progression locks
 - [SBC_MISC.md](sbc/SBC_MISC.md) — LCD registration, localization, loot, prefabs, finding definition IDs
-- [CSHARP_PATTERNS.md](scripting/CSHARP_PATTERNS.md) — Extended C# patterns
+- [CSHARP_PATTERNS.md](scripting/CSHARP_PATTERNS.md) — Extended C# patterns: session components, block queries, config, save/sync
+- [CSHARP_PROJECT_SETUP.md](scripting/CSHARP_PROJECT_SETUP.md) — Project setup: MDK2, .csproj, folder structure, namespaces, decompiler strategies
 - [TSS_PATTERNS.md](scripting/TSS_PATTERNS.md) — TSS/LCD drawing patterns, scrolling, subgrid caching
 - [ASSETS.md](ASSETS.md) — Model pipeline, textures, collisions, materials
 - [RECIPES.md](RECIPES.md) — Step-by-step worked examples (LCD App Script, Armor Block)
