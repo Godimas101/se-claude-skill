@@ -370,7 +370,7 @@ Internal block names are often completely different from display names. "Action 
 ### Internal
 - [SBC_RULES.md](SBC_RULES.md) — universal SBC rules, override/additive behavior
 - [SBC_BLOCKS.md](SBC_BLOCKS.md) — block definitions; required when adding LCD screens to custom blocks
-- [../scripting/TSS_PATTERNS.md](../scripting/TSS_PATTERNS.md) — writing the C# Text Surface Script that pairs with LCD SBC registration
+- [../scripting/tss/TSS_PATTERNS.md](../scripting/tss/TSS_PATTERNS.md) — writing the C# Text Surface Script that pairs with LCD SBC registration
 
 ### Local
 - Localization files: `[Steam]\steamapps\common\SpaceEngineers\Content\Data\Localization\`

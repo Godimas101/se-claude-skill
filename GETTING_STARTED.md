@@ -26,7 +26,7 @@ SE modding has three completely separate disciplines. Pick the one that fits you
 
 **Learning curve:** High. Requires C# knowledge, IDE setup, and understanding of the game's event model.
 
-**Start here:** [CSHARP_PROJECT_SETUP.md](scripting/CSHARP_PROJECT_SETUP.md) · [CSHARP_PATTERNS.md](scripting/CSHARP_PATTERNS.md) · [TSS_PATTERNS.md](scripting/TSS_PATTERNS.md) · [SKILL.md](SKILL.md)
+**Start here:** [CSHARP_PROJECT_SETUP.md](scripting/csharp/CSHARP_PROJECT_SETUP.md) · [CSHARP_PATTERNS.md](scripting/csharp/CSHARP_PATTERNS.md) · [TSS_PATTERNS.md](scripting/tss/TSS_PATTERNS.md) · [SKILL.md](SKILL.md)
 
 ---
 

@@ -4,7 +4,8 @@ Project structure, tooling, and decompiler reference for Space Engineers compile
 
 > For runtime patterns (session component, config, save/sync): see [CSHARP_PATTERNS.md](CSHARP_PATTERNS.md).
 > For block API queries (power, gas, inventory, production, conveyor): see [CSHARP_BLOCK_QUERIES.md](CSHARP_BLOCK_QUERIES.md).
-> For Text Surface Script / LCD drawing patterns: see [TSS_PATTERNS.md](TSS_PATTERNS.md).
+> For TSS class structure, scrolling, and update rules: see [TSS_PATTERNS.md](../tss/TSS_PATTERNS.md).
+> For TSS drawing API, base classes, charts, and the full LCD App pattern: see [TSS_DRAWING.md](../tss/TSS_DRAWING.md).
 
 ---
 
@@ -282,9 +283,10 @@ Before calling any game method in a mod, confirm it's on the whitelist:
 ### Internal
 - [CSHARP_PATTERNS.md](CSHARP_PATTERNS.md) — runtime patterns: session component, config, save/sync, logging, type conversions
 - [CSHARP_BLOCK_QUERIES.md](CSHARP_BLOCK_QUERIES.md) — block API queries: power, gas, inventory, production, doors, conveyor network
-- [TSS_PATTERNS.md](TSS_PATTERNS.md) — Text Surface Script drawing, scrolling, subgrid caching
-- [PB_SCRIPTS.md](PB_SCRIPTS.md) — Programmable Block scripting (sandboxed; different from compiled mods)
-- [../GETTING_STARTED.md](../GETTING_STARTED.md) — beginner onboarding: mod types, VS Code setup, uploading
+- [TSS_PATTERNS.md](../tss/TSS_PATTERNS.md) — TSS class structure, update loop, scrolling, subgrid caching
+- [TSS_DRAWING.md](../tss/TSS_DRAWING.md) — TSS drawing API: helpers, base classes, viewport, charts, full LCD App pattern
+- [PB_SCRIPTS.md](../PB_SCRIPTS.md) — Programmable Block scripting (sandboxed; different from compiled mods)
+- [../../GETTING_STARTED.md](../../GETTING_STARTED.md) — beginner onboarding: mod types, VS Code setup, uploading
 
 ### Local
 - ModSDK API DLLs (with XML docs): `[Steam]\steamapps\common\SpaceEngineersModSDK\`

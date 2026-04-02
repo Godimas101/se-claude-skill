@@ -400,8 +400,8 @@ Always copy the vanilla block definition of the same shape as your starting temp
 ### Internal
 - [sbc/SBC_RULES.md](sbc/SBC_RULES.md) — universal SBC rules and DefinitionBase fields
 - [sbc/SBC_BLOCKS.md](sbc/SBC_BLOCKS.md) — block and item definition templates
-- [scripting/CSHARP_PATTERNS.md](scripting/CSHARP_PATTERNS.md) — C# project setup, class structure, performance rules
-- [scripting/TSS_PATTERNS.md](scripting/TSS_PATTERNS.md) — TSS drawing patterns used in the LCD App recipe
+- [scripting/csharp/CSHARP_PATTERNS.md](scripting/csharp/CSHARP_PATTERNS.md) — C# project setup, class structure, performance rules
+- [scripting/tss/TSS_PATTERNS.md](scripting/tss/TSS_PATTERNS.md) — TSS drawing patterns used in the LCD App recipe
 - [ASSETS.md](ASSETS.md) — full asset pipeline for the armor block model steps
 
 ### Local

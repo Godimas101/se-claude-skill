@@ -4,7 +4,8 @@ Runtime patterns for Space Engineers compiled mods: session component lifecycle,
 
 > For project setup, MDK2, folder structure, namespaces, and decompiler strategies: see [CSHARP_PROJECT_SETUP.md](CSHARP_PROJECT_SETUP.md).
 > For block API queries (power, gas, inventory, production, conveyor): see [CSHARP_BLOCK_QUERIES.md](CSHARP_BLOCK_QUERIES.md).
-> For Text Surface Script / LCD drawing patterns: see [TSS_PATTERNS.md](TSS_PATTERNS.md).
+> For TSS class structure, scrolling, and update rules: see [TSS_PATTERNS.md](../tss/TSS_PATTERNS.md).
+> For TSS drawing API, base classes, charts, and the full LCD App pattern: see [TSS_DRAWING.md](../tss/TSS_DRAWING.md).
 
 ---
 
@@ -275,7 +276,7 @@ Data/Localization/
 └── MyTexts.ru.resx       ← Russian
 ```
 
-> For the full RESX XML template and key matching rules, see [sbc/SBC_MISC.md](../sbc/SBC_MISC.md).
+> For the full RESX XML template and key matching rules, see [sbc/SBC_MISC.md](../../sbc/SBC_MISC.md).
 
 ---
 
@@ -287,9 +288,10 @@ Data/Localization/
 ### Internal
 - [CSHARP_PROJECT_SETUP.md](CSHARP_PROJECT_SETUP.md) — project setup: MDK2, .csproj, folder structure, namespaces, decompiler strategies
 - [CSHARP_BLOCK_QUERIES.md](CSHARP_BLOCK_QUERIES.md) — block API queries: power, gas, inventory, production, doors, conveyor network
-- [TSS_PATTERNS.md](TSS_PATTERNS.md) — Text Surface Script: drawing, scrolling, subgrid caching, base classes, full LCD App pattern
-- [PB_SCRIPTS.md](PB_SCRIPTS.md) — Programmable Block scripting (sandboxed; different from compiled mods)
-- [../sbc/SBC_MISC.md](../sbc/SBC_MISC.md) — LCD SBC registration; `Subtype` must match the C# script attribute
+- [TSS_PATTERNS.md](../tss/TSS_PATTERNS.md) — TSS class structure, update loop, scrolling, subgrid caching
+- [TSS_DRAWING.md](../tss/TSS_DRAWING.md) — TSS drawing API: helpers, base classes, viewport, charts, full LCD App pattern
+- [PB_SCRIPTS.md](../PB_SCRIPTS.md) — Programmable Block scripting (sandboxed; different from compiled mods)
+- [../../sbc/SBC_MISC.md](../../sbc/SBC_MISC.md) — LCD SBC registration; `Subtype` must match the C# script attribute
 
 ### Local
 - ModSDK API DLLs (with XML docs): `[Steam]\steamapps\common\SpaceEngineersModSDK\`

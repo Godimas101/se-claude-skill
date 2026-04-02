@@ -288,5 +288,5 @@ Configurable portal blocks that teleport players between server sectors. Customi
 - [se-nexus.net](https://se-nexus.net/) — Nexus multi-server documentation
 
 ### Internal
-- [../scripting/CSHARP_PATTERNS.md](../scripting/CSHARP_PATTERNS.md) — C# patterns, project setup, and session component structure
+- [../scripting/csharp/CSHARP_PATTERNS.md](../scripting/csharp/CSHARP_PATTERNS.md) — C# patterns, project setup, and session component structure
 - [PULSAR.md](PULSAR.md) — client-side equivalent; compare when advising on server-side vs client-side approach

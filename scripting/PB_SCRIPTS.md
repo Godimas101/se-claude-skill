@@ -688,8 +688,8 @@ using System;                          // Math, DateTime, TimeSpan ✅
 - [github.com/malforge/mdk2](https://github.com/malforge/mdk2) — MDK2: PB script templates and whitelisted API browser
 
 ### Internal
-- [CSHARP_PATTERNS.md](CSHARP_PATTERNS.md) — compiled mod C# patterns; project setup applies to PB scripts too
-- [TSS_PATTERNS.md](TSS_PATTERNS.md) — Text Surface Script patterns for writing to LCD surfaces from a PB
+- [CSHARP_PATTERNS.md](csharp/CSHARP_PATTERNS.md) — compiled mod C# patterns; project setup applies to PB scripts too
+- [TSS_PATTERNS.md](tss/TSS_PATTERNS.md) — Text Surface Script patterns for writing to LCD surfaces from a PB
 
 ### Local
 - ModSDK API DLLs (with XML docs): `[Steam]\steamapps\common\SpaceEngineersModSDK\`

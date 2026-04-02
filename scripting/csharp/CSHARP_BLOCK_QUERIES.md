@@ -4,7 +4,8 @@ Runtime query patterns for reading block state in compiled mods. These work in b
 
 > For project setup, MDK2, folder structure, and decompiler strategies: see [CSHARP_PROJECT_SETUP.md](CSHARP_PROJECT_SETUP.md).
 > For runtime patterns (session component, config, save/sync): see [CSHARP_PATTERNS.md](CSHARP_PATTERNS.md).
-> For Text Surface Script / LCD drawing patterns: see [TSS_PATTERNS.md](TSS_PATTERNS.md).
+> For TSS class structure, scrolling, and update rules: see [TSS_PATTERNS.md](../tss/TSS_PATTERNS.md).
+> For TSS drawing API, base classes, charts, and the full LCD App pattern: see [TSS_DRAWING.md](../tss/TSS_DRAWING.md).
 
 ---
 
@@ -265,7 +266,8 @@ bool canTransfer = block.GetInventory().CanTransferItemTo(
 ### Internal
 - [CSHARP_PROJECT_SETUP.md](CSHARP_PROJECT_SETUP.md) — project setup: MDK2, .csproj, folder structure, namespaces, decompiler strategies
 - [CSHARP_PATTERNS.md](CSHARP_PATTERNS.md) — session components, config/MyIni, save/sync, logging, type conversions
-- [TSS_PATTERNS.md](TSS_PATTERNS.md) — Text Surface Script patterns (uses inventory/power queries above)
+- [TSS_PATTERNS.md](../tss/TSS_PATTERNS.md) — TSS class structure, update loop, scrolling, subgrid caching
+- [TSS_DRAWING.md](../tss/TSS_DRAWING.md) — TSS drawing API: helpers, base classes, viewport, charts, full LCD App pattern
 
 ### Local
 - ModSDK API DLLs (with XML docs): `[Steam]\steamapps\common\SpaceEngineersModSDK\`

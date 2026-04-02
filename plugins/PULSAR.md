@@ -265,5 +265,5 @@ Some mods are specifically designed to work with a paired plugin. When helping a
 - [spaceengineers.wiki.gg/wiki/Plugins](https://spaceengineers.wiki.gg/wiki/Plugins) — SE wiki plugin overview
 
 ### Internal
-- [../scripting/CSHARP_PATTERNS.md](../scripting/CSHARP_PATTERNS.md) — C# patterns, project setup, and HarmonyLib patching guidance
+- [../scripting/csharp/CSHARP_PATTERNS.md](../scripting/csharp/CSHARP_PATTERNS.md) — C# patterns, project setup, and HarmonyLib patching guidance
 - [TORCH.md](TORCH.md) — server-side equivalent; compare when advising on client-side vs server-side approach

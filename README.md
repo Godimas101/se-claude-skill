@@ -117,10 +117,11 @@ Picking **Working on a mod** triggers one more follow-up to narrow the type (bra
 
 | File | Contents |
 |------|---------|
-| `scripting/CSHARP_PROJECT_SETUP.md` | C# project setup — MDK2, .csproj template, folder structure, namespaces, debugging with dnSpy, decompiler strategies |
-| `scripting/CSHARP_PATTERNS.md` | C# runtime patterns — session component, config (MyIni), save/sync, logging, type conversions, performance rules |
-| `scripting/CSHARP_BLOCK_QUERIES.md` | Block API queries — power, gas, inventory, production blocks, doors, conveyor network push/pull |
-| `scripting/TSS_PATTERNS.md` | Text Surface Script patterns — class structure, drawing helpers, scrolling, subgrid caching, base classes, full LCD App pattern |
+| `scripting/csharp/CSHARP_PROJECT_SETUP.md` | C# project setup — MDK2, .csproj template, folder structure, namespaces, debugging with dnSpy, decompiler strategies |
+| `scripting/csharp/CSHARP_PATTERNS.md` | C# runtime patterns — session component, config (MyIni), save/sync, logging, type conversions, performance rules |
+| `scripting/csharp/CSHARP_BLOCK_QUERIES.md` | Block API queries — power, gas, inventory, production blocks, doors, conveyor network push/pull |
+| `scripting/tss/TSS_PATTERNS.md` | Text Surface Script patterns — class structure, Update10 rule, scrolling, subgrid caching, SBC registration |
+| `scripting/tss/TSS_DRAWING.md` | TSS drawing API — drawing helpers, base classes, viewport, surface colors, charts, MeasureStringInPixels, full LCD App Script pattern |
 | `scripting/PB_SCRIPTS.md` | Programmable Block guide — Main loop, UpdateFrequency, block interfaces, coroutines, IGC, sandbox restrictions |
 
 ### Framework Mods
