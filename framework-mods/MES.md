@@ -374,7 +374,10 @@ See [AI_ENABLED.md](AI_ENABLED.md) for the bot character definition format.
 
 ### Local
 
-| What | Where |
-|------|-------|
-| MES framework source | `[Steam]\steamapps\workshop\content\244850\1521905890\` |
-| Ares at War (large MES example mod) | `[Steam]\steamapps\workshop\content\244850\2999925713\` |
+Search the user's `MOD_CATALOGUE.md` for MES-dependent mods installed in their workshop. Any MES child mod is valid reference material for spawn group structure and encounter design.
+
+**Workshop IDs — check MOD_CATALOGUE for local paths:**
+| What | ID |
+|------|----|
+| MES framework source | `1521905890` |
+| Ares at War (large MES example mod) | `2999925713` |

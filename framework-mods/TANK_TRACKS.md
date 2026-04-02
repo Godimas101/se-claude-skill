@@ -217,10 +217,13 @@ Full config reference: [Digi's TankTracks.ini Gist](https://gist.github.com/THDi
 
 ### Local
 
-| What | Where |
-|------|-------|
-| Tank Tracks core framework | `[Steam]\steamapps\workshop\content\244850\3208995513\` |
-| Tank Tracks Builder (C# API reference) | `[Steam]\steamapps\workshop\content\244850\3209005014\` |
-| Tank Tracks over Vanilla Wheels (content mod reference) | `[Steam]\steamapps\workshop\content\244850\3209008231\` |
+Search the user's `MOD_CATALOGUE.md` for Tank Tracks mods installed in their workshop. Tank Tracks requires all three core mods — check all three IDs.
+
+**Workshop IDs — check MOD_CATALOGUE for local paths:**
+| What | ID |
+|------|----|
+| Tank Tracks core framework | `3208995513` |
+| Tank Tracks Builder (C# API reference) | `3209005014` |
+| Tank Tracks over Vanilla Wheels (content mod reference) | `3209008231` |
 
 > **Tank Tracks is three mods at minimum.** All three are required for the full experience. The builder tool (`3209005014`) is the canonical C# API reference — read its source when building scripted tools.

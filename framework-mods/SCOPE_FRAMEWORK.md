@@ -161,9 +161,12 @@ Full documentation is on the Scope Framework Workshop page (ID: 2754014019).
 
 ### Local
 
-| What | Where |
-|------|-------|
-| Scope Framework source | `[Steam]\steamapps\workshop\content\244850\2754014019\` |
-| Binoculars (example child mod) | `[Steam]\steamapps\workshop\content\244850\2777644246\` |
+Search the user's `MOD_CATALOGUE.md` for Scope Framework mods installed in their workshop. Any Scope Framework child mod is valid implementation reference.
 
-> No external docs exist — the Workshop page description is the full documentation. Read the local source and the Binoculars example mod for implementation guidance.
+**Workshop IDs — check MOD_CATALOGUE for local paths:**
+| What | ID |
+|------|----|
+| Scope Framework source | `2754014019` |
+| Binoculars (example child mod) | `2777644246` |
+
+> No external docs exist — the Workshop page description is the full documentation. Read the local source and any installed Scope Framework child mods for implementation guidance.

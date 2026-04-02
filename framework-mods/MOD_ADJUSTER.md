@@ -347,12 +347,14 @@ Search for `ModAdjuster` to find all MA log lines.
 
 ### Local
 
-| What | Where |
-|------|-------|
-| Mod Adjuster full source | `[Steam]\steamapps\workshop\content\244850\3017795356\Data\Scripts\Adjuster\` |
-| All definition classes | `...\Adjuster\Definitions\` |
-| CubeBlock fields | `...\Adjuster\Definitions\Blocks\CubeBlock.cs` |
-| All functional block types | `...\Adjuster\Definitions\Blocks\FunctionalBlocks.cs` |
-| Weapon definition fields | `...\Adjuster\Definitions\Weapons.cs` |
-| Session component (loader) | `...\Adjuster\Session\ModAdjuster.cs` |
-| Vanilla block SBCs | `[Steam]\steamapps\common\SpaceEngineers\Content\Data\` |
+Search the user's `MOD_CATALOGUE.md` for Mod Adjuster (Workshop ID `3017795356`). If installed, the source layout is always:
+
+| What | Path within mod folder |
+|------|------------------------|
+| All definition classes | `Data\Scripts\Adjuster\Definitions\` |
+| CubeBlock fields | `Data\Scripts\Adjuster\Definitions\Blocks\CubeBlock.cs` |
+| All functional block types | `Data\Scripts\Adjuster\Definitions\Blocks\FunctionalBlocks.cs` |
+| Weapon definition fields | `Data\Scripts\Adjuster\Definitions\Weapons.cs` |
+| Session component (loader) | `Data\Scripts\Adjuster\Session\ModAdjuster.cs` |
+
+Vanilla block SBCs (always present if SE is installed): `[Steam]\steamapps\common\SpaceEngineers\Content\Data\`

@@ -283,9 +283,12 @@ Any mod with `Definitions/AmmoDefinitionDefinitions.cs` inside its `Data/Scripts
 
 ### Local
 
-| What | Where |
-|------|-------|
-| Vanilla+ Framework source (boilerplate files) | `[Steam]\steamapps\workshop\content\244850\2915780227\Data\Scripts\VanillaPlusFrameworkScripts\` |
-| Vanilla+ Framework Example Mod (authoritative implementation reference) | `[Steam]\steamapps\workshop\content\244850\3014670447\` |
+Search the user's `MOD_CATALOGUE.md` for Vanilla+ Framework mods installed in their workshop. Any VPF child mod includes the required boilerplate files and is valid reference material.
 
-> Copy `VPFModAPI.cs` and the four `Definitions/*.cs` files verbatim from the framework source. The example mod is the best reference for how to structure your definitions session component.
+**Workshop IDs — check MOD_CATALOGUE for local paths:**
+| What | ID |
+|------|----|
+| Vanilla+ Framework source (boilerplate files) | `2915780227` |
+| Vanilla+ Framework Example Mod | `3014670447` |
+
+> Copy `VPFModAPI.cs` and the four `Definitions/*.cs` files verbatim from the framework source. The example mod is the best reference for how to structure your definitions session component. If neither is installed, any other VPF child mod in MOD_CATALOGUE will also contain the boilerplate files.

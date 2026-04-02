@@ -260,9 +260,12 @@ MyFactionMod/
 
 ### Local
 
-| What | Where |
-|------|-------|
-| AI Enabled framework source | `[Steam]\steamapps\workshop\content\244850\2596208372\` |
-| Bot_spawner (required dependency) | `[Steam]\steamapps\workshop\content\244850\2336089504\` |
-| Crew Enabled (child mod example) | `[Steam]\steamapps\workshop\content\244850\2803081060\` |
-| Infestation Enabled (child mod example) | `[Steam]\steamapps\workshop\content\244850\2809500674\` |
+Search the user's `MOD_CATALOGUE.md` for AI Enabled child mods installed in their workshop. Any AI Enabled mod is valid reference material for bot definitions and animation controllers.
+
+**Workshop IDs — check MOD_CATALOGUE for local paths:**
+| What | ID |
+|------|----|
+| AI Enabled framework source | `2596208372` |
+| Bot_spawner (required dependency) | `2336089504` |
+| Crew Enabled (child mod example) | `2803081060` |
+| Infestation Enabled (child mod example) | `2809500674` |
