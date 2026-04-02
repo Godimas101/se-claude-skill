@@ -76,3 +76,16 @@ The NJFL mods override the `<Components>`, `<BuildTimeSeconds>`, and stats of co
 
 ### DLC blocks in InfoLCD / other display mods
 If a mod references DLC block TypeIds, it should handle the case where the player doesn't own the DLC (block won't exist in their game). Use null checks on any block list that might contain DLC-gated blocks.
+
+---
+
+## References
+
+### External
+- [store.steampowered.com/dlc/244850](https://store.steampowered.com/dlc/244850) — official Steam DLC listing for Space Engineers
+- [spaceengineers.wiki.gg/wiki/DLC](https://spaceengineers.wiki.gg/wiki/DLC) — SE wiki DLC overview with block lists
+
+### Internal
+- [PATCH_NOTES.md](PATCH_NOTES.md) — new DLC-gated blocks added in recent patches
+- [TROUBLESHOOTING.md](TROUBLESHOOTING.md) — errors caused by missing DLC dependencies
+- [../sbc/SBC_BLOCKS.md](../sbc/SBC_BLOCKS.md) — block definitions; `<DLCId>` field for gating blocks to DLC

@@ -182,3 +182,19 @@ Attempting to override these causes crashes or silent failures:
 | `WheelModels.sbc` | Code that uses it is disabled |
 | `Game/DLCs.sbc` | Informational only |
 | `Screens/*.gsc` | Only loads from game folder with exact filenames |
+
+---
+
+## References
+
+### External
+- [spaceengineers.wiki.gg/wiki/Modding/Reference/SBC](https://spaceengineers.wiki.gg/wiki/Modding/Reference/SBC) — official SBC modding reference
+- [spaceengineers.wiki.gg/wiki/Modding](https://spaceengineers.wiki.gg/wiki/Modding) — general modding overview
+
+### Internal
+- [SBC_BLOCKS.md](SBC_BLOCKS.md) — block/item templates, categories, variant groups, block type reference
+- [SBC_PRODUCTION.md](SBC_PRODUCTION.md) — blueprints, production tabs, progression/research locks
+- [SBC_MISC.md](SBC_MISC.md) — LCD registration, localization, loot tables, prefabs, finding definition IDs
+
+### Local
+- Vanilla SBC files: `[Steam]\steamapps\common\SpaceEngineers\Content\Data\`

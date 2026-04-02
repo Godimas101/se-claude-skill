@@ -1174,3 +1174,20 @@ The full canonical `.csproj` for a compiled mod using MDK2. The `.csproj` and `.
 - `ModAnalyzers` — static analysis only; runs at edit time
 - `References` — provides SE DLL references; no hardcoded paths needed
 - `ModPackager` — copies output to workshop folder on build (optional but recommended)
+
+---
+
+## References
+
+### External
+- [github.com/malforge/mdk2](https://github.com/malforge/mdk2) — MDK2: project templates, NuGet packages, build tools
+- [spaceengineers.wiki.gg/wiki/Modding/Reference/ModScripting](https://spaceengineers.wiki.gg/wiki/Modding/Reference/ModScripting) — official C# mod scripting reference
+- [github.com/dnSpy/dnSpy](https://github.com/dnSpy/dnSpy) — decompiler for browsing SE source when API docs are missing
+
+### Internal
+- [TSS_PATTERNS.md](TSS_PATTERNS.md) — Text Surface Script drawing patterns, scrolling, subgrid caching
+- [PB_SCRIPTS.md](PB_SCRIPTS.md) — Programmable Block scripting (sandboxed; different from compiled mods)
+- [../sbc/SBC_MISC.md](../sbc/SBC_MISC.md) — LCD SBC registration; `Subtype` must match the C# script attribute
+
+### Local
+- ModSDK API DLLs (with XML docs): `[Steam]\steamapps\common\SpaceEngineersModSDK\`

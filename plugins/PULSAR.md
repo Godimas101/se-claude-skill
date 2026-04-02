@@ -1,4 +1,9 @@
-# Pulsar — Space Engineers Client Plugin Loader
+# Pulsar
+
+**GitHub:** [SpaceGT/Pulsar](https://github.com/SpaceGT/Pulsar)
+**Discord:** [discord.gg/z8ZczP2YZY](https://discord.gg/z8ZczP2YZY)
+
+---
 
 ## What Is Pulsar?
 
@@ -250,10 +255,15 @@ Some mods are specifically designed to work with a paired plugin. When helping a
 
 ---
 
-## Resources
+## References
 
+### External
 - [github.com/SpaceGT/Pulsar](https://github.com/SpaceGT/Pulsar) — Pulsar source and releases
 - [github.com/StarCpt/Pulsar-Installer](https://github.com/StarCpt/Pulsar-Installer) — Windows installer
 - [github.com/StarCpt/PluginHub](https://github.com/StarCpt/PluginHub) — official plugin registry
-- [github.com/sepluginloader/PluginTemplate](https://github.com/sepluginloader/PluginTemplate) — unified plugin template
+- [github.com/sepluginloader/PluginTemplate](https://github.com/sepluginloader/PluginTemplate) — unified plugin template (works for both Torch and Pulsar)
 - [spaceengineers.wiki.gg/wiki/Plugins](https://spaceengineers.wiki.gg/wiki/Plugins) — SE wiki plugin overview
+
+### Internal
+- [../scripting/CSHARP_PATTERNS.md](../scripting/CSHARP_PATTERNS.md) — C# patterns, project setup, and HarmonyLib patching guidance
+- [TORCH.md](TORCH.md) — server-side equivalent; compare when advising on client-side vs server-side approach

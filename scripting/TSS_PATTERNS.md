@@ -233,3 +233,19 @@ private void UpdateBlocks()
 > For the `TextSurfaceScripts.sbc` registration template, see [sbc/SBC_MISC.md](../sbc/SBC_MISC.md).
 
 The `Subtype` must match `[MyTextSurfaceScript("MyScriptId", "...")]` in C#.
+
+---
+
+## References
+
+### External
+- [spaceengineers.wiki.gg/wiki/Modding/Reference/ModScripting](https://spaceengineers.wiki.gg/wiki/Modding/Reference/ModScripting) — official C# mod scripting reference
+- [github.com/malforge/mdk2](https://github.com/malforge/mdk2) — MDK2: project templates and build tools
+
+### Internal
+- [CSHARP_PATTERNS.md](CSHARP_PATTERNS.md) — class structure, project setup, Save/Sync, performance rules
+- [../sbc/SBC_MISC.md](../sbc/SBC_MISC.md) — `TextSurfaceScripts.sbc` registration template
+- [../RECIPES.md](../RECIPES.md) — full end-to-end LCD App Script worked example
+
+### Local
+- ModSDK API DLLs (with XML docs): `[Steam]\steamapps\common\SpaceEngineersModSDK\`

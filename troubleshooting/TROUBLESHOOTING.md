@@ -264,11 +264,17 @@ F11 requires toggling "Enable debug draw" first.
 
 ---
 
-## External Help
+## References
 
+### External
 | Resource | URL |
 |----------|-----|
 | Keen Discord | discord.gg/keenswh — `#modding-programming` (C#), `#modding-art-sbc` (SBC) |
 | Keen Support | support.keenswh.com/spaceengineers |
 | Official ModAPI docs | keensoftwarehouse.github.io/SpaceEngineersModAPI/api/index.html |
 | Community ModAPI docs | malforge.github.io/spaceengineers/modapi/ |
+| SE Wiki Troubleshooting | [spaceengineers.wiki.gg/wiki/Modding/Troubleshooting](https://spaceengineers.wiki.gg/wiki/Modding/Troubleshooting) |
+
+### Internal
+- [PATCH_NOTES.md](PATCH_NOTES.md) — breaking changes by patch; check here when a mod stops working after an update
+- [DLC_CATALOGUE.md](DLC_CATALOGUE.md) — DLC SubtypeIds; useful when diagnosing DLC-related block errors

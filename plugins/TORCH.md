@@ -1,4 +1,10 @@
-# Torch — Space Engineers Dedicated Server Framework
+# Torch
+
+**Website:** [torchapi.com](https://torchapi.com/)
+**GitHub:** [TorchAPI](https://github.com/TorchAPI)
+**Discord:** [discord.gg/trK6sYdcNE](https://discord.gg/trK6sYdcNE)
+
+---
 
 ## What Is Torch?
 
@@ -271,11 +277,16 @@ Configurable portal blocks that teleport players between server sectors. Customi
 
 ---
 
-## Resources
+## References
 
-- [torchapi.com](https://torchapi.com/) — downloads, plugin directory
+### External
+- [torchapi.com](https://torchapi.com/) — downloads and plugin directory
 - [wiki.torchapi.com](https://wiki.torchapi.com/) — official wiki
 - [github.com/TorchAPI/Torch](https://github.com/TorchAPI/Torch) — source code
 - [github.com/TorchAPI/Essentials](https://github.com/TorchAPI/Essentials) — reference plugin
-- [github.com/sepluginloader/PluginTemplate](https://github.com/sepluginloader/PluginTemplate) — unified plugin template
-- [se-nexus.net](https://se-nexus.net/) — Nexus documentation
+- [github.com/sepluginloader/PluginTemplate](https://github.com/sepluginloader/PluginTemplate) — unified plugin template (works for both Torch and Pulsar)
+- [se-nexus.net](https://se-nexus.net/) — Nexus multi-server documentation
+
+### Internal
+- [../scripting/CSHARP_PATTERNS.md](../scripting/CSHARP_PATTERNS.md) — C# patterns, project setup, and session component structure
+- [PULSAR.md](PULSAR.md) — client-side equivalent; compare when advising on server-side vs client-side approach

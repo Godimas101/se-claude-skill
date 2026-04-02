@@ -340,3 +340,16 @@ Key wiki pages not already linked elsewhere in these skill files:
 | LCD App mod script recipe | `spaceengineers.wiki.gg/wiki/Modding/Tutorials/Recipes/LCD_App_Mod_Script` |
 | Modifying mods by other creators | `spaceengineers.wiki.gg/wiki/Modding/Tutorials/Modifying_Mods_by_Other_Creators` |
 | PB scripting (ingame scripts) | `spaceengineers.wiki.gg/wiki/Scripting` |
+
+---
+
+## References
+
+### External
+- [spaceengineers.wiki.gg/wiki/Modding](https://spaceengineers.wiki.gg/wiki/Modding) — official modding overview and tutorial index
+- [spaceengineers.wiki.gg/wiki/Modding/Tutorials/Creating_And_Uploading_Mods](https://spaceengineers.wiki.gg/wiki/Modding/Tutorials/Creating_And_Uploading_Mods) — publishing workflow
+
+### Internal
+- [sbc/SBC_RULES.md](sbc/SBC_RULES.md) — universal SBC rules; start here for any SBC work
+- [RECIPES.md](RECIPES.md) — end-to-end worked examples for common mod types
+- [ASSETS.md](ASSETS.md) — full asset pipeline for 3D models, textures, and audio

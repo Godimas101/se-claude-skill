@@ -403,4 +403,19 @@ Use the **Universal Audio Converter** ([GitHub](https://github.com/Godimas101/mo
 ### SBC Registration
 
 Audio files must be registered in a `SoundCategories.sbc` (or `Sounds.sbc`) file in your mod's `Data/` folder. Reference the vanilla `Sounds.sbc` in `Content/Data/` for the required XML schema.
-- CPU-animated subparts run on every server tick regardless of render distance — minimize count
+
+---
+
+## References
+
+### External
+- [spaceengineers.wiki.gg/wiki/Modding/Tools/Space_Engineers_Utilities](https://spaceengineers.wiki.gg/wiki/Modding/Tools/Space_Engineers_Utilities) — SEUT Blender addon documentation
+- [github.com/Godimas101/mods/tree/main/space-engineers-mods/Tools/universal-audio-converter](https://github.com/Godimas101/mods/tree/main/space-engineers-mods/Tools/universal-audio-converter) — Universal Audio Converter
+
+### Internal
+- [sbc/SBC_BLOCKS.md](sbc/SBC_BLOCKS.md) — block SBC definition; `<Model>` path must match exported MWM filename
+- [RECIPES.md](RECIPES.md) — armor block recipe: full worked example of the FBX → MWM → SBC pipeline
+
+### Local
+- Vanilla models (reference for LOD naming, dummy placement): `[Steam]\steamapps\common\SpaceEngineers\Content\Models\`
+- Vanilla `Sounds.sbc`: `[Steam]\steamapps\common\SpaceEngineers\Content\Data\Sounds.sbc`

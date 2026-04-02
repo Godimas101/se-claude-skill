@@ -359,3 +359,20 @@ Internal block names are often completely different from display names. "Action 
 
 - Visual names and internal names diverge frequently — always confirm via `MyTexts.resx`.
 - `Content\Data\Localization\MyTexts.resx` contains **all** English display strings for vanilla blocks, items, and components.
+
+---
+
+## References
+
+### External
+- [spaceengineers.wiki.gg/wiki/Modding/Reference/SBC](https://spaceengineers.wiki.gg/wiki/Modding/Reference/SBC) — official SBC modding reference
+
+### Internal
+- [SBC_RULES.md](SBC_RULES.md) — universal SBC rules, override/additive behavior
+- [SBC_BLOCKS.md](SBC_BLOCKS.md) — block definitions; required when adding LCD screens to custom blocks
+- [../scripting/TSS_PATTERNS.md](../scripting/TSS_PATTERNS.md) — writing the C# Text Surface Script that pairs with LCD SBC registration
+
+### Local
+- Localization files: `[Steam]\steamapps\common\SpaceEngineers\Content\Data\Localization\`
+- Vanilla loot table SBCs: `[Steam]\steamapps\common\SpaceEngineers\Content\Data\ContainerTypes.sbc`
+- Vanilla prefab SBCs: `[Steam]\steamapps\common\SpaceEngineers\Content\Data\Prefabs\`

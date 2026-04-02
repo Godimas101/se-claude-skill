@@ -498,3 +498,19 @@ These are the internal names for the game's built-in LCD apps. Use in `<ScreenAr
 | `ZoneChip` | Zone Chip |
 
 > Cross-reference `[Steam]\steamapps\common\SpaceEngineers\Content\Data\Components.sbc` for definitive list including mass/volume values.
+
+---
+
+## References
+
+### External
+- [spaceengineers.wiki.gg/wiki/Modding/Reference/SBC](https://spaceengineers.wiki.gg/wiki/Modding/Reference/SBC) — official SBC modding reference
+
+### Internal
+- [SBC_RULES.md](SBC_RULES.md) — universal SBC rules, DefinitionBase fields, override/additive behavior
+- [SBC_PRODUCTION.md](SBC_PRODUCTION.md) — blueprints and production tabs for new block recipes
+- [SBC_MISC.md](SBC_MISC.md) — LCD screen setup for blocks with displays
+
+### Local
+- Vanilla block SBCs: `[Steam]\steamapps\common\SpaceEngineers\Content\Data\CubeBlocks\`
+- All component definitions: `[Steam]\steamapps\common\SpaceEngineers\Content\Data\Components.sbc`

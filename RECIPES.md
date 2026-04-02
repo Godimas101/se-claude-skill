@@ -388,3 +388,21 @@ Always copy the vanilla block definition of the same shape as your starting temp
 ```
 [Steam]\steamapps\common\SpaceEngineers\Content\Data\CubeBlocks\
 ```
+
+---
+
+## References
+
+### External
+- [spaceengineers.wiki.gg/wiki/Modding/Tutorials/Recipes/Armor_Block](https://spaceengineers.wiki.gg/wiki/Modding/Tutorials/Recipes/Armor_Block) — official armor block recipe
+- [spaceengineers.wiki.gg/wiki/Modding/Tutorials/Recipes/LCD_App_Mod_Script](https://spaceengineers.wiki.gg/wiki/Modding/Tutorials/Recipes/LCD_App_Mod_Script) — official LCD App Script recipe
+
+### Internal
+- [sbc/SBC_RULES.md](sbc/SBC_RULES.md) — universal SBC rules and DefinitionBase fields
+- [sbc/SBC_BLOCKS.md](sbc/SBC_BLOCKS.md) — block and item definition templates
+- [scripting/CSHARP_PATTERNS.md](scripting/CSHARP_PATTERNS.md) — C# project setup, class structure, performance rules
+- [scripting/TSS_PATTERNS.md](scripting/TSS_PATTERNS.md) — TSS drawing patterns used in the LCD App recipe
+- [ASSETS.md](ASSETS.md) — full asset pipeline for the armor block model steps
+
+### Local
+- Vanilla block SBCs: `[Steam]\steamapps\common\SpaceEngineers\Content\Data\CubeBlocks\`

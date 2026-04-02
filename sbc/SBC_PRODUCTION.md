@@ -206,3 +206,18 @@ Locks blocks behind research. Players must build a "trigger" block to unlock a g
 - **Any member unlocks the group** — you cannot require ALL members, only ANY one.
 - Both `<ResearchBlocks>` and `<ResearchGroups>` can be in the same `.sbc` file.
 - The `xsi:type="ResearchBlock"` and `xsi:type="ResearchGroup"` are short forms (no `MyObjectBuilder_` prefix needed here).
+
+---
+
+## References
+
+### External
+- [spaceengineers.wiki.gg/wiki/Modding/Reference/SBC](https://spaceengineers.wiki.gg/wiki/Modding/Reference/SBC) — official SBC modding reference
+
+### Internal
+- [SBC_RULES.md](SBC_RULES.md) — universal SBC rules, override/additive behavior
+- [SBC_BLOCKS.md](SBC_BLOCKS.md) — block definitions; SubtypeId must match the blueprint's result item
+
+### Local
+- Vanilla blueprint SBCs: `[Steam]\steamapps\common\SpaceEngineers\Content\Data\Blueprints\`
+- Vanilla production definitions: `[Steam]\steamapps\common\SpaceEngineers\Content\Data\` (`Assembler.sbc`, `Refinery.sbc`, etc.)
