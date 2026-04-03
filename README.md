@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://capsule-render.vercel.app/api?type=waving&height=170&color=0:06121E,45:0F766E,100:2563EB&text=🚀%20Space%20Engineers%20Skill&fontColor=ffffff&fontAlignY=35&fontSize=30&desc=Claude%20Code%20help%20for%20SBC,%20C%23,%20PB,%20and%20framework%20mods&descAlignY=57&descSize=18" />
+  <img src="https://capsule-render.vercel.app/api?type=waving&height=170&color=0:140A22,45:7C3AED,100:C084FC&text=🚀%20Space%20Engineers%20Skill&fontColor=ffffff&fontAlignY=35&fontSize=30&desc=Claude%20Code%20help%20for%20SBC,%20C%23,%20PB,%20and%20framework%20mods&descAlignY=57&descSize=18" />
 </p>
 
 > **"Because reading SBC files by hand is how you lose a weekend."**
