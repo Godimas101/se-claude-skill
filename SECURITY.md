@@ -1,8 +1,8 @@
-# Security Policy
+# 🔒 Security Policy
 
 This repository is public. Please treat all prompts, examples, screenshots, issue reports, and pull request comments as **public information**.
 
-## Do not share personal or sensitive data
+## 🚫 Do not share personal or sensitive data
 
 When using or contributing to this skill, **do not include**:
 
@@ -12,9 +12,11 @@ When using or contributing to this skill, **do not include**:
 - API keys, tokens, passwords, cookies, or credentials
 - private server details or internal-only project information
 
+This applies **especially when working with Claude or any other LLM**. Do not paste sensitive real-world data into prompts.
+
 If you need to show an example, **sanitize it first**.
 
-## Reporting security issues
+## 🚨 Reporting security issues
 
 If you discover a security or privacy problem, please **do not post the sensitive details in a public issue**.
 

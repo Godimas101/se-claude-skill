@@ -1,8 +1,8 @@
-# Contributing
+# 🤝 Contributing
 
 Thanks for helping improve `se-claude-skill`.
 
-## Reporting bugs
+## 🐞 Reporting bugs
 
 If you run into a problem, please open a **GitHub issue** with:
 
@@ -14,7 +14,7 @@ If you run into a problem, please open a **GitHub issue** with:
 
 Please remove any personal, private, or sensitive information before posting.
 
-## Pull requests
+## 🔀 Pull requests
 
 Pull requests are welcome.
 
