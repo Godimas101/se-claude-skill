@@ -414,7 +414,7 @@ Audio files must be registered in a `SoundCategories.sbc` (or `Sounds.sbc`) file
 
 ### Internal
 - [sbc/SBC_BLOCKS.md](sbc/SBC_BLOCKS.md) — block SBC definition; `<Model>` path must match exported MWM filename
-- [RECIPES.md](RECIPES.md) — armor block recipe: full worked example of the FBX → MWM → SBC pipeline
+- [examples/EXAMPLE_ARMOR_BLOCK.md](examples/EXAMPLE_ARMOR_BLOCK.md) — armor block example: full worked example of the FBX → MWM → SBC pipeline
 
 ### Local
 - Vanilla models (reference for LOD naming, dummy placement): `[Steam]\steamapps\common\SpaceEngineers\Content\Models\`

@@ -155,7 +155,7 @@ Options:
     - Block/item definitions, categories, variant groups, component lists → [SBC_BLOCKS.md](sbc/SBC_BLOCKS.md)
     - Blueprints, production tabs, research/progression locks → [SBC_PRODUCTION.md](sbc/SBC_PRODUCTION.md)
     - LCD registration, localization, loot tables, prefabs → [SBC_MISC.md](sbc/SBC_MISC.md)
-    - Also reference [PATCH_NOTES.md](troubleshooting/PATCH_NOTES.md) for breaking changes. If the mod includes custom 3D models or textures, also read [ASSETS.md](ASSETS.md). For step-by-step worked examples, see [RECIPES.md](RECIPES.md).
+    - Also reference [PATCH_NOTES.md](troubleshooting/PATCH_NOTES.md) for breaking changes. If the mod includes custom 3D models or textures, also read [ASSETS.md](ASSETS.md). For step-by-step worked examples, see [EXAMPLES_MANIFEST.md](examples/EXAMPLES_MANIFEST.md).
   - **Framework mod** → Ask which framework:
     ```
     Question: "Which framework?"
@@ -515,7 +515,7 @@ Consolidated notes for all mods in this workspace.
 - [TSS_PATTERNS.md](scripting/tss/TSS_PATTERNS.md) — TSS class structure, update loop, scrolling, subgrid caching, SBC registration
 - [TSS_DRAWING.md](scripting/tss/TSS_DRAWING.md) — TSS drawing API: helpers, base classes, viewport, charts, MeasureStringInPixels, full LCD App pattern
 - [ASSETS.md](ASSETS.md) — Model pipeline, textures, collisions, materials
-- [RECIPES.md](RECIPES.md) — Step-by-step worked examples (LCD App Script, Armor Block)
+- [EXAMPLES_MANIFEST.md](examples/EXAMPLES_MANIFEST.md) — Step-by-step worked examples (LCD App Script, Armor Block)
 - [TROUBLESHOOTING.md](troubleshooting/TROUBLESHOOTING.md) — Error lookup, log reading, common failures
 - [MOD_ADJUSTER.md](framework-mods/MOD_ADJUSTER.md) — Full Mod Adjuster guide
 - [PB_SCRIPTS.md](scripting/PB_SCRIPTS.md) — Full Programmable Block scripting guide

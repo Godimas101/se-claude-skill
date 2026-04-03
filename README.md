@@ -111,7 +111,9 @@ Picking **Working on a mod** triggers one more follow-up to narrow the type (bra
 | `sbc/SBC_PRODUCTION.md` | Production templates — blueprints, production tabs (BlueprintClass), progression/research locks |
 | `sbc/SBC_MISC.md` | Miscellaneous SBC — LCD registration, localization, loot tables, prefabs, finding definition IDs |
 | `ASSETS.md` | Full asset pipeline — Blender/SEUT modeling, texture channel packing, Havok collisions, MWM export |
-| `RECIPES.md` | Step-by-step worked examples — LCD App Script from scratch, full Armor Block mod |
+| `examples/EXAMPLES_MANIFEST.md` | Examples index — all end-to-end worked examples |
+| `examples/EXAMPLE_LCD_APP_SCRIPT.md` | LCD App Mod Script — register a custom C# app in the LCD screen list |
+| `examples/EXAMPLE_ARMOR_BLOCK.md` | Armor Block Mod — full custom armor block shape with Blender/SEUT |
 
 ### Scripting
 

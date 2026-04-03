@@ -6,7 +6,7 @@ TSS mod architecture: class structure, update loop, game state access, scrolling
 > For runtime patterns (session component, config, save/sync): see [CSHARP_PATTERNS.md](../csharp/CSHARP_PATTERNS.md).
 > For block API queries (power, gas, inventory) used in TSS: see [CSHARP_BLOCK_QUERIES.md](../csharp/CSHARP_BLOCK_QUERIES.md).
 > For drawing helpers, base classes, viewport, charts, and the full LCD App pattern: see [TSS_DRAWING.md](TSS_DRAWING.md).
-> For a complete end-to-end TSS recipe: see [RECIPES.md](../../RECIPES.md).
+> For a complete end-to-end working example: see [EXAMPLE_LCD_APP_SCRIPT.md](../../examples/EXAMPLE_LCD_APP_SCRIPT.md).
 
 ---
 
@@ -250,7 +250,7 @@ The `Subtype` must match `[MyTextSurfaceScript("MyScriptId", "...")]` in C#.
 - [CSHARP_PATTERNS.md](../csharp/CSHARP_PATTERNS.md) — session component, config (MyIni), save/sync, logging, type conversions, performance rules
 - [CSHARP_BLOCK_QUERIES.md](../csharp/CSHARP_BLOCK_QUERIES.md) — block API queries: power, gas, inventory, production, doors, conveyor network
 - [../../sbc/SBC_MISC.md](../../sbc/SBC_MISC.md) — `TextSurfaceScripts.sbc` registration template
-- [../../RECIPES.md](../../RECIPES.md) — full end-to-end LCD App Script worked example
+- [../../examples/EXAMPLE_LCD_APP_SCRIPT.md](../../examples/EXAMPLE_LCD_APP_SCRIPT.md) — full end-to-end LCD App Script worked example
 
 ### Local
 - ModSDK API DLLs (with XML docs): `[Steam]\steamapps\common\SpaceEngineersModSDK\`

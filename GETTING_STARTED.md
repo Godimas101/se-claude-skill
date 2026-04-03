@@ -351,5 +351,5 @@ Key wiki pages not already linked elsewhere in these skill files:
 
 ### Internal
 - [sbc/SBC_RULES.md](sbc/SBC_RULES.md) — universal SBC rules; start here for any SBC work
-- [RECIPES.md](RECIPES.md) — end-to-end worked examples for common mod types
+- [EXAMPLES_MANIFEST.md](examples/EXAMPLES_MANIFEST.md) — end-to-end worked examples for common mod types
 - [ASSETS.md](ASSETS.md) — full asset pipeline for 3D models, textures, and audio
