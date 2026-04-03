@@ -1,6 +1,6 @@
 ---
 name: space-engineers
-description: Space Engineers Modding Expert
+description: Space Engineers modding expert. Covers SBC/XML mods, compiled C# mods (session components, LCD/TSS), PB scripts, framework mods (MES, WeaponCore, Mod Adjuster, AI Enabled, Animation Engine, Scope Framework, Tank Tracks), asset pipeline, and log troubleshooting.
 ---
 
 # Space Engineers Modding Expert
@@ -197,94 +197,13 @@ Options:
 
 ## MOD_CATALOGUE.md — Format & Maintenance
 
-The catalogue lives at the root of your mod directory (e.g. `244850\MOD_CATALOGUE.md`).
+The catalogue lives at the root of your mod directory (e.g. `244850\MOD_CATALOGUE.md`). Full format spec, category definitions, scan procedures, and Workshop ID → framework mappings: **[MOD_CATALOGUE.md](MOD_CATALOGUE.md)**.
 
-### Format
-
-```markdown
-# Space Engineers Workshop Mod Catalogue
-
-**Total mods:** [count]
-**Catalogued:** [YYYY-MM-DD]
-**Workshop folder:** `[path]`
-
----
-
-## Notes on Name Resolution
-[how names were found — modinfo.sbmi, metadata.mod, SBC class names, folder names, etc.]
-
-**Categories used:**
-- **Script** — PB scripts or compiled C# session/LCD mods (no new blocks)
-- **Block** — Adds new blocks to the game
-- **LCD/HUD** — LCD texture packs or HUD modifications
-- **Survival** — Food, farming, survival mechanics
-- **Weapons** — Weapons, ammo, turrets
-- **Visual** — Decor, cosmetic blocks, paint, animations
-- **MES** — Modular Encounters System framework or child/encounter pack mod
-- **AI Enabled** — AI Enabled framework or character/creature/crew child mod
-- **NPC/AI** — NPC spawns or AI systems that don't use MES or AI Enabled
-- **Economy** — Trade, economy, logistics
-- **Blueprint** — Ship blueprint (not a gameplay mod)
-- **Scenario** — Workshop world save or scenario (not a gameplay mod)
-- **WeaponCore** — WeaponCore (CoreSystems) framework source or child weapon mod
-- **Vanilla+ Framework** — Vanilla+ Framework source or child mod
-- **Animation Engine** — Animation Engine framework source or child mod
-- **Scope Framework** — Scope Framework source or child mod
-- **Tank Tracks** — Tank Tracks framework source or child mod
-- **Mod Adjuster** — Mod Adjuster framework source or patch mod built with Mod Adjuster
-- **Other** — Miscellaneous / unclear
-
----
-
-## Catalogue (sorted by mod name)
-
-| Workshop ID | Mod Name | Category | Notes |
-|-------------|----------|----------|-------|
-| [id] | [name] | [category] | [notes] |
-```
-
-### Building or Refreshing the Catalogue
-
-**Before scanning — size check:**
-1. Count the subdirectories in the workshop folder (each is a mod).
-   - **500 or more mods:** Stop and ask before proceeding:
-     > "Your workshop folder contains [n] mods. Building a full catalogue will take a while — want me to proceed, or would you prefer to scan only a specific range?"
-   - **Under 500:** Continue automatically.
-
-**Scan cap — 200 mods per session:**
-Process a maximum of 200 mod folders per build/refresh run. If there are more:
-- Write the catalogue with however many were processed, noting in the header: `**Scanned:** [n] of [total] — run again to continue`
-- Tell the user how many remain and offer to continue in the next run
-
-**Per-mod steps:**
-1. List all subdirectories in the mod folder (each is a Workshop ID)
-2. For each mod folder, find its name by checking in order:
-   - `modinfo.sbmi` → `<WorkshopId>` / `<Name>` fields
-   - `metadata.mod` → `<Name>` field
-   - Any `.sbc` file → block `<DisplayName>` or script class name
-   - Folder name as last resort
-3. Categorize based on file contents:
-   - Has `Scripts/` with `.cs` files → Script or compiled mod
-   - Has `CubeBlocks*.sbc` → Block
-   - Has `LCDTextures.sbc` → LCD/HUD
-   - Has weapon/ammo SBCs → Weapons
-   - Folder name / display name contains "Blueprint" → Blueprint
-   - Has `Profiles/` subfolder OR any SBC containing `[Modular Encounters SpawnGroup]` → **MES**
-   - Has `<Bot xsi:type="MyObjectBuilder_AnimalBotDefinition">` in any SBC OR has `AnimationControllers/` folder → **AI Enabled**
-   - Workshop ID `3154371364` → **WeaponCore**
-   - Workshop ID `2880317963` → **Animation Engine**
-   - Workshop ID `2754014019` → **Scope Framework**
-   - Workshop IDs `3208995513`, `3209005014`, `3209008231` → **Tank Tracks**
-   - Workshop IDs `2915780227`, `3014670447` → **Vanilla+ Framework**
-   - Workshop ID `3017795356` OR has `3017795356` as a dependency in `modinfo.sbmi` OR any SBC file contains `ModAdjust` XML types → **Mod Adjuster**
-   - **Unknown / doesn't match any rule above → use "Other"** — never leave Category blank
-4. Sort the table alphabetically by Mod Name
-5. Update the header count and date
-6. **Remind the user:** "Catalogue updated. Next refresh due by [date + 30 days]."
-
-### Refresh Schedule
-- Minimum: **once per month**
-- Also refresh when: user says they added/removed mods, or when the user asks "what mods do I have?"
+**Key rules:**
+- Size check before scanning: 500+ mods → ask before proceeding
+- Scan cap: 200 mods per session — note progress in header and offer to continue
+- Always use "Other" for unrecognised mods — never leave Category blank
+- Refresh minimum: once per month, or when the user adds/removes mods
 
 ---
 
@@ -307,17 +226,7 @@ Four completely different environments. Get this wrong and nothing works.
 
 ---
 
-## Text Surface Scripts (TSS / LCD)
-
-> See [scripting/tss/TSS_PATTERNS.md](scripting/tss/TSS_PATTERNS.md) for class structure, Update10 rule, drawing patterns, scrolling, and subgrid caching.
-
----
-
-## SBC Quick Reference
-
-> For registering a Text Surface Script in SBC, see [scripting/tss/TSS_PATTERNS.md](scripting/tss/TSS_PATTERNS.md).
-
-### Mod Folder Structure
+## Mod Folder Structure
 
 ```
 MyMod/                        ← local: %AppData%\SpaceEngineers\Mods\MyMod\
@@ -353,63 +262,36 @@ MyMod/                        ← local: %AppData%\SpaceEngineers\Mods\MyMod\
 
 ## Asset Pipeline Overview
 
-Space Engineers uses custom asset formats. Source files must be converted before they work in-game.
+SE uses custom asset formats — see [ASSETS.md](ASSETS.md) for the full pipeline. Quick reference:
 
-### Models
-```
-FBX (Blender/3ds Max)  →  MwmBuilder  →  .mwm  →  reference in SBC
-```
-- Tool: `[ModSDK]\Tools\VRageEditor\` → ModelBuilder plugin
-- Documentation: `[ModSDK]\Tools\VRageEditor\Plugins\ModelBuilder\MwmBuilderReadme.txt`
-- Build progress models (`_BS1`, `_BS2`, `_BS3`) are separate .mwm files
+**Models:** `FBX → MwmBuilder → .mwm` — tool at `[ModSDK]\Tools\VRageEditor\`. Build stage models use `_BS1`/`_BS2`/`_BS3` suffixes.
 
-### Textures (DX11 channel packing)
-SE uses packed texture channels — **do not use vanilla naming conventions from old tutorials**:
+**Textures — DX11 channel packing** (don't follow old tutorials — channel layout changed):
 
 | File suffix | Channels | Contents |
 |-------------|----------|---------|
 | `_cm.dds` | RGB = Color, A = Metalness | Diffuse colour + metal mask |
 | `_ng.dds` | RGB = Normal, A = Glossiness | Normal map + gloss mask |
-| `_add.dds` | R = Ambient Occlusion, G = Emissive, A = Paintability/Alpha mask | AO + emissive + paint support |
-| `_alphamask.dds` | A only | Transparency cutout for GLASS/DECAL techniques |
+| `_add.dds` | R = AO, G = Emissive, A = Paintability | AO + emissive + paint support |
+| `_alphamask.dds` | A only | Transparency cutout for GLASS/DECAL |
 
-- **Recommended format:** BC7 (use `texconv -f BC7_UNORM_SRGB` for colour textures, `BC7_UNORM` for normal maps)
-- DXT5 still works but BC7 gives better quality at the same size
-- Preview: `[ModSDK]\Tools\VRageEditor\` → ModelViewer plugin
+Format: `BC7_UNORM_SRGB` (colour) / `BC7_UNORM` (normals) via `texconv`.
 
-**Technique values** (set in the material definition `<Technique>` field):
+**Technique values** (`<Technique>` field in material definition):
 
 | Technique | Use |
 |-----------|-----|
-| `MESH` | Standard opaque geometry (default for most blocks) |
-| `DECAL` | Appears as part of underlying model surface |
-| `DECAL_NOPREMULT` | Higher transparency accuracy than DECAL |
-| `DECAL_CUTOUT` | Cuts into the underlying model |
-| `ALPHA_MASKED` | Opacity driven by alphamask texture |
-| `FOLIAGE` | Semi-transparent; shadows observe texture transparency |
-| `GLASS` | Transparent with refraction — material name must match a SubtypeId in `TransparentMaterials.sbc` |
-| `HOLO` | Emissive glass — also needs a `TransparentMaterials.sbc` entry |
-| `SHIELD` | Animated distorted glass — **may crash on certain blocks**; needs `TransparentMaterials.sbc` entry |
+| `MESH` | Standard opaque geometry (default) |
+| `DECAL` / `DECAL_NOPREMULT` / `DECAL_CUTOUT` | Decal overlays |
+| `ALPHA_MASKED` | Opacity from alphamask texture |
+| `FOLIAGE` | Semi-transparent with shadow transparency |
+| `GLASS` | Transparent with refraction — needs `TransparentMaterials.sbc` entry |
+| `HOLO` | Emissive glass — needs `TransparentMaterials.sbc` entry |
+| `SHIELD` | Animated glass — **may crash on certain blocks** |
 
-**Transparent materials** (GLASS/HOLO/SHIELD): the material `Name` attribute must match a `SubtypeId` in `TransparentMaterials.sbc`. These use a CA (Color/Alpha) texture instead of CM, where the alpha channel controls transparency.
+**LCD textures:** `PNG → texconv BC7_UNORM_SRGB → .dds` — alpha = inverse emissivity; use `-sepalpha` for mipmaps.
 
-### LCD Textures (LCDTextureDefinition mods)
-```
-PNG / JPG / etc.  →  texconv (BC7_UNORM_SRGB)  →  .dds  →  TexturePath + SpritePath in LCDTextures.sbc
-```
-- Alpha channel = **inverse emissivity** (alpha=1 ≈ fully self-lit — Keen's recommended value)
-- Must use `-sepalpha` when generating mipmaps — prevents premultiplied alpha from destroying mip quality
-- Full mipmap chain required; use 1024px+ source images for good quality at game distances
-- **Recommended tool:** [Universal Image Converter](https://github.com/Godimas101/mods/tree/main/space-engineers-mods/Tools/universal-image-converter) — handles BC7_UNORM_SRGB, mipmaps, emissivity alpha, and all screen presets automatically
-
-### Audio
-```
-WAV (16-bit PCM, 44100 Hz)  →  xWMAEncode.exe  →  .xwm  →  reference in Audio.sbc
-```
-- **xWMAEncode.exe is bundled with the ModSDK:** `[ModSDK]\Tools\xWMAEncode.exe`
-- No separate DirectX SDK download needed
-- Also available: `[ModSDK]\Tools\AdpcmEncode.exe` for ADPCM format
-- **Recommended tool:** [Universal Audio Converter](https://github.com/Godimas101/mods/tree/main/space-engineers-mods/Tools/universal-audio-converter) — batch converts WAV/MP3/FLAC/OGG to .xwm and generates Audio.sbc entries automatically
+**Audio:** `WAV → xWMAEncode.exe → .xwm` — encoder at `[ModSDK]\Tools\xWMAEncode.exe` (bundled, no separate download).
 
 ---
 
@@ -438,73 +320,17 @@ WAV (16-bit PCM, 44100 Hz)  →  xWMAEncode.exe  →  .xwm  →  reference in Au
 
 ## Mod Making Notes — Your Session Journal
 
-Mod work often spans many sessions with long breaks in between. Claude only has the current conversation in context. Without a persistent record, every new session starts blind — re-explaining decisions that were already made, re-discovering bugs that were already solved, losing track of what's done and what isn't.
+A `MOD_MAKING_NOTES.md` file in your mod directory bridges sessions — records decisions, bugs found/fixed, and what was left unfinished. Offer to create one if it doesn't exist. Full template and format guide: **[MOD_MAKING_NOTES.md](MOD_MAKING_NOTES.md)**.
 
-A `MOD_MAKING_NOTES.md` file in your mod directory solves this. Keep it next to your mods and add it to your VS Code workspace so Claude can read it at the start of every session.
-
-### When to read it
-At the start of any mod work session — before making any changes — check if a notes file exists and read it. The session log is the most important part: it tells you what was done last time and what was left unfinished.
-
-### When to update it
-- After completing a significant piece of work, add an entry to the Session Log
-- When a decision is made (why X was done instead of Y), write it down under the relevant mod section
-- When a bug is found and fixed, record it in the session log and under Known Issues if it's likely to recur
-- When a feature is added, update any status tables in that mod's section
-
-### Creating a new notes file
-
-If the user's mod directory doesn't have a `MOD_MAKING_NOTES.md`, offer to create one. Use this structure:
-
-```markdown
-# Space Engineers - Mod Making Notes
-
-Consolidated notes for all mods in this workspace.
-
----
-
-## Table of Contents
-- [Mod Name](#mod-name)
-
----
-
-## Mod Name
-
-**Purpose:** What this mod does.
-**Status:** In progress / Released / On hold
-
-### Current Goals
-
-- [ ] Thing to do
-- [ ] Another thing
-
-### Known Issues
-
-*Add issues here as they are discovered.*
-
-### Design Decisions
-
-*Record any non-obvious choices and why they were made.*
-
----
-
-## Session Log
-
-### YYYY-MM-DD — Short description
-- What was done
-- What was discovered
-- What was left unfinished → pick up next session from here
-```
-
-### Format guidelines
-- **Session Log goes at the bottom** — newest entries at the bottom, not the top
-- **Dates use ISO format** (YYYY-MM-DD)
-- **Keep entries factual** — bugs found, fixes applied, decisions made, things still pending
-- **One file covers all mods** in the workspace — separate sections per mod, shared session log
+**When to read it:** Start of every mod work session, before making changes.
+**When to update it:** After significant work, decisions made, or bugs found/fixed.
 
 ---
 
 ## Supporting Reference Files
 
+- [MOD_CATALOGUE.md](MOD_CATALOGUE.md) — Catalogue format spec, category definitions, scan rules, Workshop ID → framework mappings
+- [MOD_MAKING_NOTES.md](MOD_MAKING_NOTES.md) — Session journal template and format guide
 - [SBC_RULES.md](sbc/SBC_RULES.md) — Universal SBC rules, override behavior, cross-mod references, DefinitionBase
 - [SBC_BLOCKS.md](sbc/SBC_BLOCKS.md) — Block/item templates, categories, variant groups, block type reference
 - [SBC_PRODUCTION.md](sbc/SBC_PRODUCTION.md) — Blueprints, production tabs, progression locks

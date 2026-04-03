@@ -26,7 +26,7 @@ SE modding has three completely separate disciplines. Pick the one that fits you
 
 **Learning curve:** High. Requires C# knowledge, IDE setup, and understanding of the game's event model.
 
-**Start here:** [CSHARP_PROJECT_SETUP.md](scripting/csharp/CSHARP_PROJECT_SETUP.md) · [CSHARP_PATTERNS.md](scripting/csharp/CSHARP_PATTERNS.md) · [TSS_PATTERNS.md](scripting/tss/TSS_PATTERNS.md) · [SKILL.md](SKILL.md)
+**Start here:** [CSHARP_PROJECT_SETUP.md](scripting/csharp/CSHARP_PROJECT_SETUP.md) · [CSHARP_PATTERNS.md](scripting/csharp/CSHARP_PATTERNS.md) · [TSS_PATTERNS.md](scripting/tss/TSS_PATTERNS.md)
 
 ---
 
@@ -44,7 +44,7 @@ SE modding has three completely separate disciplines. Pick the one that fits you
 ### Programmable Block Scripts (ingame, sandboxed)
 These are not mods — they're player-written scripts that run inside the game's Programmable Block. They use a separate, restricted API and cannot access most game systems.
 
-**Start here:** [PB_SCRIPTS.md](PB_SCRIPTS.md)
+**Start here:** [PB_SCRIPTS.md](scripting/PB_SCRIPTS.md)
 
 ---
 
@@ -98,6 +98,8 @@ SEUT wiki: `spaceengineers.wiki.gg/wiki/Modding/Tools/Space_Engineers_Utilities`
 
 ## Mod Folder Structure
 
+> Canonical source: [SKILL.md](SKILL.md#mod-folder-structure). Reproduced here for beginner context.
+
 Every mod lives under `%AppData%\SpaceEngineers\Mods\`.
 
 ```
@@ -131,7 +133,7 @@ Every mod lives under `%AppData%\SpaceEngineers\Mods\`.
 
 For SBC mods, also search for `No definition` — this means a TypeId or SubtypeId was wrong.
 
-See [TROUBLESHOOTING.md](TROUBLESHOOTING.md) for a full error reference.
+See [TROUBLESHOOTING.md](troubleshooting/TROUBLESHOOTING.md) for a full error reference.
 
 ---
 
@@ -227,7 +229,7 @@ This works because all Workshop mods live in the same parent folder (`244850\`),
 
 SE definitions are fully overwritten — your mod must include the complete definition to change any single field. But **Mod Adjuster** lets you patch only the fields you want to change, without copying the whole definition or any assets.
 
-See [MOD_ADJUSTER.md](MOD_ADJUSTER.md) for the full guide.
+See [MOD_ADJUSTER.md](framework-mods/MOD_ADJUSTER.md) for the full guide.
 
 **Note:** Mod Adjuster is C#-scripted, so it won't work on console.
 
@@ -243,7 +245,7 @@ Mods load **bottom-to-top** in the in-game mod list. The mod **highest** in the 
 
 | Resource | Best for |
 |----------|---------|
-| [TROUBLESHOOTING.md](TROUBLESHOOTING.md) | Error messages, log reading, common failures |
+| [TROUBLESHOOTING.md](troubleshooting/TROUBLESHOOTING.md) | Error messages, log reading, common failures |
 | [Keen Discord](https://discord.gg/keenswh) | `#modding-programming` (C#), `#modding-art-sbc` (SBC/art) |
 | [Keen Support](https://support.keenswh.com/spaceengineers) | Reporting confirmed engine bugs |
 | [Official ModAPI docs](https://keensoftwarehouse.github.io/SpaceEngineersModAPI/api/index.html) | C# API reference |

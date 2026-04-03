@@ -190,7 +190,7 @@ Picking **Working on a mod** triggers one more follow-up to narrow the type (bra
 - [Claude Code](https://www.anthropic.com/claude-code)
 - Space Engineers installed via Steam
 - Space Engineers ModSDK installed (free via Steam → Library → Tools)
-- For compiled mods: [MDK2](https://github.com/malforge/mdk2/releases) and Visual Studio or Rider
+- For compiled mods: [MDK2](https://github.com/malforge/mdk2/releases) and **VS Code** (recommended) or Visual Studio / Rider
 - For Mod Adjuster mods: [Mod Adjuster](https://steamcommunity.com/workshop/filedetails/?id=3017795356) subscribed in Steam Workshop
 - For asset pipeline work: Blender 4.0+ with the [SEUT addon](https://spaceengineers.wiki.gg/wiki/Modding/Tools/Space_Engineers_Utilities)
 

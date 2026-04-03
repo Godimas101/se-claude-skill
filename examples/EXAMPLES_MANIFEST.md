@@ -2,6 +2,8 @@
 
 End-to-end walkthroughs for complete, self-contained modding tasks. Each example is a checklist you follow top-to-bottom.
 
+> More examples will be added over time. For additional walkthroughs, see the wiki recipe pages linked in [GETTING_STARTED.md](../GETTING_STARTED.md#wiki-tutorial-index).
+
 ---
 
 | Example | Type | Description |

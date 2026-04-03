@@ -18,7 +18,7 @@ For all asset work:
 | Havok Content Tools v2012.2.0 | Physics collision export (.hkt) | Separate download (referenced in SEUT setup) |
 | Microsoft .NET Framework 3.5 | MwmBuilder dependency | Windows optional feature |
 | Visual C++ Redistributable 2012 | Havok Content Tools dependency | Microsoft |
-| texconv | DDS texture conversion | DirectXTex (Microsoft) |
+| texconv | DDS texture conversion | Bundled with ModSDK (`[ModSDK]\Tools\texconv.exe`) |
 | Universal Image Converter | GUI wrapper for DDS conversion (all 4 channel types, batch) | [GitHub](https://github.com/Godimas101/mods/tree/main/space-engineers-mods/Tools/universal-image-converter) |
 
 SEUT installation path: Blender Preferences → Add-ons → Install → select `space_engineers_utilities_***.zip`.
