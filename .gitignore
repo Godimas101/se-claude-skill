@@ -3,3 +3,8 @@ MOD_CATALOGUE.md
 RESEARCH_PLAN.md
 *NOTES*.md
 *STYLE_GUIDE*.md
+
+# But DO track the canonical templates shipped by the skill —
+# these are what modders copy into their own mod projects.
+!skills/se-core/MOD_CATALOGUE.template.md
+!skills/se-core/MOD_MAKING_NOTES.template.md

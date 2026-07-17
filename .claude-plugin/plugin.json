@@ -1,0 +1,6 @@
+{
+  "name": "space-engineers",
+  "displayName": "Space Engineers Modding",
+  "description": "Claude Code expert for Space Engineers mod development: SBC/XML, compiled C# mods, Text Surface Scripts, PB scripts, frameworks (MES, WeaponCore, Mod Adjuster, etc.), asset pipeline, and log troubleshooting.",
+  "version": "4.0.0"
+}
