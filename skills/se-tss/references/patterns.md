@@ -2,11 +2,11 @@
 
 TSS mod architecture: class structure, update loop, game state access, scrolling, and subgrid caching.
 
-> For project setup, MDK2, and namespace rules: see [CSHARP_PROJECT_SETUP.md](../csharp/CSHARP_PROJECT_SETUP.md).
-> For runtime patterns (session component, config, save/sync): see [CSHARP_PATTERNS.md](../csharp/CSHARP_PATTERNS.md).
-> For block API queries (power, gas, inventory) used in TSS: see [CSHARP_BLOCK_QUERIES.md](../csharp/CSHARP_BLOCK_QUERIES.md).
-> For drawing helpers, base classes, viewport, charts, and the full LCD App pattern: see [TSS_DRAWING.md](TSS_DRAWING.md).
-> For a complete end-to-end working example: see [EXAMPLE_LCD_APP_SCRIPT.md](../../examples/EXAMPLE_LCD_APP_SCRIPT.md).
+> For project setup, MDK2, and namespace rules: see [CSHARP_PROJECT_SETUP.md](../../se-csharp/references/project-setup.md).
+> For runtime patterns (session component, config, save/sync): see [CSHARP_PATTERNS.md](../../se-csharp/references/patterns.md).
+> For block API queries (power, gas, inventory) used in TSS: see [CSHARP_BLOCK_QUERIES.md](../../se-csharp/references/block-queries.md).
+> For drawing helpers, base classes, viewport, charts, and the full LCD App pattern: see [TSS_DRAWING.md](drawing.md).
+> For a complete end-to-end working example: see [EXAMPLE_LCD_APP_SCRIPT.md](../../se-tss/references/example-lcd-app.md).
 
 ---
 
@@ -233,7 +233,7 @@ private void UpdateBlocks()
 
 ## SBC Registration
 
-> For the `TextSurfaceScripts.sbc` registration template, see [sbc/SBC_MISC.md](../../sbc/SBC_MISC.md).
+> For the `TextSurfaceScripts.sbc` registration template, see [sbc/SBC_MISC.md](../../se-sbc/references/misc.md).
 
 The `Subtype` must match `[MyTextSurfaceScript("MyScriptId", "...")]` in C#.
 
@@ -246,11 +246,11 @@ The `Subtype` must match `[MyTextSurfaceScript("MyScriptId", "...")]` in C#.
 - [github.com/malforge/mdk2](https://github.com/malforge/mdk2) — MDK2: project templates and build tools
 
 ### Internal
-- [TSS_DRAWING.md](TSS_DRAWING.md) — drawing helpers, base classes, viewport, charts, MeasureStringInPixels, full LCD App pattern
-- [CSHARP_PATTERNS.md](../csharp/CSHARP_PATTERNS.md) — session component, config (MyIni), save/sync, logging, type conversions, performance rules
-- [CSHARP_BLOCK_QUERIES.md](../csharp/CSHARP_BLOCK_QUERIES.md) — block API queries: power, gas, inventory, production, doors, conveyor network
-- [../../sbc/SBC_MISC.md](../../sbc/SBC_MISC.md) — `TextSurfaceScripts.sbc` registration template
-- [../../examples/EXAMPLE_LCD_APP_SCRIPT.md](../../examples/EXAMPLE_LCD_APP_SCRIPT.md) — full end-to-end LCD App Script worked example
+- [TSS_DRAWING.md](drawing.md) — drawing helpers, base classes, viewport, charts, MeasureStringInPixels, full LCD App pattern
+- [CSHARP_PATTERNS.md](../../se-csharp/references/patterns.md) — session component, config (MyIni), save/sync, logging, type conversions, performance rules
+- [CSHARP_BLOCK_QUERIES.md](../../se-csharp/references/block-queries.md) — block API queries: power, gas, inventory, production, doors, conveyor network
+- [../../sbc/SBC_MISC.md](../../se-sbc/references/misc.md) — `TextSurfaceScripts.sbc` registration template
+- [../../examples/EXAMPLE_LCD_APP_SCRIPT.md](../../se-tss/references/example-lcd-app.md) — full end-to-end LCD App Script worked example
 
 ### Local
 - ModSDK API DLLs (with XML docs): `[Steam]\steamapps\common\SpaceEngineersModSDK\`

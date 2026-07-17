@@ -15,7 +15,7 @@ SE modding has three completely separate disciplines. Pick the one that fits you
 
 **Learning curve:** Low. You're editing XML files. The main skill is knowing which fields do what.
 
-**Start here:** [SBC_RULES.md](sbc/SBC_RULES.md)
+**Start here:** [SBC_RULES.md](../../se-sbc/references/rules.md)
 
 ---
 
@@ -26,7 +26,7 @@ SE modding has three completely separate disciplines. Pick the one that fits you
 
 **Learning curve:** High. Requires C# knowledge, IDE setup, and understanding of the game's event model.
 
-**Start here:** [CSHARP_PROJECT_SETUP.md](scripting/csharp/CSHARP_PROJECT_SETUP.md) · [CSHARP_PATTERNS.md](scripting/csharp/CSHARP_PATTERNS.md) · [TSS_PATTERNS.md](scripting/tss/TSS_PATTERNS.md)
+**Start here:** [CSHARP_PROJECT_SETUP.md](../../se-csharp/references/project-setup.md) · [CSHARP_PATTERNS.md](../../se-csharp/references/patterns.md) · [TSS_PATTERNS.md](../../se-tss/references/patterns.md)
 
 ---
 
@@ -44,7 +44,7 @@ SE modding has three completely separate disciplines. Pick the one that fits you
 ### Programmable Block Scripts (ingame, sandboxed)
 These are not mods — they're player-written scripts that run inside the game's Programmable Block. They use a separate, restricted API and cannot access most game systems.
 
-**Start here:** [PB_SCRIPTS.md](scripting/PB_SCRIPTS.md)
+**Start here:** [PB_SCRIPTS.md](../../se-pb-scripts/references/scripts.md)
 
 ---
 
@@ -133,7 +133,7 @@ Every mod lives under `%AppData%\SpaceEngineers\Mods\`.
 
 For SBC mods, also search for `No definition` — this means a TypeId or SubtypeId was wrong.
 
-See [TROUBLESHOOTING.md](troubleshooting/TROUBLESHOOTING.md) for a full error reference.
+See [TROUBLESHOOTING.md](../../se-troubleshooting/references/errors.md) for a full error reference.
 
 ---
 
@@ -221,7 +221,7 @@ This works because all Workshop mods live in the same parent folder (`244850\`),
 
 **For local testing:** Copy the target mod's folder into `%AppData%\SpaceEngineers\Mods\` and rename it to the Workshop ID number. Your `..\\12345678\\` references will resolve correctly.
 
-**Full guide:** [SBC_RULES.md — Cross-Mod Asset References](sbc/SBC_RULES.md)
+**Full guide:** [SBC_RULES.md — Cross-Mod Asset References](../../se-sbc/references/rules.md)
 
 ---
 
@@ -229,7 +229,7 @@ This works because all Workshop mods live in the same parent folder (`244850\`),
 
 SE definitions are fully overwritten — your mod must include the complete definition to change any single field. But **Mod Adjuster** lets you patch only the fields you want to change, without copying the whole definition or any assets.
 
-See [MOD_ADJUSTER.md](framework-mods/MOD_ADJUSTER.md) for the full guide.
+See [MOD_ADJUSTER.md](../../se-frameworks/references/mod-adjuster.md) for the full guide.
 
 **Note:** Mod Adjuster is C#-scripted, so it won't work on console.
 
@@ -245,7 +245,7 @@ Mods load **bottom-to-top** in the in-game mod list. The mod **highest** in the 
 
 | Resource | Best for |
 |----------|---------|
-| [TROUBLESHOOTING.md](troubleshooting/TROUBLESHOOTING.md) | Error messages, log reading, common failures |
+| [TROUBLESHOOTING.md](../../se-troubleshooting/references/errors.md) | Error messages, log reading, common failures |
 | [Keen Discord](https://discord.gg/keenswh) | `#modding-programming` (C#), `#modding-art-sbc` (SBC/art) |
 | [Keen Support](https://support.keenswh.com/spaceengineers) | Reporting confirmed engine bugs |
 | [Official ModAPI docs](https://keensoftwarehouse.github.io/SpaceEngineersModAPI/api/index.html) | C# API reference |
@@ -352,6 +352,6 @@ Key wiki pages not already linked elsewhere in these skill files:
 - [spaceengineers.wiki.gg/wiki/Modding/Tutorials/Creating_And_Uploading_Mods](https://spaceengineers.wiki.gg/wiki/Modding/Tutorials/Creating_And_Uploading_Mods) — publishing workflow
 
 ### Internal
-- [sbc/SBC_RULES.md](sbc/SBC_RULES.md) — universal SBC rules; start here for any SBC work
-- [EXAMPLES_MANIFEST.md](examples/EXAMPLES_MANIFEST.md) — end-to-end worked examples for common mod types
-- [ASSETS.md](ASSETS.md) — full asset pipeline for 3D models, textures, and audio
+- [sbc/SBC_RULES.md](../../se-sbc/references/rules.md) — universal SBC rules; start here for any SBC work
+- [EXAMPLES_MANIFEST.md](../../se-sbc/references/examples-index.md) — end-to-end worked examples for common mod types
+- [ASSETS.md](../../se-assets/references/pipeline.md) — full asset pipeline for 3D models, textures, and audio

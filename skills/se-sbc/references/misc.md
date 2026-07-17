@@ -1,9 +1,9 @@
 # SBC Miscellaneous — Space Engineers
 
-LCD/screen setup, localization, loot tables, prefabs, and finding definition IDs. For SBC rules and shared field references, see [SBC_RULES.md](SBC_RULES.md).
+LCD/screen setup, localization, loot tables, prefabs, and finding definition IDs. For SBC rules and shared field references, see [SBC_RULES.md](rules.md).
 
-> For block/item templates and the block type reference: see [SBC_BLOCKS.md](SBC_BLOCKS.md).
-> For blueprints, production tabs, and progression locks: see [SBC_PRODUCTION.md](SBC_PRODUCTION.md).
+> For block/item templates and the block type reference: see [SBC_BLOCKS.md](blocks.md).
+> For blueprints, production tabs, and progression locks: see [SBC_PRODUCTION.md](production.md).
 
 ---
 
@@ -368,9 +368,9 @@ Internal block names are often completely different from display names. "Action 
 - [spaceengineers.wiki.gg/wiki/Modding/Reference/SBC](https://spaceengineers.wiki.gg/wiki/Modding/Reference/SBC) — official SBC modding reference
 
 ### Internal
-- [SBC_RULES.md](SBC_RULES.md) — universal SBC rules, override/additive behavior
-- [SBC_BLOCKS.md](SBC_BLOCKS.md) — block definitions; required when adding LCD screens to custom blocks
-- [../scripting/tss/TSS_PATTERNS.md](../scripting/tss/TSS_PATTERNS.md) — writing the C# Text Surface Script that pairs with LCD SBC registration
+- [SBC_RULES.md](rules.md) — universal SBC rules, override/additive behavior
+- [SBC_BLOCKS.md](blocks.md) — block definitions; required when adding LCD screens to custom blocks
+- [../scripting/tss/TSS_PATTERNS.md](../../se-tss/references/patterns.md) — writing the C# Text Surface Script that pairs with LCD SBC registration
 
 ### Local
 - Localization files: `[Steam]\steamapps\common\SpaceEngineers\Content\Data\Localization\`

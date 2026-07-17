@@ -212,8 +212,8 @@ Full config reference: [Digi's TankTracks.ini Gist](https://gist.github.com/THDi
 - [C# API session component example (Gist)](https://gist.github.com/THDigi/d515209c9dce1d0bee1deb86235a654a)
 
 ### Internal
-- [../ASSETS.md](../ASSETS.md) — track segment MWM model pipeline
-- [../scripting/csharp/CSHARP_PATTERNS.md](../scripting/csharp/CSHARP_PATTERNS.md) — C# session component patterns (for scripted tools only)
+- [../ASSETS.md](../../se-assets/references/pipeline.md) — track segment MWM model pipeline
+- [../scripting/csharp/CSHARP_PATTERNS.md](../../se-csharp/references/patterns.md) — C# session component patterns (for scripted tools only)
 
 ### Local
 

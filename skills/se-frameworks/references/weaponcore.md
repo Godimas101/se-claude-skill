@@ -241,9 +241,9 @@ Any mod with `Data/Scripts/CoreParts/*.cs` files is a WeaponCore child mod. The 
 - PB API guide — Workshop ID `2178802013`
 
 ### Internal
-- [../sbc/SBC_BLOCKS.md](../sbc/SBC_BLOCKS.md) — ConveyorSorter and other block type definitions
-- [../scripting/csharp/CSHARP_PATTERNS.md](../scripting/csharp/CSHARP_PATTERNS.md) — C# session component patterns
-- [../ASSETS.md](../ASSETS.md) — model setup, subparts, muzzle empties
+- [../sbc/SBC_BLOCKS.md](../../se-sbc/references/blocks.md) — ConveyorSorter and other block type definitions
+- [../scripting/csharp/CSHARP_PATTERNS.md](../../se-csharp/references/patterns.md) — C# session component patterns
+- [../ASSETS.md](../../se-assets/references/pipeline.md) — model setup, subparts, muzzle empties
 
 ### Local
 

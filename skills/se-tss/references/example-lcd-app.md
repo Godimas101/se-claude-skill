@@ -2,9 +2,9 @@
 
 End-to-end walkthrough: register a custom C# app in the LCD screen list. Players select it from the terminal just like vanilla apps (Energy, Inventory, etc.).
 
-> For all examples, see [EXAMPLES_MANIFEST.md](EXAMPLES_MANIFEST.md).
-> For C# project setup and MDK2: see [../scripting/csharp/CSHARP_PROJECT_SETUP.md](../scripting/csharp/CSHARP_PROJECT_SETUP.md).
-> For TSS class structure, drawing API, and base classes: see [../scripting/tss/TSS_PATTERNS.md](../scripting/tss/TSS_PATTERNS.md) and [../scripting/tss/TSS_DRAWING.md](../scripting/tss/TSS_DRAWING.md).
+> For all examples, see [EXAMPLES_MANIFEST.md](../../se-sbc/references/examples-index.md).
+> For C# project setup and MDK2: see [../scripting/csharp/CSHARP_PROJECT_SETUP.md](../../se-csharp/references/project-setup.md).
+> For TSS class structure, drawing API, and base classes: see [../scripting/tss/TSS_PATTERNS.md](../../se-tss/references/patterns.md) and [../scripting/tss/TSS_DRAWING.md](../../se-tss/references/drawing.md).
 
 <!-- source: https://spaceengineers.wiki.gg/wiki/Modding/Tutorials/Recipes/LCD_App_Mod_Script -->
 
@@ -134,7 +134,7 @@ namespace YourName.YourModName
 | `m_fontScale` | `float` | Auto-calculated font scale |
 | `m_foregroundColor` | `Color` | Surface's configured script foreground color |
 
-For more drawing patterns (progress bars, lines, charts) see [../scripting/csharp/CSHARP_PATTERNS.md](../scripting/csharp/CSHARP_PATTERNS.md).
+For more drawing patterns (progress bars, lines, charts) see [../scripting/csharp/CSHARP_PATTERNS.md](../../se-csharp/references/patterns.md).
 
 ---
 
@@ -144,8 +144,8 @@ For more drawing patterns (progress bars, lines, charts) see [../scripting/cshar
 - [spaceengineers.wiki.gg/wiki/Modding/Tutorials/Recipes/LCD_App_Mod_Script](https://spaceengineers.wiki.gg/wiki/Modding/Tutorials/Recipes/LCD_App_Mod_Script) — official LCD App Script recipe
 
 ### Internal
-- [EXAMPLES_MANIFEST.md](EXAMPLES_MANIFEST.md) — all examples
-- [../scripting/csharp/CSHARP_PROJECT_SETUP.md](../scripting/csharp/CSHARP_PROJECT_SETUP.md) — project setup, MDK2, folder structure
-- [../scripting/csharp/CSHARP_PATTERNS.md](../scripting/csharp/CSHARP_PATTERNS.md) — C# runtime patterns and drawing helpers
-- [../scripting/tss/TSS_PATTERNS.md](../scripting/tss/TSS_PATTERNS.md) — TSS class structure, Update10 rule, scrolling
-- [../scripting/tss/TSS_DRAWING.md](../scripting/tss/TSS_DRAWING.md) — TSS drawing API: sprites, base classes, charts, viewport
+- [EXAMPLES_MANIFEST.md](../../se-sbc/references/examples-index.md) — all examples
+- [../scripting/csharp/CSHARP_PROJECT_SETUP.md](../../se-csharp/references/project-setup.md) — project setup, MDK2, folder structure
+- [../scripting/csharp/CSHARP_PATTERNS.md](../../se-csharp/references/patterns.md) — C# runtime patterns and drawing helpers
+- [../scripting/tss/TSS_PATTERNS.md](../../se-tss/references/patterns.md) — TSS class structure, Update10 rule, scrolling
+- [../scripting/tss/TSS_DRAWING.md](../../se-tss/references/drawing.md) — TSS drawing API: sprites, base classes, charts, viewport

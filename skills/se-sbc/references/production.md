@@ -1,9 +1,9 @@
 # SBC Production & Research — Space Engineers
 
-Blueprints, production tabs, and progression locks. For SBC rules and shared field references, see [SBC_RULES.md](SBC_RULES.md).
+Blueprints, production tabs, and progression locks. For SBC rules and shared field references, see [SBC_RULES.md](rules.md).
 
-> For block/item templates and the block type reference: see [SBC_BLOCKS.md](SBC_BLOCKS.md).
-> For LCD registration, localization, loot, and prefabs: see [SBC_MISC.md](SBC_MISC.md).
+> For block/item templates and the block type reference: see [SBC_BLOCKS.md](blocks.md).
+> For LCD registration, localization, loot, and prefabs: see [SBC_MISC.md](misc.md).
 
 ---
 
@@ -215,8 +215,8 @@ Locks blocks behind research. Players must build a "trigger" block to unlock a g
 - [spaceengineers.wiki.gg/wiki/Modding/Reference/SBC](https://spaceengineers.wiki.gg/wiki/Modding/Reference/SBC) — official SBC modding reference
 
 ### Internal
-- [SBC_RULES.md](SBC_RULES.md) — universal SBC rules, override/additive behavior
-- [SBC_BLOCKS.md](SBC_BLOCKS.md) — block definitions; SubtypeId must match the blueprint's result item
+- [SBC_RULES.md](rules.md) — universal SBC rules, override/additive behavior
+- [SBC_BLOCKS.md](blocks.md) — block definitions; SubtypeId must match the blueprint's result item
 
 ### Local
 - Vanilla blueprint SBCs: `[Steam]\steamapps\common\SpaceEngineers\Content\Data\Blueprints\`

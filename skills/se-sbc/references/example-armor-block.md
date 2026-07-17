@@ -2,9 +2,9 @@
 
 End-to-end walkthrough: full custom armor block shape using Blender + SEUT. Includes model export, mountpoints, mirroring, build stages, LODs, SBC registration, and G-menu categories.
 
-> For all examples, see [EXAMPLES_MANIFEST.md](EXAMPLES_MANIFEST.md).
-> For SBC rules and block definition templates: see [../sbc/SBC_RULES.md](../sbc/SBC_RULES.md) and [../sbc/SBC_BLOCKS.md](../sbc/SBC_BLOCKS.md).
-> For the full asset pipeline: see [../ASSETS.md](../ASSETS.md).
+> For all examples, see [EXAMPLES_MANIFEST.md](examples-index.md).
+> For SBC rules and block definition templates: see [../sbc/SBC_RULES.md](../../se-sbc/references/rules.md) and [../sbc/SBC_BLOCKS.md](../../se-sbc/references/blocks.md).
+> For the full asset pipeline: see [../ASSETS.md](../../se-assets/references/pipeline.md).
 
 <!-- source: https://spaceengineers.wiki.gg/wiki/Modding/Tutorials/Recipes/Armor_Block -->
 
@@ -265,10 +265,10 @@ Always copy the vanilla block definition of the same shape as your starting temp
 - [spaceengineers.wiki.gg/wiki/Modding/Tutorials/Recipes/Armor_Block](https://spaceengineers.wiki.gg/wiki/Modding/Tutorials/Recipes/Armor_Block) — official armor block recipe
 
 ### Internal
-- [EXAMPLES_MANIFEST.md](EXAMPLES_MANIFEST.md) — all examples
-- [../sbc/SBC_RULES.md](../sbc/SBC_RULES.md) — universal SBC rules and DefinitionBase fields
-- [../sbc/SBC_BLOCKS.md](../sbc/SBC_BLOCKS.md) — block and item definition templates
-- [../ASSETS.md](../ASSETS.md) — full asset pipeline for the model steps
+- [EXAMPLES_MANIFEST.md](examples-index.md) — all examples
+- [../sbc/SBC_RULES.md](../../se-sbc/references/rules.md) — universal SBC rules and DefinitionBase fields
+- [../sbc/SBC_BLOCKS.md](../../se-sbc/references/blocks.md) — block and item definition templates
+- [../ASSETS.md](../../se-assets/references/pipeline.md) — full asset pipeline for the model steps
 
 ### Local
 - Vanilla block SBCs: `[Steam]\steamapps\common\SpaceEngineers\Content\Data\CubeBlocks\`

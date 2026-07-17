@@ -276,5 +276,5 @@ F11 requires toggling "Enable debug draw" first.
 | SE Wiki Troubleshooting | [spaceengineers.wiki.gg/wiki/Modding/Troubleshooting](https://spaceengineers.wiki.gg/wiki/Modding/Troubleshooting) |
 
 ### Internal
-- [PATCH_NOTES.md](PATCH_NOTES.md) — breaking changes by patch; check here when a mod stops working after an update
-- [DLC_CATALOGUE.md](DLC_CATALOGUE.md) — DLC SubtypeIds; useful when diagnosing DLC-related block errors
+- [PATCH_NOTES.md](patch-notes.md) — breaking changes by patch; check here when a mod stops working after an update
+- [DLC_CATALOGUE.md](dlc-catalogue.md) — DLC SubtypeIds; useful when diagnosing DLC-related block errors

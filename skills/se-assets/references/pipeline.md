@@ -413,8 +413,8 @@ Audio files must be registered in a `SoundCategories.sbc` (or `Sounds.sbc`) file
 - [github.com/Godimas101/mods/tree/main/space-engineers-mods/Tools/universal-audio-converter](https://github.com/Godimas101/mods/tree/main/space-engineers-mods/Tools/universal-audio-converter) — Universal Audio Converter
 
 ### Internal
-- [sbc/SBC_BLOCKS.md](sbc/SBC_BLOCKS.md) — block SBC definition; `<Model>` path must match exported MWM filename
-- [examples/EXAMPLE_ARMOR_BLOCK.md](examples/EXAMPLE_ARMOR_BLOCK.md) — armor block example: full worked example of the FBX → MWM → SBC pipeline
+- [sbc/SBC_BLOCKS.md](../../se-sbc/references/blocks.md) — block SBC definition; `<Model>` path must match exported MWM filename
+- [examples/EXAMPLE_ARMOR_BLOCK.md](../../se-sbc/references/example-armor-block.md) — armor block example: full worked example of the FBX → MWM → SBC pipeline
 
 ### Local
 - Vanilla models (reference for LOD naming, dummy placement): `[Steam]\steamapps\common\SpaceEngineers\Content\Models\`

@@ -2,10 +2,10 @@
 
 Project structure, tooling, and decompiler reference for Space Engineers compiled mods. Start here for any new compiled mod project.
 
-> For runtime patterns (session component, config, save/sync): see [CSHARP_PATTERNS.md](CSHARP_PATTERNS.md).
-> For block API queries (power, gas, inventory, production, conveyor): see [CSHARP_BLOCK_QUERIES.md](CSHARP_BLOCK_QUERIES.md).
-> For TSS class structure, scrolling, and update rules: see [TSS_PATTERNS.md](../tss/TSS_PATTERNS.md).
-> For TSS drawing API, base classes, charts, and the full LCD App pattern: see [TSS_DRAWING.md](../tss/TSS_DRAWING.md).
+> For runtime patterns (session component, config, save/sync): see [CSHARP_PATTERNS.md](patterns.md).
+> For block API queries (power, gas, inventory, production, conveyor): see [CSHARP_BLOCK_QUERIES.md](block-queries.md).
+> For TSS class structure, scrolling, and update rules: see [TSS_PATTERNS.md](../../se-tss/references/patterns.md).
+> For TSS drawing API, base classes, charts, and the full LCD App pattern: see [TSS_DRAWING.md](../../se-tss/references/drawing.md).
 
 ---
 
@@ -281,12 +281,12 @@ Before calling any game method in a mod, confirm it's on the whitelist:
 - [spaceengineers.wiki.gg/wiki/Modding/Reference/ModScripting](https://spaceengineers.wiki.gg/wiki/Modding/Reference/ModScripting) — official C# mod scripting reference
 
 ### Internal
-- [CSHARP_PATTERNS.md](CSHARP_PATTERNS.md) — runtime patterns: session component, config, save/sync, logging, type conversions
-- [CSHARP_BLOCK_QUERIES.md](CSHARP_BLOCK_QUERIES.md) — block API queries: power, gas, inventory, production, doors, conveyor network
-- [TSS_PATTERNS.md](../tss/TSS_PATTERNS.md) — TSS class structure, update loop, scrolling, subgrid caching
-- [TSS_DRAWING.md](../tss/TSS_DRAWING.md) — TSS drawing API: helpers, base classes, viewport, charts, full LCD App pattern
-- [PB_SCRIPTS.md](../PB_SCRIPTS.md) — Programmable Block scripting (sandboxed; different from compiled mods)
-- [../../GETTING_STARTED.md](../../GETTING_STARTED.md) — beginner onboarding: mod types, VS Code setup, uploading
+- [CSHARP_PATTERNS.md](patterns.md) — runtime patterns: session component, config, save/sync, logging, type conversions
+- [CSHARP_BLOCK_QUERIES.md](block-queries.md) — block API queries: power, gas, inventory, production, doors, conveyor network
+- [TSS_PATTERNS.md](../../se-tss/references/patterns.md) — TSS class structure, update loop, scrolling, subgrid caching
+- [TSS_DRAWING.md](../../se-tss/references/drawing.md) — TSS drawing API: helpers, base classes, viewport, charts, full LCD App pattern
+- [PB_SCRIPTS.md](../../se-pb-scripts/references/scripts.md) — Programmable Block scripting (sandboxed; different from compiled mods)
+- [../../GETTING_STARTED.md](../../se-getting-started/references/onboarding.md) — beginner onboarding: mod types, VS Code setup, uploading
 
 ### Local
 - ModSDK API DLLs (with XML docs): `[Steam]\steamapps\common\SpaceEngineersModSDK\`

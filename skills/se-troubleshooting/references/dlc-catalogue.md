@@ -86,6 +86,6 @@ If a mod references DLC block TypeIds, it should handle the case where the playe
 - [spaceengineers.wiki.gg/wiki/DLC](https://spaceengineers.wiki.gg/wiki/DLC) — SE wiki DLC overview with block lists
 
 ### Internal
-- [PATCH_NOTES.md](PATCH_NOTES.md) — new DLC-gated blocks added in recent patches
-- [TROUBLESHOOTING.md](TROUBLESHOOTING.md) — errors caused by missing DLC dependencies
-- [../sbc/SBC_BLOCKS.md](../sbc/SBC_BLOCKS.md) — block definitions; `<DLCId>` field for gating blocks to DLC
+- [PATCH_NOTES.md](patch-notes.md) — new DLC-gated blocks added in recent patches
+- [TROUBLESHOOTING.md](errors.md) — errors caused by missing DLC dependencies
+- [../sbc/SBC_BLOCKS.md](../../se-sbc/references/blocks.md) — block definitions; `<DLCId>` field for gating blocks to DLC

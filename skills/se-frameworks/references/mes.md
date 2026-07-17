@@ -345,7 +345,7 @@ MES handles the **ship/vehicle** side; AI Enabled handles the **character/creatu
 - `[AiEnabledReady:true]` in SpawnGroup — gate spawn until AI Enabled is loaded
 - `[BotProfiles:SubtypeId]` in SpawnGroup or SpawnConditions — references an AI Enabled bot character SubtypeId
 
-See [AI_ENABLED.md](AI_ENABLED.md) for the bot character definition format.
+See [AI_ENABLED.md](ai-enabled.md) for the bot character definition format.
 
 ---
 
@@ -368,9 +368,9 @@ See [AI_ENABLED.md](AI_ENABLED.md) for the bot character definition format.
 - Ares at War (large MES example mod) — Workshop ID `2999925713`
 
 ### Internal
-- [AI_ENABLED.md](AI_ENABLED.md) — character/creature framework; MES handles ships, AI Enabled handles crew
-- [../sbc/SBC_MISC.md](../sbc/SBC_MISC.md) — prefab SBC format (used for NPC ship blueprints)
-- [../sbc/SBC_RULES.md](../sbc/SBC_RULES.md) — SBC load order and override rules
+- [AI_ENABLED.md](ai-enabled.md) — character/creature framework; MES handles ships, AI Enabled handles crew
+- [../sbc/SBC_MISC.md](../../se-sbc/references/misc.md) — prefab SBC format (used for NPC ship blueprints)
+- [../sbc/SBC_RULES.md](../../se-sbc/references/rules.md) — SBC load order and override rules
 
 ### Local
 

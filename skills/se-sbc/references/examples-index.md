@@ -8,5 +8,5 @@ End-to-end walkthroughs for complete, self-contained modding tasks. Each example
 
 | Example | Type | Description |
 |---------|------|-------------|
-| [EXAMPLE_LCD_APP_SCRIPT.md](EXAMPLE_LCD_APP_SCRIPT.md) | Compiled C# | Register a custom app in the LCD screen list — players select it from the terminal like vanilla apps |
-| [EXAMPLE_ARMOR_BLOCK.md](EXAMPLE_ARMOR_BLOCK.md) | SBC + Asset | Full custom armor block shape using Blender + SEUT — model, build stages, LODs, SBC, categories |
+| [EXAMPLE_LCD_APP_SCRIPT.md](../../se-tss/references/example-lcd-app.md) | Compiled C# | Register a custom app in the LCD screen list — players select it from the terminal like vanilla apps |
+| [EXAMPLE_ARMOR_BLOCK.md](example-armor-block.md) | SBC + Asset | Full custom armor block shape using Blender + SEUT — model, build stages, LODs, SBC, categories |

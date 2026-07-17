@@ -1,9 +1,9 @@
 # SBC Blocks Reference — Space Engineers
 
-Block definitions, categories, variant groups, and the type reference table. For SBC rules and DefinitionBase fields that apply everywhere, see [SBC_RULES.md](SBC_RULES.md).
+Block definitions, categories, variant groups, and the type reference table. For SBC rules and DefinitionBase fields that apply everywhere, see [SBC_RULES.md](rules.md).
 
-> For blueprints, production tabs, and progression locks: see [SBC_PRODUCTION.md](SBC_PRODUCTION.md).
-> For LCD registration, localization, loot, and prefabs: see [SBC_MISC.md](SBC_MISC.md).
+> For blueprints, production tabs, and progression locks: see [SBC_PRODUCTION.md](production.md).
+> For LCD registration, localization, loot, and prefabs: see [SBC_MISC.md](misc.md).
 
 ---
 
@@ -507,9 +507,9 @@ These are the internal names for the game's built-in LCD apps. Use in `<ScreenAr
 - [spaceengineers.wiki.gg/wiki/Modding/Reference/SBC](https://spaceengineers.wiki.gg/wiki/Modding/Reference/SBC) — official SBC modding reference
 
 ### Internal
-- [SBC_RULES.md](SBC_RULES.md) — universal SBC rules, DefinitionBase fields, override/additive behavior
-- [SBC_PRODUCTION.md](SBC_PRODUCTION.md) — blueprints and production tabs for new block recipes
-- [SBC_MISC.md](SBC_MISC.md) — LCD screen setup for blocks with displays
+- [SBC_RULES.md](rules.md) — universal SBC rules, DefinitionBase fields, override/additive behavior
+- [SBC_PRODUCTION.md](production.md) — blueprints and production tabs for new block recipes
+- [SBC_MISC.md](misc.md) — LCD screen setup for blocks with displays
 
 ### Local
 - Vanilla block SBCs: `[Steam]\steamapps\common\SpaceEngineers\Content\Data\CubeBlocks\`

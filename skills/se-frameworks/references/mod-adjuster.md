@@ -342,8 +342,8 @@ Search for `ModAdjuster` to find all MA log lines.
 - [GitHub Repository](https://github.com/Ash-LikeSnow/ModAdjusterV2)
 
 ### Internal
-- [../sbc/SBC_RULES.md](../sbc/SBC_RULES.md) — SBC override/additive rules and load order
-- [../sbc/SBC_BLOCKS.md](../sbc/SBC_BLOCKS.md) — block and item definition templates for what to patch
+- [../sbc/SBC_RULES.md](../../se-sbc/references/rules.md) — SBC override/additive rules and load order
+- [../sbc/SBC_BLOCKS.md](../../se-sbc/references/blocks.md) — block and item definition templates for what to patch
 
 ### Local
 

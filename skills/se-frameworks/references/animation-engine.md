@@ -342,9 +342,9 @@ Full documentation: [GitHub Wiki](https://github.com/Math0424/AnimationEngine/wi
 - Aryx Mega Welder (real-world BSL example) — Workshop ID `3325231237`
 
 ### Internal
-- [../ASSETS.md](../ASSETS.md) — subpart setup in MWM models; particle and sound dummies
-- [../sbc/SBC_BLOCKS.md](../sbc/SBC_BLOCKS.md) — block definition; `<SubtypeId>` must match `@BlockID`
-- [WEAPONCORE.md](WEAPONCORE.md) — WeaponCore integration via `@Weaponcore` and `weaponcore()` actions
+- [../ASSETS.md](../../se-assets/references/pipeline.md) — subpart setup in MWM models; particle and sound dummies
+- [../sbc/SBC_BLOCKS.md](../../se-sbc/references/blocks.md) — block definition; `<SubtypeId>` must match `@BlockID`
+- [WEAPONCORE.md](weaponcore.md) — WeaponCore integration via `@Weaponcore` and `weaponcore()` actions
 
 ### Local
 

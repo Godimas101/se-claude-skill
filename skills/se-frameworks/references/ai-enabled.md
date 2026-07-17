@@ -255,8 +255,8 @@ MyFactionMod/
 - Infestation Enabled (child mod example) — Workshop ID `2809500674`
 
 ### Internal
-- [MES.md](MES.md) — encounter spawning framework; MES handles ships, AI Enabled handles crew
-- [../sbc/SBC_RULES.md](../sbc/SBC_RULES.md) — SBC override rules for bot and character definitions
+- [MES.md](mes.md) — encounter spawning framework; MES handles ships, AI Enabled handles crew
+- [../sbc/SBC_RULES.md](../../se-sbc/references/rules.md) — SBC override rules for bot and character definitions
 
 ### Local
 

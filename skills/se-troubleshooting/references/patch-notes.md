@@ -133,5 +133,5 @@ Issues that will break existing mods without action:
 - [spaceengineers.wiki.gg/wiki/Modding/Reference/Overview_of_Modding-Relevant_Changes_in_Game_Patches](https://spaceengineers.wiki.gg/wiki/Modding/Reference/Overview_of_Modding-Relevant_Changes_in_Game_Patches) — source for all entries in this file
 
 ### Internal
-- [TROUBLESHOOTING.md](TROUBLESHOOTING.md) — error reference and log reading strategy
-- [DLC_CATALOGUE.md](DLC_CATALOGUE.md) — DLC block SubtypeIds added in recent patches
+- [TROUBLESHOOTING.md](errors.md) — error reference and log reading strategy
+- [DLC_CATALOGUE.md](dlc-catalogue.md) — DLC block SubtypeIds added in recent patches

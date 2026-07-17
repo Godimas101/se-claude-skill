@@ -156,8 +156,8 @@ Full documentation is on the Scope Framework Workshop page (ID: 2754014019).
 - Binoculars (example child mod) — Workshop ID `2777644246`
 
 ### Internal
-- [../sbc/SBC_MISC.md](../sbc/SBC_MISC.md) — camera block SBC definition (required for each scoped weapon)
-- [../ASSETS.md](../ASSETS.md) — hand weapon model with embedded camera subpart
+- [../sbc/SBC_MISC.md](../../se-sbc/references/misc.md) — camera block SBC definition (required for each scoped weapon)
+- [../ASSETS.md](../../se-assets/references/pipeline.md) — hand weapon model with embedded camera subpart
 
 ### Local
 

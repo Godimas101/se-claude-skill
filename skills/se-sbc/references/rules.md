@@ -2,9 +2,9 @@
 
 Core rules, structural patterns, and field references that apply across all SBC modding. Load this first for any SBC work.
 
-> For block/item templates, category definitions, and the block type reference: see [SBC_BLOCKS.md](SBC_BLOCKS.md).
-> For blueprints, production tabs, and progression locks: see [SBC_PRODUCTION.md](SBC_PRODUCTION.md).
-> For LCD registration, localization, loot, and prefabs: see [SBC_MISC.md](SBC_MISC.md).
+> For block/item templates, category definitions, and the block type reference: see [SBC_BLOCKS.md](blocks.md).
+> For blueprints, production tabs, and progression locks: see [SBC_PRODUCTION.md](production.md).
+> For LCD registration, localization, loot, and prefabs: see [SBC_MISC.md](misc.md).
 
 ---
 
@@ -192,9 +192,9 @@ Attempting to override these causes crashes or silent failures:
 - [spaceengineers.wiki.gg/wiki/Modding](https://spaceengineers.wiki.gg/wiki/Modding) — general modding overview
 
 ### Internal
-- [SBC_BLOCKS.md](SBC_BLOCKS.md) — block/item templates, categories, variant groups, block type reference
-- [SBC_PRODUCTION.md](SBC_PRODUCTION.md) — blueprints, production tabs, progression/research locks
-- [SBC_MISC.md](SBC_MISC.md) — LCD registration, localization, loot tables, prefabs, finding definition IDs
+- [SBC_BLOCKS.md](blocks.md) — block/item templates, categories, variant groups, block type reference
+- [SBC_PRODUCTION.md](production.md) — blueprints, production tabs, progression/research locks
+- [SBC_MISC.md](misc.md) — LCD registration, localization, loot tables, prefabs, finding definition IDs
 
 ### Local
 - Vanilla SBC files: `[Steam]\steamapps\common\SpaceEngineers\Content\Data\`

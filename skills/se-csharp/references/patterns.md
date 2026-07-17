@@ -2,10 +2,10 @@
 
 Runtime patterns for Space Engineers compiled mods: session component lifecycle, config (MyIni), save/sync, logging, and type conversions.
 
-> For project setup, MDK2, folder structure, namespaces, and decompiler strategies: see [CSHARP_PROJECT_SETUP.md](CSHARP_PROJECT_SETUP.md).
-> For block API queries (power, gas, inventory, production, conveyor): see [CSHARP_BLOCK_QUERIES.md](CSHARP_BLOCK_QUERIES.md).
-> For TSS class structure, scrolling, and update rules: see [TSS_PATTERNS.md](../tss/TSS_PATTERNS.md).
-> For TSS drawing API, base classes, charts, and the full LCD App pattern: see [TSS_DRAWING.md](../tss/TSS_DRAWING.md).
+> For project setup, MDK2, folder structure, namespaces, and decompiler strategies: see [CSHARP_PROJECT_SETUP.md](project-setup.md).
+> For block API queries (power, gas, inventory, production, conveyor): see [CSHARP_BLOCK_QUERIES.md](block-queries.md).
+> For TSS class structure, scrolling, and update rules: see [TSS_PATTERNS.md](../../se-tss/references/patterns.md).
+> For TSS drawing API, base classes, charts, and the full LCD App pattern: see [TSS_DRAWING.md](../../se-tss/references/drawing.md).
 
 ---
 
@@ -276,7 +276,7 @@ Data/Localization/
 └── MyTexts.ru.resx       ← Russian
 ```
 
-> For the full RESX XML template and key matching rules, see [sbc/SBC_MISC.md](../../sbc/SBC_MISC.md).
+> For the full RESX XML template and key matching rules, see [sbc/SBC_MISC.md](../../se-sbc/references/misc.md).
 
 ---
 
@@ -286,12 +286,12 @@ Data/Localization/
 - [spaceengineers.wiki.gg/wiki/Modding/Reference/ModScripting](https://spaceengineers.wiki.gg/wiki/Modding/Reference/ModScripting) — official C# mod scripting reference
 
 ### Internal
-- [CSHARP_PROJECT_SETUP.md](CSHARP_PROJECT_SETUP.md) — project setup: MDK2, .csproj, folder structure, namespaces, decompiler strategies
-- [CSHARP_BLOCK_QUERIES.md](CSHARP_BLOCK_QUERIES.md) — block API queries: power, gas, inventory, production, doors, conveyor network
-- [TSS_PATTERNS.md](../tss/TSS_PATTERNS.md) — TSS class structure, update loop, scrolling, subgrid caching
-- [TSS_DRAWING.md](../tss/TSS_DRAWING.md) — TSS drawing API: helpers, base classes, viewport, charts, full LCD App pattern
-- [PB_SCRIPTS.md](../PB_SCRIPTS.md) — Programmable Block scripting (sandboxed; different from compiled mods)
-- [../../sbc/SBC_MISC.md](../../sbc/SBC_MISC.md) — LCD SBC registration; `Subtype` must match the C# script attribute
+- [CSHARP_PROJECT_SETUP.md](project-setup.md) — project setup: MDK2, .csproj, folder structure, namespaces, decompiler strategies
+- [CSHARP_BLOCK_QUERIES.md](block-queries.md) — block API queries: power, gas, inventory, production, doors, conveyor network
+- [TSS_PATTERNS.md](../../se-tss/references/patterns.md) — TSS class structure, update loop, scrolling, subgrid caching
+- [TSS_DRAWING.md](../../se-tss/references/drawing.md) — TSS drawing API: helpers, base classes, viewport, charts, full LCD App pattern
+- [PB_SCRIPTS.md](../../se-pb-scripts/references/scripts.md) — Programmable Block scripting (sandboxed; different from compiled mods)
+- [../../sbc/SBC_MISC.md](../../se-sbc/references/misc.md) — LCD SBC registration; `Subtype` must match the C# script attribute
 
 ### Local
 - ModSDK API DLLs (with XML docs): `[Steam]\steamapps\common\SpaceEngineersModSDK\`

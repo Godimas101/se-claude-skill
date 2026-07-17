@@ -278,8 +278,8 @@ Any mod with `Definitions/AmmoDefinitionDefinitions.cs` inside its `Data/Scripts
 - Vanilla+ Framework Example Mod — Workshop ID `3014670447`
 
 ### Internal
-- [../scripting/csharp/CSHARP_PATTERNS.md](../scripting/csharp/CSHARP_PATTERNS.md) — C# session component patterns; `LoadData` / `BeforeStart` / `UnloadData` lifecycle
-- [../sbc/SBC_RULES.md](../sbc/SBC_RULES.md) — ammo SBC SubtypeIds (ammo definitions are vanilla SBC)
+- [../scripting/csharp/CSHARP_PATTERNS.md](../../se-csharp/references/patterns.md) — C# session component patterns; `LoadData` / `BeforeStart` / `UnloadData` lifecycle
+- [../sbc/SBC_RULES.md](../../se-sbc/references/rules.md) — ammo SBC SubtypeIds (ammo definitions are vanilla SBC)
 
 ### Local
 
