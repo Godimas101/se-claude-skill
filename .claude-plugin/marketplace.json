@@ -1,0 +1,17 @@
+{
+  "owner": {
+    "name": "Godimas101",
+    "url": "https://github.com/Godimas101"
+  },
+  "plugins": [
+    {
+      "name": "space-engineers",
+      "displayName": "Space Engineers Modding",
+      "description": "Claude Code expert for Space Engineers mod development: SBC/XML, compiled C# mods, Text Surface Scripts, PB scripts, frameworks (MES, WeaponCore, Mod Adjuster, etc.), asset pipeline, and log troubleshooting.",
+      "version": "4.0.0",
+      "source": ".",
+      "license": "MIT",
+      "tags": ["space-engineers", "modding", "sbc", "csharp", "unreal", "gamedev"]
+    }
+  ]
+}
