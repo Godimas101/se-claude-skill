@@ -27,6 +27,16 @@ Ticket body shape: see memory `[[feedback-ticket-body-shape]]` — What/Why → 
 - Cross-check with the mod repo AGENTS.md files — the skill and the AGENTS.md should agree, not conflict.
 - If adding new modding patterns: also update the corresponding mod repo's AGENTS.md if the pattern is repo-specific.
 
+## Publishing + feedback flow
+
+This skill repo is wired into the [TCS Discord bot](https://github.com/The-Canadian-Space/tcs-forum-watcher) with tag `SE Claude Skill` under the `tools` category. Full flow: [`discord/release-and-feedback-flow`](https://docs.thecanadian.space/discord/release-and-feedback-flow/) (wiki, Cloudflare-Access-gated).
+
+- Issues labelled `bug` or `suggestion` → `🐛-tool-feedback` thread (auto). Other labels don't mirror.
+- GitHub releases → persistent thread in `📦-tool-updates`. **Public.**
+- **Releases are user-driven.** Do NOT run `gh release create` autonomously. If the skill has meaningfully improved (new SE modding patterns, corrected knowledge, added workflows), **ask** — describe the release notes and let Chris decide.
+
+**Downstream context**: this skill is loaded into SE-mod-work Claude sessions running in `mods/**` under `gitpush-mod`. Those mod repos each have their own `AGENTS.md` with a matching Publishing + feedback flow section. If you change how releases or feedback flow in a way that affects mod work, update both the skill (SKILL.md) AND the mod repos' AGENTS.md in the same pass — or the two will drift.
+
 ## MUST NOT
 
 - Add game-specific fabrications — every SBC field, TypeId, or component name should be verified against the real vanilla SBCs.
